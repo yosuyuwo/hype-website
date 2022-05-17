@@ -1,74 +1,151 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
-
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
-
-  --vt-c-indigo: #2c3e50;
-
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+  /* ==COLORS== */
+  /* NEUTRAL */
+  --clr-neutral-100: rgb(255, 255, 255);
+  --clr-neutral-200: rgb(248, 249, 250);
+  --clr-neutral-300: rgb(233, 236, 239);
+  --clr-neutral-400: rgb(222, 226, 230);
+  --clr-neutral-500: rgb(206, 212, 218);
+  --clr-neutral-600: rgb(173, 181, 189);
+  --clr-neutral-700: rgb(108, 117, 125);
+  --clr-neutral-800: rgb(52, 52, 52);
+  --clr-neutral-900: rgb(52, 58, 64);
+  --clr-neutral-1000: rgb(33, 37, 41);
+  /* INFO  */
+  --clr-info-300: rgb(92, 167, 255);
+  --clr-info-400: rgb(38, 128, 235);
+  --clr-info-500: rgb(20, 115, 230);
+  --clr-info-600: rgb(13, 102, 208);
+  --clr-info-700: rgb(9, 90, 186);
+  /* SUCCESS */
+  --clr-success-300: rgb(76, 191, 153);
+  --clr-success-400: rgb(45, 157, 120);
+  --clr-success-500: rgb(38, 142, 108);
+  --clr-success-600: rgb(18, 128, 92);
+  --clr-success-700: rgb(16, 113, 84);
+  /* WARNING */
+  --clr-warning-300: rgb(251, 162, 62);
+  --clr-warning-400: rgb(230, 134, 25);
+  --clr-warning-500: rgb(218, 123, 17);
+  --clr-warning-600: rgb(203, 111, 16);
+  --clr-warning-700: rgb(189, 100, 13);
+  /* ERROR */
+  --clr-error-300: rgb(244, 109, 116);
+  --clr-error-400: rgb(227, 72, 80);
+  --clr-error-500: rgb(215, 55, 63);
+  --clr-error-600: rgb(201, 37, 45);
+  --clr-error-700: rgb(187, 18, 26);
 }
 
 /* semantic color variables for this project */
 :root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
-
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
-
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
-
-  --section-gap: 160px;
+  --color-text-dark: var(--clr-neutral-1000);
+  --color-text-light: var(--clr-neutral-100);
+  --color-background: var(--clr-neutral-200);
+  --color-container-dark: var(--clr-neutral-900);
+  --color-container-light: var(--clr-neutral-100);
+  --color-border-light: var(--clr-neutral-200);
+  --color-border-dark: var(--clr-neutral-900);
 }
 
-@media (prefers-color-scheme: dark) {
+/* Font sizes */
+:root {
+  --fontSize-h1: clamp(4.21rem, calc(3.53rem + 3.39vw), 7.59rem);
+  --fontSize-h2: clamp(3.16rem, calc(2.78rem + 1.91vw), 5.06rem);
+  --fontSize-h3: clamp(2.37rem, calc(2.17rem + 1.01vw), 3.38rem);
+  --fontSize-h4: clamp(1.78rem, calc(1.68rem + 0.47vw), 2.25rem);
+  --fontSize-h5: clamp(1.33rem, calc(1.3rem + 0.17vw), 1.5rem);
+  --fontSize-p: clamp(1rem, calc(1rem + 0vw), 1rem);
+  --fontSize-small: clamp(0.67rem, calc(0.77rem + -0.08vw), 0.75rem);
+  --fontSize-smallest: clamp(0.44rem, calc(0.59rem + -0.12vw), 0.56rem);
+}
+
+/* @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
-
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
-
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --color-text-dark: var(--clr-neutral-100);
+    --color-text-light: var(--clr-neutral-900);
+    --color-background: var(--clr-neutral-800);
+    --color-container-dark: var(--clr-neutral-600);
+    --color-container-light: var(--clr-neutral-600);
+    --color-border-light: var(--clr-neutral-400);
+    --color-border-dark: var(--clr-neutral-500);
   }
-}
+} */
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
-  position: relative;
+  padding: 0;
   font-weight: normal;
 }
 
+html {
+  font-size: 100%;
+} /*16px*/
+
 body {
-  min-height: 100vh;
-  color: var(--color-text);
   background: var(--color-background);
-  transition: color 0.5s, background-color 0.5s;
-  line-height: 1.6;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  font-size: 15px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--color-text-dark);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+h1,
+.h1 {
+  font-size: var(--fontSize-h1);
+}
+
+h2,
+.h2 {
+  font-size: var(--fontSize-h2);
+}
+
+h3,
+.h3 {
+  font-size: var(--fontSize-h3);
+}
+
+h4,
+.h4 {
+  font-size: var(--fontSize-h4);
+}
+
+h5,
+.h5 {
+  font-size: var(--fontSize-h5);
+}
+
+p,
+.p {
+  font-size: var(--fontSize-p);
+}
+
+.text_small {
+  font-size: var(--fontSize-small);
+}
+
+.text_smallest {
+  font-size: var(--fontSize-smallest);
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: currentColor;
 }
