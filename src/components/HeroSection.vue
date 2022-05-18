@@ -7,14 +7,8 @@ import NextArrow from "./icons/NextArrow.vue";
 <script>
 export default {
   mounted() {
-    const video = document.querySelector(".hero-background");
-    video.volume = 0.5;
-    // Handles Chrome Autoplay
-    setTimeout(() => {
-      video.muted = false;
-    }, 100);
-
     window.addEventListener("scroll", this.onScroll);
+    console.log("MOUNTEDDD");
   },
   beforeUnmount() {
     window.removeEventListener("scroll", this.onScroll);
@@ -23,7 +17,8 @@ export default {
     isPaused() {
       console.log("paused");
       // Handles Picture-in-Picture
-      document.querySelector(".hero-background").play();
+      const video = document.querySelector(".hero-background");
+      video.volume = 0.5;
     },
     onScroll() {
       this.windowTop = window.top.scrollY;
@@ -39,6 +34,17 @@ export default {
           .classList.add("transparent");
       }
     },
+    toggleVideoSound() {
+      const video = document.querySelector(".hero-background");
+      if (video.muted) {
+        document.querySelector(".sound").innerHTML = "MUTE";
+        video.volume = 0.01;
+        video.muted = false;
+      } else {
+        document.querySelector(".sound").innerHTML = "UNMUTE";
+        video.muted = true;
+      }
+    },
   },
 };
 </script>
@@ -46,14 +52,17 @@ export default {
 <template>
   <div class="hero-container">
     <video
-      src="/offwhite.mp4"
       autoplay
       loop="true"
       muted
-      disablePictureInPicture
+      playsinline="true"
+      webkit-playsinline="true"
       class="hero-background"
       @pause="isPaused()"
-    ></video>
+      @loadstart="onVideoLoad()"
+    >
+      <source src="/offwhite.mp4" type="video/mp4" />
+    </video>
     <div class="content-container">
       <div class="content-wrapper">
         <h3 class="content-title">"OUT OF OFFICE"</h3>
@@ -63,12 +72,15 @@ export default {
         >
       </div>
       <div class="controls-wrapper">
-        <div class="prev-arrow">
-          <PreviousArrow />
+        <div class="prev-next">
+          <div class="prev-arrow">
+            <PreviousArrow />
+          </div>
+          <div class="next-arrow">
+            <NextArrow />
+          </div>
         </div>
-        <div class="next-arrow">
-          <NextArrow />
-        </div>
+        <p class="link sound" @click="toggleVideoSound()">UNMUTE</p>
       </div>
     </div>
   </div>
@@ -115,12 +127,19 @@ export default {
 .controls-wrapper {
   position: absolute;
   right: 2rem;
-  bottom: 0;
+  bottom: 0.25rem;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+}
+
+.prev-next {
   display: flex;
   gap: 1rem;
 }
 
-.controls-wrapper > * {
+.prev-arrow,
+.next-arrow {
   width: 5rem;
   display: grid;
   align-items: center;
@@ -129,7 +148,8 @@ export default {
   transition: transform 0.3s ease-in-out;
 }
 
-.controls-wrapper > *:hover {
+.prev-arrow:hover,
+.next-arrow:hover {
   transform: scaleX(1.2);
 }
 
@@ -141,6 +161,12 @@ export default {
 .next-arrow {
   justify-items: start;
   transform-origin: left;
+}
+
+.sound {
+  text-align: right;
+  width: max-content;
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 576px) {

@@ -1,6 +1,5 @@
 <script setup>
 import HeroSection from "../components/HeroSection.vue";
-console.log("TESTING");
 </script>
 
 <template>
