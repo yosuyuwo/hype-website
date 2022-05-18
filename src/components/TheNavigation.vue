@@ -2,16 +2,35 @@
 import { RouterLink } from "vue-router";
 </script>
 
-<script>
+<!-- <script>
 export default {
-  created() {
-    console.log("Navigation Created");
+  mounted() {
+    window.addEventListener("scroll", this.onScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener("scroll", this.onScroll);
+  },
+  methods: {
+    onScroll() {
+      this.windowTop =
+        window.top.scrollY; /* or: e.target.documentElement.scrollTop */
+
+      if (this.windowTop > 300) {
+        document
+          .querySelector(".navigation-container")
+          .classList.remove("transparent");
+      } else {
+        document
+          .querySelector(".navigation-container")
+          .classList.add("transparent");
+      }
+    },
   },
 };
-</script>
+</script> -->
 
 <template>
-  <nav class="navigation-container">
+  <nav class="navigation-container transparent">
     <div class="left-side">
       <RouterLink to="/shop" class="navigation-link">SHOP</RouterLink>
       <RouterLink to="/about" class="navigation-link">ABOUT</RouterLink>
@@ -22,7 +41,7 @@ export default {
     <RouterLink to="/" class="logo h3"> HYPE </RouterLink>
     <div class="right-side">
       <RouterLink to="/search" class="navigation-link">SEARCH</RouterLink>
-      <p class="navigation-link">CART <span>(0)</span></p>
+      <p class="navigation-link link">CART <span>(0)</span></p>
     </div>
   </nav>
 </template>
@@ -37,6 +56,13 @@ export default {
   align-items: center;
   border: solid 2px var(--color-border-dark);
   border-top: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.navigation-container.transparent {
+  background-color: transparent;
+  color: var(--clr-neutral-100);
+  border-color: var(--color-border-light);
 }
 
 .navigation-container .left-side {

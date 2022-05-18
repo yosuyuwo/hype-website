@@ -28,11 +28,13 @@ import TheNavigation from "./components/TheNavigation.vue";
 .header-container {
   position: sticky;
   top: 0;
+  z-index: 99;
 }
 
 .content-container {
   justify-content: flex-start;
   flex-flow: column;
   align-items: center;
+  height: 200vh;
 }
 </style>
