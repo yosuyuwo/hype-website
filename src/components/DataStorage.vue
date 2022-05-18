@@ -1,7 +1,9 @@
 <script>
 export default {
   mounted() {
-    window.addEventListener("scroll", this.onScroll);
+    if (!localStorage.getItem("brands")) {
+      localStorage.setItem("brands", JSON.stringify(this.brands));
+    }
   },
   data() {
     return {
@@ -9,7 +11,25 @@ export default {
         {
           name: "adidas",
           video: {
-            title: "adi",
+            title: "IMPOSSIBLE IS NOTHING",
+          },
+          products: [
+            {
+              title: "titel",
+              subtitle: "subtitel",
+              type: "shoes",
+              gender: "men",
+              size: ["8"],
+              colours: ["#FFFFF"],
+              price: 100000,
+              stock: 10,
+            },
+          ],
+        },
+        {
+          name: "bape",
+          video: {
+            title: "BAPE® x COACH",
           },
           products: [
             {
@@ -27,7 +47,7 @@ export default {
         {
           name: "nike",
           video: {
-            title: "adi",
+            title: "Best Day Ever",
           },
           products: [
             {
@@ -45,7 +65,61 @@ export default {
         {
           name: "jordan",
           video: {
-            title: "adi",
+            title: "Why Not?",
+          },
+          products: [
+            {
+              title: "titel",
+              subtitle: "subtitel",
+              type: "shoes",
+              gender: "men",
+              size: ["8"],
+              colours: ["#FFFFF"],
+              price: 100000,
+              stock: 10,
+            },
+          ],
+        },
+        {
+          name: "off-white",
+          video: {
+            title: '"Out of Office"',
+          },
+          products: [
+            {
+              title: "titel",
+              subtitle: "subtitel",
+              type: "shoes",
+              gender: "men",
+              size: ["8"],
+              colours: ["#FFFFF"],
+              price: 100000,
+              stock: 10,
+            },
+          ],
+        },
+        {
+          name: "stussy",
+          video: {
+            title: "Persona",
+          },
+          products: [
+            {
+              title: "titel",
+              subtitle: "subtitel",
+              type: "shoes",
+              gender: "men",
+              size: ["8"],
+              colours: ["#FFFFF"],
+              price: 100000,
+              stock: 10,
+            },
+          ],
+        },
+        {
+          name: "yeezy",
+          video: {
+            title: "Dream. Create. Conquer.",
           },
           products: [
             {

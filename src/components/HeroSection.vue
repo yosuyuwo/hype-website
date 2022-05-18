@@ -6,6 +6,16 @@ import NextArrow from "./icons/NextArrow.vue";
 
 <script>
 export default {
+  created() {
+    console.log(localStorage.getItem("brands"));
+    const dataList = JSON.parse(localStorage.getItem("brands"));
+    dataList.map((item) => {
+      this.brands.push({
+        name: item.name,
+        title: item.video.title,
+      });
+    });
+  },
   mounted() {
     window.addEventListener("scroll", this.onScroll);
   },
@@ -17,25 +27,19 @@ export default {
       soundVolume: 1,
       isMuted: true,
       videoIndex: 0,
-      videoUrls: [
-        "/offwhite.mp4",
-        "/adidas.mp4",
-        "/converse.mp4",
-        "/mcmxbape.mp4",
-        "/nike.mp4",
-        "/jordan.mp4",
-        "/stussy.mp4",
-        "/yeezy.mp4",
-      ],
+      brands: [],
     };
   },
   methods: {
+    isLoaded() {
+      console.log("LOADED!");
+    },
     isPaused() {
-      console.log("paused");
       // Handles Picture-in-Picture
       document.querySelector(".hero-background").play();
     },
     onScroll() {
+      console.log(document.querySelector(".hero-background").currentTime);
       this.windowTop = window.top.scrollY;
 
       // Handles Navigation Color
@@ -47,6 +51,18 @@ export default {
         document
           .querySelector(".navigation-container")
           .classList.add("transparent");
+      }
+
+      //Auto Mute when hero isn't visible
+      if (
+        this.windowTop >
+        document.querySelector(".hero-container").clientHeight + 100
+      ) {
+        document.querySelector(".hero-background").muted = true;
+      } else {
+        if (!this.isMuted) {
+          document.querySelector(".hero-background").muted = false;
+        }
       }
     },
     toggleVideoSound() {
@@ -61,15 +77,20 @@ export default {
       }
     },
     switchVideo(isUp) {
-      if (isUp && this.videoIndex < this.videoUrls.length - 1) {
+      if (isUp) {
         this.videoIndex++;
-      } else if (!isUp && this.videoIndex > 0) {
+      } else if (!isUp) {
         this.videoIndex--;
       }
-      console.log(this.videoIndex);
+
+      if (this.videoIndex >= this.brands.length) {
+        this.videoIndex = 0;
+      } else if (this.videoIndex <= -1) {
+        this.videoIndex = this.brands.length - 1;
+      }
       document
         .querySelector(".hero-background")
-        .setAttribute("src", this.videoUrls[this.videoIndex]);
+        .setAttribute("src", this.brands[this.videoIndex]);
     },
   },
   watch: {
@@ -89,22 +110,29 @@ export default {
 </script>
 
 <template>
-  <div class="hero-container">
+  <div class="hero-container" @loadeddata="isLoaded()">
     <video
+      v-for="item in brands"
+      :key="item.name"
       autoplay
       loop="true"
       muted
-      :src="videoUrls[videoIndex]"
+      :src="`/videos/${item.name}.mp4`"
       playsinline="true"
       webkit-playsinline="true"
+      :poster="`/images/${item.name}.jpg`"
       class="hero-background"
       @pause="isPaused()"
     ></video>
     <div class="content-container">
       <div class="content-wrapper">
-        <h3 class="content-title">"OUT OF OFFICE"</h3>
-        <p class="content-subtitle">By OFF-WHITE</p>
-        <RouterLink to="/brands/adidas" class="shop-now h5 white-link"
+        <h3 class="content-title">{{ brands[videoIndex].title }}</h3>
+        <p class="content-subtitle">
+          By <span>{{ brands[videoIndex].name }}</span>
+        </p>
+        <RouterLink
+          :to="`/brands/${brands[videoIndex].name}`"
+          class="shop-now h5 white-link"
           >SHOP NOW</RouterLink
         >
       </div>
@@ -119,7 +147,7 @@ export default {
         </div>
         <div class="controls-content">
           <input
-            v-if="!isMuted"
+            v-show="!isMuted"
             type="number"
             name="soundVolume"
             id="soundVolume"
@@ -130,13 +158,17 @@ export default {
             v-model="soundVolume"
           />
           <p
-            v-if="!isMuted"
+            v-show="!isMuted"
             class="link sound white-link"
             @click="toggleVideoSound()"
           >
             MUTE
           </p>
-          <p v-else class="link sound white-link" @click="toggleVideoSound()">
+          <p
+            v-show="isMuted"
+            class="link sound white-link"
+            @click="toggleVideoSound()"
+          >
             UNMUTE
           </p>
         </div>
@@ -148,20 +180,16 @@ export default {
 <style scoped>
 .hero-container {
   width: 100%;
-  aspect-ratio: 16/9;
-  /* width: 100%;
-    max-width: calc(100% - 6rem);
-  height: calc(100vh - 8rem); */
+  height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
-  /* padding: 2rem 0; */
 }
 
 .hero-background {
   position: absolute;
   width: 100%;
-  aspect-ratio: 16/9;
+  height: 100%;
   object-fit: cover;
   z-index: -1;
   pointer-events: none;
@@ -171,12 +199,17 @@ export default {
   width: calc(100% - 6rem);
   position: absolute;
   left: 3rem;
-  bottom: 20%;
+  bottom: 4rem;
   color: var(--clr-neutral-100);
 }
 
 .content-title {
   font-weight: 900;
+  text-transform: uppercase;
+}
+
+.content-subtitle span {
+  text-transform: uppercase;
 }
 
 .shop-now {
@@ -185,7 +218,7 @@ export default {
 
 .controls-wrapper {
   position: absolute;
-  right: 2rem;
+  right: 0;
   bottom: 0.25rem;
   display: flex;
   flex-flow: column;
@@ -195,6 +228,10 @@ export default {
 .controls-content {
   display: flex;
   gap: 1rem;
+}
+
+.controls-content:first-child {
+  margin-right: -1.9rem;
 }
 
 .controls-content:last-child {
@@ -252,6 +289,13 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+@media screen and (max-width: 1200px) {
+  .hero-container {
+    aspect-ratio: 16/9;
+    height: auto;
+  }
 }
 
 @media screen and (max-width: 768px) {
