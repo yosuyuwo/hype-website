@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink } from "vue-router";
+import LogoFull from "./icons/LogoFull.vue";
 </script>
 
 <!-- <script>
@@ -42,7 +43,7 @@ export default {
         >COLLECTION</RouterLink
       >
     </div>
-    <RouterLink to="/" class="logo h3"> HYPE </RouterLink>
+    <RouterLink to="/" class="logo"> <LogoFull /> </RouterLink>
     <div class="right-side">
       <RouterLink to="/search" class="navigation-link black-link"
         >SEARCH</RouterLink
@@ -87,9 +88,17 @@ export default {
   align-items: center;
 }
 
+.transparent .logo svg {
+  height: 5rem;
+}
+
+.logo svg {
+  height: 3rem;
+  transition: all 0.3s ease-in-out;
+}
+
 .logo {
-  font-weight: 900;
-  line-height: normal;
+  padding-block: 1.25rem;
 }
 
 .navigation-link {
