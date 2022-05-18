@@ -37,7 +37,7 @@ export default {
       const video = document.querySelector(".hero-background");
       if (video.muted) {
         document.querySelector(".sound").innerHTML = "MUTE";
-        video.volume = 0.3;
+        video.volume = 0.25;
         video.muted = false;
       } else {
         document.querySelector(".sound").innerHTML = "UNMUTE";
