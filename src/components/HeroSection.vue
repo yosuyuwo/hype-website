@@ -7,17 +7,18 @@ import NextArrow from "./icons/NextArrow.vue";
 <script>
 export default {
   created() {
-    console.log(localStorage.getItem("brands"));
     const dataList = JSON.parse(localStorage.getItem("brands"));
     dataList.map((item) => {
       this.brands.push({
         name: item.name,
         title: item.video.title,
+        isReady: false,
       });
     });
   },
   mounted() {
     window.addEventListener("scroll", this.onScroll);
+    this.autoplay();
   },
   beforeUnmount() {
     window.removeEventListener("scroll", this.onScroll);
@@ -31,15 +32,53 @@ export default {
     };
   },
   methods: {
-    isLoaded() {
-      console.log("LOADED!");
+    isDownloading(index) {
+      // Show which video is downloading
+      console.log("Downloading", index);
+    },
+    isAvailable(index) {
+      // Show which video is ready
+      console.log("VIDEO READY", index);
+      if (this.videoIndex === index) {
+        //Change boolean isReady to true to show controls
+        this.brands[index].isReady = true;
+        document
+          .querySelector(`#video-${this.videoIndex}.hero-background`)
+          .play();
+      }
     },
     isPaused() {
       // Handles Picture-in-Picture
-      document.querySelector(".hero-background").play();
+      console.log("paused");
+      if (this.brands[this.videoIndex].isReady) {
+        document
+          .querySelector(`#video-${this.videoIndex}.hero-background`)
+          .play();
+      }
+    },
+    autoplay() {
+      const videos = document.querySelectorAll(".hero-background");
+
+      for (let i = 0; i < videos.length; i++) {
+        // Autoplay all video to buffer entire video
+        videos[i].autoplay = true;
+        videos[i].muted = true;
+        videos[i].classList.remove("playing");
+        this.brands[i].isReady = false;
+      }
+
+      // Pause video if not ready
+      videos[this.videoIndex].pause();
+      videos[this.videoIndex].currentTime = 0;
+      videos[this.videoIndex].volume = this.soundVolume / 100;
+      videos[this.videoIndex].muted = this.isMuted;
+      videos[this.videoIndex].classList.add("playing");
     },
     onScroll() {
-      console.log(document.querySelector(".hero-background").currentTime);
+      console.log(
+        document.querySelector(`#video-${this.videoIndex}.hero-background`)
+          .currentTime
+      );
       this.windowTop = window.top.scrollY;
 
       // Handles Navigation Color
@@ -53,20 +92,26 @@ export default {
           .classList.add("transparent");
       }
 
-      //Auto Mute when hero isn't visible
+      //Auto Mute when hero section isn't visible
       if (
         this.windowTop >
         document.querySelector(".hero-container").clientHeight + 100
       ) {
-        document.querySelector(".hero-background").muted = true;
+        document.querySelector(
+          `#video-${this.videoIndex}.hero-background`
+        ).muted = true;
       } else {
         if (!this.isMuted) {
-          document.querySelector(".hero-background").muted = false;
+          document.querySelector(
+            `#video-${this.videoIndex}.hero-background`
+          ).muted = false;
         }
       }
     },
     toggleVideoSound() {
-      const video = document.querySelector(".hero-background");
+      const video = document.querySelector(
+        `#video-${this.videoIndex}.hero-background`
+      );
       if (video.muted) {
         this.isMuted = false;
         video.volume = this.soundVolume / 100;
@@ -88,9 +133,7 @@ export default {
       } else if (this.videoIndex <= -1) {
         this.videoIndex = this.brands.length - 1;
       }
-      document
-        .querySelector(".hero-background")
-        .setAttribute("src", this.brands[this.videoIndex]);
+      this.autoplay();
     },
   },
   watch: {
@@ -101,7 +144,9 @@ export default {
         } else if (this.soundVolume < 1) {
           this.soundVolume = 1;
         }
-        const video = document.querySelector(".hero-background");
+        const video = document.querySelector(
+          `#video-${this.videoIndex}.hero-background`
+        );
         video.volume = this.soundVolume / 100;
       }
     },
@@ -110,11 +155,10 @@ export default {
 </script>
 
 <template>
-  <div class="hero-container" @loadeddata="isLoaded()">
+  <div class="hero-container">
     <video
-      v-for="item in brands"
+      v-for="(item, index) in brands"
       :key="item.name"
-      autoplay
       loop="true"
       muted
       :src="`/videos/${item.name}.mp4`"
@@ -122,6 +166,9 @@ export default {
       webkit-playsinline="true"
       :poster="`/images/${item.name}.jpg`"
       class="hero-background"
+      :id="`video-${index}`"
+      @progress="isDownloading(index)"
+      @canplaythrough="isAvailable(index)"
       @pause="isPaused()"
     ></video>
     <div class="content-container">
@@ -145,7 +192,10 @@ export default {
             <NextArrow />
           </div>
         </div>
-        <div class="controls-content">
+        <div v-if="!brands[videoIndex].isReady" class="loading-video">
+          <p class="link white-link">LOADING VIDEO</p>
+        </div>
+        <div v-else class="controls-content">
           <input
             v-show="!isMuted"
             type="number"
@@ -193,6 +243,13 @@ export default {
   object-fit: cover;
   z-index: -1;
   pointer-events: none;
+  opacity: 0;
+  background-color: var(--clr-neutral-1000);
+  transition: opacity 0.3s ease-in-out;
+}
+
+.hero-background.playing {
+  opacity: 1;
 }
 
 .content-container {
