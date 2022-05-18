@@ -17,8 +17,7 @@ export default {
     isPaused() {
       console.log("paused");
       // Handles Picture-in-Picture
-      const video = document.querySelector(".hero-background");
-      video.volume = 0.5;
+      document.querySelector(".hero-background").play();
     },
     onScroll() {
       this.windowTop = window.top.scrollY;
@@ -38,7 +37,7 @@ export default {
       const video = document.querySelector(".hero-background");
       if (video.muted) {
         document.querySelector(".sound").innerHTML = "MUTE";
-        video.volume = 0.01;
+        video.volume = 0.3;
         video.muted = false;
       } else {
         document.querySelector(".sound").innerHTML = "UNMUTE";
