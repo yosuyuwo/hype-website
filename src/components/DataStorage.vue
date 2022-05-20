@@ -17,6 +17,7 @@ export default {
             {
               title: "NMD R1",
               subtitle: "Disney Pixar - Toy Story",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -27,6 +28,7 @@ export default {
             {
               title: "PW HU HOLI NMD MC",
               subtitle: "Pink Glow",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["9", "9.5", "10"],
@@ -37,6 +39,7 @@ export default {
             {
               title: "PW HU NMD NERD",
               subtitle: "N.E.R.D",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "10.5", "11.5", "12"],
@@ -47,6 +50,7 @@ export default {
             {
               title: "PW HU NMD NERD",
               subtitle: "ComplexCon Exclusive 2018",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["7", "7.5", "9.5"],
@@ -57,6 +61,7 @@ export default {
             {
               title: "PHARRELL WILLIAMS SOLAR HU NMD",
               subtitle: "Solar Pack - M1L3L3",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9.5", "10"],
@@ -75,6 +80,7 @@ export default {
             {
               title: "BABY MILO CREWNECK",
               subtitle: "BAPE x Kid Cudi - Grey",
+              img: "",
               type: "t-shirt",
               gender: "men",
               size: ["S", "M", "L"],
@@ -85,6 +91,7 @@ export default {
             {
               title: "BABY MILO CREWNECK",
               subtitle: "BAPE x Kid Cudi - Black",
+              img: "",
               type: "t-shirt",
               gender: "men",
               size: ["S", "M", "L"],
@@ -95,6 +102,7 @@ export default {
             {
               title: "PULLOVER HOODIE",
               subtitle: "BAPE x Kid Cudi - Black",
+              img: "",
               type: "hoodie",
               gender: "men",
               size: ["S", "M", "L", "XL", "XXL"],
@@ -105,6 +113,7 @@ export default {
             {
               title: "BABY MILO PULLOVER HOODIE",
               subtitle: "BAPE x Kid Cudi - Black",
+              img: "",
               type: "hoodie",
               gender: "men",
               size: ["S", "M", "L"],
@@ -115,6 +124,7 @@ export default {
             {
               title: "SWEAT CARDIGAN",
               subtitle: "BAPE x Kid Cudi",
+              img: "",
               type: "t-shirt",
               gender: "men",
               size: ["S", "M", "L", "XL"],
@@ -133,6 +143,7 @@ export default {
             {
               title: "AIR FORCE 1 LOW '07",
               subtitle: "White on White",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -143,6 +154,7 @@ export default {
             {
               title: "AIR FORCE 1 LOW",
               subtitle: "Supreme - Mini Box Logo White",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -153,6 +165,7 @@ export default {
             {
               title: "AIR MAX 1",
               subtitle: "Blueprint",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -163,6 +176,7 @@ export default {
             {
               title: "AIR FORCE 1 '07 WB",
               subtitle: "Flax",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -173,6 +187,7 @@ export default {
             {
               title: "AIR MAX 90 RETRO",
               subtitle: "Bacon 2021",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "9", "9.5", "10"],
@@ -191,6 +206,7 @@ export default {
             {
               title: "AIR JORDAN 1 HIGH 85",
               subtitle: "Georgetown",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -201,6 +217,7 @@ export default {
             {
               title: "AIR JORDAN 1 HIGH OG",
               subtitle: "Brotherhood",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -211,6 +228,7 @@ export default {
             {
               title: "AIR JORDAN 1 MID SE",
               subtitle: "Coconut Milk",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -221,6 +239,7 @@ export default {
             {
               title: "AIR JORDAN 1 HIGH OG",
               subtitle: "Dark Marina Blue",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -231,6 +250,7 @@ export default {
             {
               title: "AIR JORDAN 1 RETRO HIGH OG",
               subtitle: "Bred Patent",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -249,6 +269,7 @@ export default {
             {
               title: "Gradient Arr",
               subtitle: "Pkt Skat L/S Tee",
+              img: "",
               type: "t-shirt",
               gender: "men",
               size: ["XXS", "XS", "S", "M", "L", "XL", "XXL"],
@@ -259,6 +280,7 @@ export default {
             {
               title: "Monalisa",
               subtitle: "Slim S/S Tee",
+              img: "",
               type: "t-shirt",
               gender: "men",
               size: ["XXS", "XS", "S", "M", "L", "XL", "XXL"],
@@ -269,6 +291,7 @@ export default {
             {
               title: "Caravaggio Painting",
               subtitle: "L/S T-Shirt",
+              img: "",
               type: "t-shirt",
               gender: "men",
               size: ["XXS", "XS", "S", "M"],
@@ -279,6 +302,7 @@ export default {
             {
               title: "Single Arrow",
               subtitle: "Slim S/S Tee",
+              img: "",
               type: "t-shirt",
               gender: "men",
               size: ["XXS", "XS", "S"],
@@ -289,6 +313,7 @@ export default {
             {
               title: "Diag Outline Skate",
               subtitle: "L/S Tee",
+              img: "",
               type: "t-shirt",
               gender: "men",
               size: ["XXS", "XS"],
@@ -307,6 +332,7 @@ export default {
             {
               title: "titel",
               subtitle: "subtitel",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8"],
@@ -325,6 +351,7 @@ export default {
             {
               title: "YEEZY BOOST 350 V2",
               subtitle: "Zebra - 2018/2019 Release",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -335,6 +362,7 @@ export default {
             {
               title: "YEEZY BOOST 350 V2",
               subtitle: "Bone",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -345,6 +373,7 @@ export default {
             {
               title: "YEEZY BOOST 350 V2 REFLECTIVE",
               subtitle: "Beluga",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -355,6 +384,7 @@ export default {
             {
               title: "YEEZY BOOST 350 V2",
               subtitle: "Dazzling Blue",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -365,6 +395,7 @@ export default {
             {
               title: "YEEZY BOOST 700",
               subtitle: "Wave Runner",
+              img: "",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
