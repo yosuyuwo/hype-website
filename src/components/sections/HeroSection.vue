@@ -1,7 +1,17 @@
 <script setup>
 import { RouterLink } from "vue-router";
-import PreviousArrow from "./icons/PreviousArrow.vue";
-import NextArrow from "./icons/NextArrow.vue";
+import ArrowControls from "../atoms/ArrowControls.vue";
+
+defineProps({
+  scrollPos: {
+    type: Number,
+    default: 0,
+  },
+  screenWidth: {
+    type: Number,
+    default: 0,
+  },
+});
 </script>
 
 <script>
@@ -17,11 +27,7 @@ export default {
     });
   },
   mounted() {
-    window.addEventListener("scroll", this.onScroll);
     this.autoplay();
-  },
-  beforeUnmount() {
-    window.removeEventListener("scroll", this.onScroll);
   },
   data() {
     return {
@@ -51,61 +57,40 @@ export default {
       // Handles Picture-in-Picture
       console.log("paused");
       if (this.brands[this.videoIndex].isReady) {
-        document
-          .querySelector(`#video-${this.videoIndex}.hero-background`)
-          .play();
+        try {
+          document
+            .querySelector(`#video-${this.videoIndex}.hero-background`)
+            .play();
+        } catch (e) {
+          console.info("Media is not found");
+        }
       }
     },
     autoplay() {
-      const videos = document.querySelectorAll(".hero-background");
+      if (window.innerWidth > 768) {
+        const videos = document.querySelectorAll("video.hero-background");
 
-      for (let i = 0; i < videos.length; i++) {
-        // Autoplay all video to buffer entire video
-        videos[i].autoplay = true;
-        videos[i].muted = true;
-        videos[i].classList.remove("playing");
-        this.brands[i].isReady = false;
-      }
-
-      // Pause video if not ready
-      videos[this.videoIndex].pause();
-      videos[this.videoIndex].currentTime = 0;
-      videos[this.videoIndex].volume = this.soundVolume / 100;
-      videos[this.videoIndex].muted = this.isMuted;
-      videos[this.videoIndex].classList.add("playing");
-    },
-    onScroll() {
-      console.log(
-        document.querySelector(`#video-${this.videoIndex}.hero-background`)
-          .currentTime
-      );
-      this.windowTop = window.top.scrollY;
-
-      // Handles Navigation Color
-      if (this.windowTop > 300) {
-        document
-          .querySelector(".navigation-container")
-          .classList.remove("transparent");
-      } else {
-        document
-          .querySelector(".navigation-container")
-          .classList.add("transparent");
-      }
-
-      //Auto Mute when hero section isn't visible
-      if (
-        this.windowTop >
-        document.querySelector(".hero-container").clientHeight + 100
-      ) {
-        document.querySelector(
-          `#video-${this.videoIndex}.hero-background`
-        ).muted = true;
-      } else {
-        if (!this.isMuted) {
-          document.querySelector(
-            `#video-${this.videoIndex}.hero-background`
-          ).muted = false;
+        for (let i = 0; i < videos.length; i++) {
+          // Autoplay all video to buffer entire video
+          videos[i].autoplay = true;
+          videos[i].muted = true;
+          videos[i].classList.remove("playing");
+          this.brands[i].isReady = false;
         }
+
+        // Pause video if not ready
+        videos[this.videoIndex].pause();
+        videos[this.videoIndex].currentTime = 0;
+        videos[this.videoIndex].volume = this.soundVolume / 100;
+        videos[this.videoIndex].muted = this.isMuted;
+        videos[this.videoIndex].classList.add("playing");
+      } else {
+        const images = document.querySelectorAll("img.hero-background");
+        for (let i = 0; i < images.length; i++) {
+          // Autoplay all video to buffer entire video
+          images[i].classList.remove("playing");
+        }
+        images[this.videoIndex].classList.add("playing");
       }
     },
     toggleVideoSound() {
@@ -150,27 +135,74 @@ export default {
         video.volume = this.soundVolume / 100;
       }
     },
+    scrollPos(value) {
+      //Auto Mute when hero section isn't visible
+      if (
+        value >
+        document.querySelector(".hero-container").clientHeight + 100
+      ) {
+        document.querySelector(
+          `#video-${this.videoIndex}.hero-background`
+        ).muted = true;
+      } else {
+        if (!this.isMuted) {
+          document.querySelector(
+            `#video-${this.videoIndex}.hero-background`
+          ).muted = false;
+        }
+      }
+
+      // Show controls
+      if (
+        document.querySelector(".hero-container").getBoundingClientRect()
+          .bottom < window.innerHeight
+      ) {
+        document
+          .querySelector(".hero-container .content-container")
+          .classList.remove("fixed");
+      } else {
+        document
+          .querySelector(".hero-container .content-container")
+          .classList.add("fixed");
+      }
+    },
+    screenWidth() {
+      this.autoplay();
+    },
   },
 };
 </script>
 
 <template>
   <div class="hero-container">
-    <video
-      v-for="(item, index) in brands"
-      :key="item.name"
-      loop="true"
-      muted
-      :src="`/videos/${item.name}.mp4`"
-      playsinline="true"
-      webkit-playsinline="true"
-      :poster="`/images/${item.name}.jpg`"
-      class="hero-background"
-      :id="`video-${index}`"
-      @progress="isDownloading(index)"
-      @canplaythrough="isAvailable(index)"
-      @pause="isPaused()"
-    ></video>
+    <div class="media-container mobile">
+      <img
+        v-for="item in brands"
+        :key="item.name"
+        :src="`/images/${item.name}-mobile.jpg`"
+        class="hero-background mobile"
+        :alt="item.name"
+      />
+      <div class="image-overlay"></div>
+    </div>
+    <div class="media-container">
+      <video
+        v-for="(item, index) in brands"
+        :key="item.name"
+        loop="true"
+        muted
+        :src="`/videos/${item.name}.mp4`"
+        playsinline="true"
+        preload="auto"
+        webkit-playsinline="true"
+        :poster="`/images/${item.name}.jpg`"
+        class="hero-background"
+        :id="`video-${index}`"
+        @progress="isDownloading(index)"
+        @canplaythrough="isAvailable(index)"
+        @pause="isPaused()"
+      ></video>
+    </div>
     <div class="content-container">
       <div class="content-wrapper">
         <h3 class="content-title">{{ brands[videoIndex].title }}</h3>
@@ -184,18 +216,15 @@ export default {
         >
       </div>
       <div class="controls-wrapper">
-        <div class="controls-content">
-          <div class="prev-arrow" @click="switchVideo(false)">
-            <PreviousArrow />
-          </div>
-          <div class="next-arrow" @click="switchVideo(true)">
-            <NextArrow />
-          </div>
-        </div>
+        <ArrowControls
+          class="margin-right"
+          @leftClick="switchVideo(false)"
+          @rightClick="switchVideo(true)"
+        />
         <div v-if="!brands[videoIndex].isReady" class="loading-video">
           <p class="link white-link">LOADING VIDEO</p>
         </div>
-        <div v-else class="controls-content">
+        <div v-else class="sound-controls">
           <input
             v-show="!isMuted"
             type="number"
@@ -231,9 +260,15 @@ export default {
 .hero-container {
   width: 100%;
   height: 100vh;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
+}
+
+.media-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .hero-background {
@@ -252,6 +287,16 @@ export default {
   opacity: 1;
 }
 
+.hero-background.mobile,
+.media-container.mobile {
+  display: none;
+}
+
+.hero-background:not(.mobile),
+.media-container:not(.mobile) {
+  display: block;
+}
+
 .content-container {
   width: calc(100% - 6rem);
   position: absolute;
@@ -261,6 +306,7 @@ export default {
 }
 
 .content-title {
+  max-width: 50vw;
   font-weight: 900;
   text-transform: uppercase;
 }
@@ -282,42 +328,9 @@ export default {
   align-items: flex-end;
 }
 
-.controls-content {
+.sound-controls {
   display: flex;
   gap: 1rem;
-}
-
-.controls-content:first-child {
-  margin-right: -1.9rem;
-}
-
-.controls-content:last-child {
-  gap: 0;
-}
-
-.prev-arrow,
-.next-arrow {
-  width: 5rem;
-  display: grid;
-  align-items: center;
-  aspect-ratio: 1/1;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-}
-
-.prev-arrow:hover,
-.next-arrow:hover {
-  transform: scaleX(1.2);
-}
-
-.prev-arrow {
-  justify-items: end;
-  transform-origin: right;
-}
-
-.next-arrow {
-  justify-items: start;
-  transform-origin: left;
 }
 
 .sound {
@@ -358,6 +371,76 @@ input[type="number"] {
 @media screen and (max-width: 768px) {
   .hero-container {
     aspect-ratio: 9/16;
+    overflow-x: hidden;
   }
+
+  .hero-background.mobile,
+  .media-container.mobile {
+    display: block;
+  }
+
+  .hero-background:not(.mobile),
+  .media-container:not(.mobile) {
+    display: none;
+  }
+
+  .content-container {
+    width: calc(100% - 2rem);
+    left: 1rem;
+    bottom: 2rem;
+  }
+
+  .loading-video,
+  .sound {
+    display: none;
+  }
+
+  .content-container {
+    display: flex;
+    flex-flow: column;
+    flex-direction: column-reverse;
+  }
+
+  .content-container.fixed {
+    position: fixed;
+  }
+
+  .controls-wrapper {
+    position: static;
+    align-items: flex-start;
+    transform: translateX(-1.5rem);
+  }
+  .image-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgb(33, 33, 33);
+    background: linear-gradient(
+      0deg,
+      rgba(33, 33, 33, 1) 0%,
+      rgba(33, 33, 33, 0) 100%
+    );
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero-container {
+    position: relative;
+    height: calc(100vh - 72px);
+  }
+
+  .content-container {
+    position: absolute;
+  }
+
+  .content-title {
+    max-width: 80vw;
+  }
+}
+</style>
+
+<style>
+.margin-right:first-child {
+  margin-right: -1.9rem !important;
 }
 </style>
