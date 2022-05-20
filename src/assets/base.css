@@ -1,6 +1,5 @@
-/* color palette from <https://github.com/vuejs/theme> */
+/* Colors */
 :root {
-  /* ==COLORS== */
   /* NEUTRAL */
   --clr-neutral-100: rgb(255, 255, 255);
   --clr-neutral-200: rgb(248, 249, 250);
@@ -43,7 +42,7 @@
   --color-text-dark: var(--clr-neutral-1000);
   --color-text-light: var(--clr-neutral-100);
   --color-background: var(--clr-neutral-200);
-  --color-container-dark: var(--clr-neutral-900);
+  --color-container-dark: var(--clr-neutral-1000);
   --color-container-light: var(--clr-neutral-100);
   --color-border-light: var(--clr-neutral-200);
   --color-border-dark: var(--clr-neutral-900);
@@ -59,6 +58,15 @@
   --fontSize-p: clamp(1rem, calc(1rem + 0vw), 1rem);
   --fontSize-small: clamp(0.67rem, calc(0.77rem + -0.08vw), 0.75rem);
   --fontSize-smallest: clamp(0.44rem, calc(0.59rem + -0.12vw), 0.56rem);
+}
+
+/* Screens */
+:root {
+  --screen-xs: 480px;
+  --screen-sm: 576px;
+  --screen-md: 768px;
+  --screen-lg: 992px;
+  --screen-xl: 1200px;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -148,19 +156,28 @@ a,
   cursor: pointer;
 }
 
-a:not(.logo),
-.link {
-  color: currentColor;
-  box-shadow: inset 0 0 0 0 var(--clr-neutral-100);
+.black-link {
+  color: var(--color-text-black);
+  box-shadow: inset 0 0 0 0 var(--color-container-dark);
   transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-a:not(.logo):hover,
-.link:hover {
-  color: var(--clr-neutral-1000);
-  box-shadow: inset 200px 0 0 0 var(--clr-neutral-100);
+.black-link:hover {
+  color: var(--color-text-light);
+  box-shadow: inset 200px 0 0 0 var(--color-container-dark);
+}
+
+.white-link {
+  color: var(--color-text-light);
+  box-shadow: inset 0 0 0 0 var(--color-container-light);
+  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.white-link:hover {
+  color: var(--color-text-dark);
+  box-shadow: inset 200px 0 0 0 var(--color-container-light);
 }
 
 a:visited {
-  color: currentColor;
+  color: var(--color-text-black);
 }

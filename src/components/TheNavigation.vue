@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink } from "vue-router";
+import LogoFull from "./icons/LogoFull.vue";
 </script>
 
 <!-- <script>
@@ -32,16 +33,22 @@ export default {
 <template>
   <nav class="navigation-container transparent">
     <div class="left-side">
-      <RouterLink to="/shop" class="navigation-link">SHOP</RouterLink>
-      <RouterLink to="/about" class="navigation-link">ABOUT</RouterLink>
-      <RouterLink to="/collection" class="navigation-link"
+      <RouterLink to="/shop" class="navigation-link black-link"
+        >SHOP</RouterLink
+      >
+      <RouterLink to="/about" class="navigation-link black-link"
+        >ABOUT</RouterLink
+      >
+      <RouterLink to="/collection" class="navigation-link black-link"
         >COLLECTION</RouterLink
       >
     </div>
-    <RouterLink to="/" class="logo h3"> HYPE </RouterLink>
+    <RouterLink to="/" class="logo"> <LogoFull /> </RouterLink>
     <div class="right-side">
-      <RouterLink to="/search" class="navigation-link">SEARCH</RouterLink>
-      <p class="navigation-link link">CART <span>(0)</span></p>
+      <RouterLink to="/search" class="navigation-link black-link"
+        >SEARCH</RouterLink
+      >
+      <p class="navigation-link link black-link">CART <span>(0)</span></p>
     </div>
   </nav>
 </template>
@@ -62,7 +69,8 @@ export default {
 .navigation-container.transparent {
   background-color: transparent;
   color: var(--clr-neutral-100);
-  border-color: var(--color-border-light);
+  border-color: transparent;
+  padding-top: 3rem;
 }
 
 .navigation-container .left-side {
@@ -80,13 +88,31 @@ export default {
   align-items: center;
 }
 
+.transparent .logo svg {
+  height: 5rem;
+}
+
+.logo svg {
+  height: 3rem;
+  transition: all 0.3s ease-in-out;
+}
+
 .logo {
-  font-weight: 900;
-  line-height: normal;
+  padding-block: 1.25rem;
 }
 
 .navigation-link {
   letter-spacing: 0.2rem;
   cursor: pointer;
+}
+
+.transparent .navigation-link {
+  box-shadow: inset 0 0 0 0 var(--clr-neutral-100);
+  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.transparent .navigation-link:hover {
+  color: var(--clr-neutral-1000);
+  box-shadow: inset 200px 0 0 0 var(--clr-neutral-100);
 }
 </style>

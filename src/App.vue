@@ -1,9 +1,11 @@
 <script setup>
 import { RouterView } from "vue-router";
 import TheNavigation from "./components/TheNavigation.vue";
+import DataStorage from "./components/DataStorage.vue";
 </script>
 
 <template>
+  <DataStorage />
   <header class="header-container">
     <TheNavigation />
   </header>
@@ -35,6 +37,6 @@ import TheNavigation from "./components/TheNavigation.vue";
   justify-content: flex-start;
   flex-flow: column;
   align-items: center;
-  height: 200vh;
+  height: 300vh;
 }
 </style>
