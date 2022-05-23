@@ -4,14 +4,41 @@ import TheNavigation from "./components/TheNavigation.vue";
 import DataStorage from "./components/DataStorage.vue";
 </script>
 
+<script>
+export default {
+  mounted() {
+    window.addEventListener("scroll", this.onScroll);
+    window.addEventListener("resize", this.onResize);
+  },
+  beforeUnmount() {
+    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("resize", this.onResize);
+  },
+  data() {
+    return {
+      scrollPosition: 0,
+      screenWidth: window.innerWidth,
+    };
+  },
+  methods: {
+    onScroll() {
+      this.scrollPosition = window.top.scrollY;
+    },
+    onResize() {
+      this.screenWidth = window.innerWidth;
+    },
+  },
+};
+</script>
+
 <template>
   <DataStorage />
   <header class="header-container">
-    <TheNavigation />
+    <TheNavigation :scrollPos="scrollPosition" :screenWidth="screenWidth" />
   </header>
 
   <main class="content-container">
-    <RouterView />
+    <RouterView :scrollPos="scrollPosition" :screenWidth="screenWidth" />
   </main>
 </template>
 
