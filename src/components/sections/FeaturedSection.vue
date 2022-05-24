@@ -52,15 +52,25 @@
         <div class="carousel-card">
           <img
             class="carousel-image"
-            src="/images/products/example-1.jpg"
+            src="https://img.stadiumgoods.com/17/59/14/89/17591489_36717819_2048.jpg"
             alt="Product 1"
           />
           <div class="carousel-detail">
-            <h3 class="carousel-title">4DFWD x Parley</h3>
-            <h5 class="carousel-subtitle">SHOES - ADIDAS</h5>
+            <h3 class="carousel-title">
+              {{ dataProduct[0].products[0].title }}
+              <span>
+                {{ dataProduct[0].products[0].subtitle }}
+              </span>
+            </h3>
+            <h5 class="carousel-subtitle">
+              {{ dataProduct[0].products[0].type }} -
+              {{ dataProduct[0].name.toUpperCase() }}
+            </h5>
           </div>
           <div class="carousel-payment">
-            <h4 class="carousel-price">IDR 480,000</h4>
+            <h4 class="carousel-price">
+              IDR {{ dataProduct[0].products[0].price }}
+            </h4>
           </div>
         </div>
       </swiper-slide>
@@ -68,45 +78,75 @@
         <div class="carousel-card">
           <img
             class="carousel-image"
-            src="/images/products/example-1.jpg"
+            src="https://img.stadiumgoods.com/17/70/19/91/17701991_37101727_2048.jpg"
             alt="Product 1"
           />
           <div class="carousel-detail">
-            <h3 class="carousel-title">4DFWD x Parley</h3>
-            <h5 class="carousel-subtitle">SHOES - ADIDAS</h5>
+            <h3 class="carousel-title">
+              {{ dataProduct[6].products[2].title }}
+              <span>
+                {{ dataProduct[6].products[2].subtitle }}
+              </span>
+            </h3>
+            <h5 class="carousel-subtitle">
+              {{ dataProduct[6].products[2].type }} -
+              {{ dataProduct[6].name.toUpperCase() }}
+            </h5>
           </div>
           <div class="carousel-payment">
-            <h4 class="carousel-price">IDR 480,000</h4>
+            <h4 class="carousel-price">
+              IDR {{ dataProduct[6].products[2].price }}
+            </h4>
           </div>
         </div></swiper-slide
       ><swiper-slide class="carousel-item">
         <div class="carousel-card">
           <img
             class="carousel-image"
-            src="/images/products/example-1.jpg"
+            src="https://img.stadiumgoods.com/12/95/91/37/12959137_34437196_2048.jpg"
             alt="Product 1"
           />
           <div class="carousel-detail">
-            <h3 class="carousel-title">4DFWD x Parley</h3>
-            <h5 class="carousel-subtitle">SHOES - ADIDAS</h5>
+            <h3 class="carousel-title">
+              {{ dataProduct[3].products[18].title }}
+              <span>
+                {{ dataProduct[3].products[18].subtitle }}
+              </span>
+            </h3>
+            <h5 class="carousel-subtitle">
+              {{ dataProduct[3].products[18].type }} -
+              {{ dataProduct[3].name.toUpperCase() }}
+            </h5>
           </div>
           <div class="carousel-payment">
-            <h4 class="carousel-price">IDR 480,000</h4>
+            <h4 class="carousel-price">
+              IDR {{ dataProduct[3].products[18].price }}
+            </h4>
           </div>
         </div></swiper-slide
       ><swiper-slide class="carousel-item">
         <div class="carousel-card">
           <img
             class="carousel-image"
-            src="/images/products/example-1.jpg"
+            src="https://cdn-images.farfetch-contents.com/16/04/66/08/16046608_34158851_2048.jpg?c=3"
             alt="Product 1"
           />
           <div class="carousel-detail">
-            <h3 class="carousel-title">4DFWD x Parley</h3>
-            <h5 class="carousel-subtitle">SHOES - ADIDAS</h5>
+            <h3 class="carousel-title">
+              {{ dataProduct[4].products[5].title }}
+              <span>
+                {{ dataProduct[4].products[5].subtitle }}
+              </span>
+            </h3>
+            <h5 class="carousel-subtitle">
+              {{ dataProduct[4].products[5].type }} -
+              {{ dataProduct[4].name.toUpperCase() }}
+            </h5>
           </div>
           <div class="carousel-payment">
-            <h4 class="carousel-price">IDR 480,000</h4>
+            <h4 class="carousel-price">
+              IDR {{ dataProduct[4].products[5].price }}
+            </h4>
           </div>
         </div></swiper-slide
       >
@@ -142,7 +182,11 @@ export default {
       carousel: null,
       currentIndex: 0,
       totalSlides: 0,
+      dataProduct: null,
     };
+  },
+  created() {
+    this.dataProduct = JSON.parse(localStorage.getItem("brands"));
   },
   mounted() {
     this.initCarousel();
@@ -370,6 +414,7 @@ export default {
   .carousel-subtitle {
     font-size: var(--fontSize-p);
     font-weight: 800;
+    text-transform: uppercase;
   }
 
   .swiper-slide .carousel-card {
