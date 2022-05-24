@@ -571,7 +571,9 @@ export default {
             {
               title: "AIR JORDAN 4 RETRO",
               subtitle: `"KAWS"`,
-              img: "",
+              img: [
+                "https://img.stadiumgoods.com/12/95/91/37/12959137_34437196_2048.jpg",
+              ],
               type: "shoes",
               gender: "men",
               size: ["8.5", "9.5", "10.5", "12"],
@@ -656,7 +658,9 @@ export default {
             {
               title: "Monalisa Arrow",
               subtitle: "Hoodie-Black",
-              img: "",
+              img: [
+                "https://cdn-images.farfetch-contents.com/16/04/66/08/16046608_34158851_2048.jpg?c=3",
+              ],
               type: "hoodie",
               gender: "men",
               size: ["XXS", "XS"],
@@ -1085,7 +1089,9 @@ export default {
             {
               title: "YEEZY BOOST 350 V2 REFLECTIVE",
               subtitle: "Beluga",
-              img: "",
+              img: [
+                "https://img.stadiumgoods.com/17/70/19/91/17701991_37101727_2048.jpg",
+              ],
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -1262,7 +1268,9 @@ export default {
             {
               title: "YEEZY BOOST 350 V1",
               subtitle: "Pirate Black",
-              img: "",
+              img: [
+                "https://img.stadiumgoods.com/12/96/02/76/12960276_34671715_2048.jpg",
+              ],
               type: "shoes",
               gender: "men",
               size: ["8", "9", "11", "13", "14"],
