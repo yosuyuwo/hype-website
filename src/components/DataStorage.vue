@@ -1202,7 +1202,9 @@ export default {
             {
               title: "YEEZY BOOST 350 V2",
               subtitle: "Beluga",
-              img: "",
+              img: [
+                "https://img.stadiumgoods.com/11/70/76/53/11707653_34678121_2048.jpg",
+              ],
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],

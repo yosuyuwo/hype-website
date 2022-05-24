@@ -78,24 +78,24 @@
         <div class="carousel-card">
           <img
             class="carousel-image"
-            :src="dataProduct[6].products[2].img[0]"
+            :src="dataProduct[6].products[12].img[0]"
             alt="Product 1"
           />
           <div class="carousel-detail">
             <h3 class="carousel-title">
-              {{ dataProduct[6].products[2].title }}
+              {{ dataProduct[6].products[12].title }}
               <span>
-                {{ dataProduct[6].products[2].subtitle }}
+                {{ dataProduct[6].products[12].subtitle }}
               </span>
             </h3>
             <h5 class="carousel-subtitle">
-              {{ dataProduct[6].products[2].type }} -
+              {{ dataProduct[6].products[12].type }} -
               {{ dataProduct[6].name.toUpperCase() }}
             </h5>
           </div>
           <div class="carousel-payment">
             <h4 class="carousel-price">
-              IDR {{ dataProduct[6].products[2].price }}
+              IDR {{ dataProduct[6].products[12].price }}
             </h4>
           </div>
         </div></swiper-slide
