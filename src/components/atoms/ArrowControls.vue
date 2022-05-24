@@ -1,14 +1,33 @@
 <script setup>
 import PreviousArrow from "../icons/PreviousArrow.vue";
 import NextArrow from "../icons/NextArrow.vue";
+
+defineProps({
+  isReachEnd: {
+    type: Boolean,
+    default: false,
+  },
+  isReachStart: {
+    type: Boolean,
+    default: true,
+  },
+});
 </script>
 
 <template>
   <div class="controls-content">
-    <div class="prev-arrow" @click="$emit('leftClick')">
+    <div
+      class="prev-arrow"
+      :class="isReachStart ? 'disabled' : ''"
+      @click="$emit('leftClick')"
+    >
       <PreviousArrow />
     </div>
-    <div class="next-arrow" @click="$emit('rightClick')">
+    <div
+      class="next-arrow"
+      :class="isReachEnd ? 'disabled' : ''"
+      @click="$emit('rightClick')"
+    >
       <NextArrow />
     </div>
   </div>
@@ -18,6 +37,11 @@ import NextArrow from "../icons/NextArrow.vue";
 .controls-content {
   display: flex;
   gap: 1rem;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.3;
 }
 
 .prev-arrow,

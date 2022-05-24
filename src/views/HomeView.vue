@@ -18,7 +18,7 @@ document.title = "Hype - Home";
 
 <template>
   <HeroSection :scrollPos="scrollPos" :screenWidth="screenWidth" />
-  <FeaturedProducts />
+  <FeaturedProducts :screenWidth="screenWidth" />
 </template>
 
 <style scoped></style>

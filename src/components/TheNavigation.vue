@@ -248,14 +248,15 @@ export default {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
   .navigation-container {
     max-width: 100%;
-    padding-inline: 1rem;
+    padding-inline: 3rem;
     border-inline: none;
   }
+
   .transparent {
-    padding-inline: 1rem !important;
+    padding-inline: 3rem !important;
   }
 
   .logo {
@@ -267,9 +268,16 @@ export default {
   }
 }
 
+@media screen and (max-width: 768px) {
+  .transparent {
+    padding-inline: 1rem !important;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .navigation-container {
     position: sticky;
+    padding-inline: 1rem;
   }
   .logo.mobile svg {
     height: 3rem;

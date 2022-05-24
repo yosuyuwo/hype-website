@@ -218,6 +218,7 @@ export default {
       <div class="controls-wrapper">
         <ArrowControls
           class="margin-right"
+          :isReachStart="false"
           @leftClick="switchVideo(false)"
           @rightClick="switchVideo(true)"
         />
@@ -365,6 +366,12 @@ input[type="number"] {
   .hero-container {
     aspect-ratio: 16/9;
     height: auto;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .hero-container {
+    aspect-ratio: 4/3;
   }
 }
 
