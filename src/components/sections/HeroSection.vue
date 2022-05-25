@@ -35,6 +35,12 @@ export default {
       isMuted: true,
       videoIndex: 0,
       brands: [],
+      swipeGesture: {
+        touchStartX: 0,
+        touchStartY: 0,
+        touchEndX: 0,
+        touchEndY: 0,
+      },
     };
   },
   methods: {

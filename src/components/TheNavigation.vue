@@ -71,8 +71,8 @@ export default {
         <RouterLink to="/about" class="navigation-link black-link"
           >ABOUT</RouterLink
         >
-        <RouterLink to="/collection" class="navigation-link black-link"
-          >COLLECTION</RouterLink
+        <RouterLink to="/brands" class="navigation-link black-link"
+          >BRANDS</RouterLink
         >
       </div>
       <RouterLink to="/" class="logo"> <LogoFull /> </RouterLink>

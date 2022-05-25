@@ -3,7 +3,7 @@
     <div class="section-header">
       <div class="header-wrapper">
         <div class="header-detail">
-          <h2 class="section-title">Featured Products</h2>
+          <h5 class="section-title">Featured Products</h5>
           <p class="product-count">{{ currentIndex }} of {{ totalSlides }}</p>
         </div>
         <ArrowControls
@@ -30,6 +30,7 @@
         },
         992: {
           slidesPerView: 1,
+          spaceBetween: 38,
           centeredSlides: true,
         },
         640: {
@@ -49,107 +50,15 @@
       @slideChange="indexChanged()"
     >
       <swiper-slide class="carousel-item">
-        <div class="carousel-card">
-          <img
-            class="carousel-image"
-            :src="dataProduct[6].products[18].img[0]"
-            alt="Product 1"
-          />
-          <div class="carousel-detail">
-            <h3 class="carousel-title">
-              {{ dataProduct[6].products[18].title }}
-              <span>
-                {{ dataProduct[6].products[18].subtitle }}
-              </span>
-            </h3>
-            <h5 class="carousel-subtitle">
-              {{ dataProduct[6].products[18].type }} -
-              {{ dataProduct[6].name.toUpperCase() }}
-            </h5>
-          </div>
-          <div class="carousel-payment">
-            <h4 class="carousel-price">
-              IDR {{ dataProduct[6].products[18].price }}
-            </h4>
-          </div>
-        </div>
+        <div class="carousel-card"></div>
       </swiper-slide>
       <swiper-slide class="carousel-item">
-        <div class="carousel-card">
-          <img
-            class="carousel-image"
-            :src="dataProduct[6].products[12].img[0]"
-            alt="Product 1"
-          />
-          <div class="carousel-detail">
-            <h3 class="carousel-title">
-              {{ dataProduct[6].products[12].title }}
-              <span>
-                {{ dataProduct[6].products[12].subtitle }}
-              </span>
-            </h3>
-            <h5 class="carousel-subtitle">
-              {{ dataProduct[6].products[12].type }} -
-              {{ dataProduct[6].name.toUpperCase() }}
-            </h5>
-          </div>
-          <div class="carousel-payment">
-            <h4 class="carousel-price">
-              IDR {{ dataProduct[6].products[12].price }}
-            </h4>
-          </div>
-        </div></swiper-slide
+        <div class="carousel-card"></div></swiper-slide
       ><swiper-slide class="carousel-item">
-        <div class="carousel-card">
-          <img
-            class="carousel-image"
-            :src="dataProduct[3].products[18].img[0]"
-            alt="Product 1"
-          />
-          <div class="carousel-detail">
-            <h3 class="carousel-title">
-              {{ dataProduct[3].products[18].title }}
-              <span>
-                {{ dataProduct[3].products[18].subtitle }}
-              </span>
-            </h3>
-            <h5 class="carousel-subtitle">
-              {{ dataProduct[3].products[18].type }} -
-              {{ dataProduct[3].name.toUpperCase() }}
-            </h5>
-          </div>
-          <div class="carousel-payment">
-            <h4 class="carousel-price">
-              IDR {{ dataProduct[3].products[18].price }}
-            </h4>
-          </div>
-        </div></swiper-slide
+        <div class="carousel-card"></div></swiper-slide
       ><swiper-slide class="carousel-item">
-        <div class="carousel-card">
-          <img
-            class="carousel-image"
-            :src="dataProduct[4].products[5].img[0]"
-            alt="Product 1"
-          />
-          <div class="carousel-detail">
-            <h3 class="carousel-title">
-              {{ dataProduct[4].products[5].title }}
-              <span>
-                {{ dataProduct[4].products[5].subtitle }}
-              </span>
-            </h3>
-            <h5 class="carousel-subtitle">
-              {{ dataProduct[4].products[5].type }} -
-              {{ dataProduct[4].name.toUpperCase() }}
-            </h5>
-          </div>
-          <div class="carousel-payment">
-            <h4 class="carousel-price">
-              IDR {{ dataProduct[4].products[5].price }}
-            </h4>
-          </div>
-        </div></swiper-slide
-      >
+        <div class="carousel-card"></div
+      ></swiper-slide>
     </swiper>
   </div>
 </template>
@@ -190,6 +99,7 @@ export default {
   },
   mounted() {
     this.initCarousel();
+    console.log(this.dataProduct[6]);
   },
   methods: {
     initCarousel() {
@@ -224,18 +134,6 @@ export default {
 .section-header {
   width: 38%;
   height: 100%;
-  /* background: rgb(248, 249, 250);
-  background: rgb(248, 249, 250);
-  background: linear-gradient(
-    90deg,
-    var(--color-background) 0%,
-    var(--color-background) 69%,
-    rgba(248, 249, 250, 0) 100%
-  ); */
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -248,7 +146,7 @@ export default {
 
 .section-title {
   text-transform: uppercase;
-  font-weight: 900;
+  letter-spacing: 0.15rem;
   width: 100%;
 }
 
@@ -260,184 +158,18 @@ export default {
 }
 
 .carousel-card {
-  width: calc(33vw - 6rem - 24px);
-  height: 48rem;
-  border: solid 2px var(--color-container-dark);
-  margin-inline: auto;
-  position: relative;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.carousel-detail {
-  width: 20rem;
-  position: absolute;
-  top: 2rem;
-  left: -6rem;
-  opacity: 0;
-  transform: translateX(4rem);
-  transition: all 0.3s ease-in-out;
-}
-
-.carousel-payment {
-  position: absolute;
-  bottom: 6rem;
-  right: -6rem;
-  opacity: 0;
-  transform: translateX(-4rem);
-  transition: all 0.3s ease-in-out;
-}
-
-.carousel-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 23rem;
+  background-color: var(--clr-neutral-300);
 }
 
-.swiper {
+.featured-carousel {
   width: 100%;
 }
 
-.swiper-slide-active .carousel-card {
-  opacity: 1;
-}
-
-.swiper-slide-next .carousel-card {
-  opacity: 1;
-}
-
-.swiper-slide-active .carousel-payment {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.swiper-slide-active .carousel-detail {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-@media screen and (max-width: 1600px) {
-  .featured-container {
-    flex-flow: row;
-  }
-
-  .featured-carousel {
-    padding-left: 20%;
-  }
-
+@media screen and (min-width: 1600px) {
   .carousel-card {
-    width: calc(33vw - 2rem);
-  }
-
-  /* .section-header {
-    background-color: var(--clr-info-300);
-  } */
-}
-
-@media screen and (max-width: 1200px) {
-  .carousel-card {
-    width: 30rem;
-  }
-
-  .featured-carousel {
-    padding-left: 32%;
-  }
-}
-
-@media screen and (max-width: 992px) {
-  /* .section-header {
-    background-color: var(--clr-info-300);
-  } */
-  .featured-container {
-    flex-flow: column;
-    overflow-x: hidden;
-    gap: 2rem;
-  }
-  .featured-control {
-    margin-right: -1.8rem;
-    margin-left: 0;
-  }
-  .featured-carousel {
-    padding-inline: 3rem;
-  }
-
-  .product-count {
-    display: none;
-  }
-
-  .section-header {
-    width: 100%;
-    position: relative;
-    height: auto;
-    padding-inline: 3rem;
-  }
-
-  .header-wrapper {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-left: 0;
-  }
-
-  .section-title {
-    font-size: var(--fontSize-h5);
-    font-weight: 500;
-    letter-spacing: 0.25rem;
-  }
-
-  .carousel-card {
-    width: 100%;
-    border: none;
-  }
-
-  .carousel-card img {
-    height: 28rem;
-    border: solid 2px var(--color-container-dark);
-  }
-
-  .carousel-payment {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .carousel-detail {
-    opacity: 1;
-    transform: translateY(0);
-    margin-bottom: 1rem;
-  }
-
-  .carousel-title {
-    font-size: var(--fontSize-h4);
-  }
-
-  .carousel-subtitle {
-    font-size: var(--fontSize-p);
-    font-weight: 800;
-    text-transform: uppercase;
-  }
-
-  .swiper-slide .carousel-card {
-    opacity: 1;
-  }
-  .carousel-detail,
-  .carousel-payment {
-    position: static;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .section-title {
-    letter-spacing: 0.35rem;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-
-  .featured-carousel {
-    padding-inline: 1rem;
-  }
-  .section-header {
-    padding-inline: 1rem;
+    background-color: var(--clr-info-500);
   }
 }
 </style>
