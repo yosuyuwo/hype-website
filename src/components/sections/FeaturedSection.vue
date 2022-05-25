@@ -1,53 +1,39 @@
 <template>
   <div class="featured-container">
     <div class="section-header">
-      <div class="header-wrapper">
-        <div class="header-detail">
-          <h5 class="section-title">Featured Products</h5>
-          <p class="product-count">{{ currentIndex }} of {{ totalSlides }}</p>
-        </div>
-        <ArrowControls
-          v-if="carousel != null"
-          class="featured-control"
-          :isReachStart="carousel.isBeginning"
-          :isReachEnd="carousel.isEnd"
-          @leftClick="carousel.slidePrev()"
-          @rightClick="carousel.slideNext()"
-        />
+      <div class="header-detail">
+        <h5 class="section-title">Featured Products</h5>
       </div>
+      <ArrowControls
+        v-if="carousel != null"
+        class="featured-control"
+        :isReachStart="carousel.isBeginning"
+        :isReachEnd="carousel.isEnd"
+        @leftClick="carousel.slidePrev()"
+        @rightClick="carousel.slideNext()"
+      />
     </div>
     <swiper
       :speed="800"
       :breakpoints="{
         1600: {
           slidesPerView: 3,
-          spaceBetween: 38,
-          centeredSlides: true,
+          spaceBetween: 16,
         },
-        1200: {
-          slidesPerView: 2,
-          spaceBetween: 38,
-        },
-        992: {
-          slidesPerView: 1,
-          spaceBetween: 38,
-          centeredSlides: true,
-        },
-        640: {
+        840: {
           slidesPerView: 2,
           spaceBetween: 16,
-          slidesPerGroup: 2,
-          centeredSlides: false,
+        },
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 16,
         },
         240: {
           slidesPerView: 1,
-          slidesPerGroup: 1,
-          spaceBetween: 48,
-          centeredSlides: true,
+          spaceBetween: 16,
         },
       }"
       class="featured-carousel"
-      @slideChange="indexChanged()"
     >
       <swiper-slide class="carousel-item">
         <div class="carousel-card"></div>
@@ -89,8 +75,6 @@ export default {
   data() {
     return {
       carousel: null,
-      currentIndex: 0,
-      totalSlides: 0,
       dataProduct: null,
     };
   },
@@ -98,18 +82,8 @@ export default {
     this.dataProduct = JSON.parse(localStorage.getItem("brands"));
   },
   mounted() {
-    this.initCarousel();
-    console.log(this.dataProduct[6]);
-  },
-  methods: {
-    initCarousel() {
-      this.carousel = document.querySelector(".featured-carousel").swiper;
-      this.totalSlides = this.carousel.activeIndex;
-      this.currentIndex = this.carousel.realIndex + 1;
-    },
-    indexChanged() {
-      this.currentIndex = this.carousel.realIndex + 1;
-    },
+    this.carousel = document.querySelector(".featured-carousel").swiper;
+    console.log(this.carousel);
   },
   watch: {
     screenWidth(value) {
@@ -132,16 +106,12 @@ export default {
 }
 
 .section-header {
-  width: 38%;
-  height: 100%;
+  width: 100%;
+  padding: 4rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  flex-flow: column;
-}
-
-.header-wrapper {
-  margin-left: 3rem;
+  flex-flow: row;
 }
 
 .section-title {
@@ -151,25 +121,42 @@ export default {
 }
 
 .featured-control {
-  margin-left: -1.8rem;
-}
-.carousel-item {
-  width: 100%;
-}
-
-.carousel-card {
-  width: 100%;
-  height: 23rem;
-  background-color: var(--clr-neutral-300);
+  margin-left: -1.2rem;
 }
 
 .featured-carousel {
   width: 100%;
+  padding-inline: 3rem;
 }
 
-@media screen and (min-width: 1600px) {
-  .carousel-card {
-    background-color: var(--clr-info-500);
+.carousel-item {
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+}
+
+.carousel-card {
+  width: 100%;
+  height: 48rem;
+  background-color: var(--clr-neutral-300);
+}
+
+.carousel-item:not(.swiper-slide-active):not(.swiper-slide-next):not(.swiper-slide-next
+    + .carousel-item) {
+  opacity: 0.3;
+  filter: brightness(55%);
+}
+
+/* .swiper-  */
+@media screen and (max-width: 576px) {
+  .section-header {
+    flex-flow: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-inline: 1rem;
+  }
+
+  .featured-carousel {
+    padding-inline: 1rem;
   }
 }
 </style>
