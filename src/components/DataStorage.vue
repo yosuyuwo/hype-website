@@ -4,9 +4,13 @@ export default {
     if (!localStorage.getItem("brands")) {
       localStorage.setItem("brands", JSON.stringify(this.brands));
     }
+    if (!localStorage.getItem("types")) {
+      localStorage.setItem("types", JSON.stringify(this.types));
+    }
   },
   data() {
     return {
+      types: ["shoes", "hat"],
       brands: [
         {
           name: "adidas",
