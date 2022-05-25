@@ -274,6 +274,12 @@ export default {
   }
 }
 
+@media screen and (max-width: 560px) {
+  .navigation-container {
+    padding-inline: 1rem;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .navigation-container {
     position: sticky;

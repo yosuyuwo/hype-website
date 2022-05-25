@@ -15,6 +15,7 @@
     </div>
     <swiper
       :speed="800"
+      noSwipingClass="product-detail"
       :breakpoints="{
         1600: {
           slidesPerView: 3,
@@ -22,10 +23,6 @@
         },
         840: {
           slidesPerView: 2,
-          spaceBetween: 16,
-        },
-        640: {
-          slidesPerView: 1,
           spaceBetween: 16,
         },
         240: {
@@ -36,20 +33,35 @@
       class="featured-carousel"
     >
       <swiper-slide class="carousel-item">
-        <div class="carousel-card"></div>
+        <ProductDetail
+          :product="dataProduct[6].products[18]"
+          :brand="dataProduct[6].name"
+          :isFluid="true"
+        />
       </swiper-slide>
       <swiper-slide class="carousel-item">
-        <div class="carousel-card"></div></swiper-slide
+        <ProductDetail
+          :product="dataProduct[3].products[8]"
+          :brand="dataProduct[3].name"
+          :isFluid="true" /></swiper-slide
       ><swiper-slide class="carousel-item">
-        <div class="carousel-card"></div></swiper-slide
+        <ProductDetail
+          :product="dataProduct[1].products[4]"
+          :brand="dataProduct[1].name"
+          :isFluid="true" /></swiper-slide
       ><swiper-slide class="carousel-item">
-        <div class="carousel-card"></div
-      ></swiper-slide>
+        <ProductDetail
+          :product="dataProduct[5].products[4]"
+          :brand="dataProduct[5].name"
+          :isFluid="true"
+      /></swiper-slide>
     </swiper>
   </div>
 </template>
 
 <script setup>
+import ProductDetail from "../atoms/ProductDetail.vue";
+
 defineProps({
   screenWidth: {
     type: Number,
@@ -101,13 +113,13 @@ export default {
   display: flex;
   flex-flow: column;
   align-items: center;
-  padding-block: 6rem;
+  padding-block: 12rem;
   position: relative;
 }
 
 .section-header {
   width: 100%;
-  padding: 4rem;
+  padding-inline: 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -134,29 +146,42 @@ export default {
   transition: all 0.3s ease-in-out;
 }
 
-.carousel-card {
-  width: 100%;
-  height: 48rem;
-  background-color: var(--clr-neutral-300);
-}
-
 .carousel-item:not(.swiper-slide-active):not(.swiper-slide-next):not(.swiper-slide-next
     + .carousel-item) {
   opacity: 0.3;
   filter: brightness(55%);
 }
 
-/* .swiper-  */
+@media screen and (max-width: 1600px) {
+  .swiper-slide-next + .carousel-item {
+    opacity: 0.3;
+    filter: brightness(55%);
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .swiper-slide-next {
+    opacity: 0.3;
+    filter: brightness(55%);
+  }
+}
+
 @media screen and (max-width: 576px) {
   .section-header {
     flex-flow: column;
     align-items: flex-start;
     justify-content: flex-start;
     padding-inline: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .featured-control {
+    display: none;
   }
 
   .featured-carousel {
     padding-inline: 1rem;
+    padding-right: 2rem;
   }
 }
 </style>

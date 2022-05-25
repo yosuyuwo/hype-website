@@ -64,6 +64,5 @@ export default {
   justify-content: flex-start;
   flex-flow: column;
   align-items: center;
-  height: 300vh;
 }
 </style>
