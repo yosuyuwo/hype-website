@@ -61,13 +61,6 @@
 
 <script setup>
 import ProductCard from "../atoms/ProductCard.vue";
-
-defineProps({
-  screenWidth: {
-    type: Number,
-    default: 0,
-  },
-});
 </script>
 
 <script>
@@ -95,14 +88,6 @@ export default {
   },
   mounted() {
     this.carousel = document.querySelector(".featured-carousel").swiper;
-    console.log(this.carousel);
-  },
-  watch: {
-    screenWidth(value) {
-      if (value < 992) {
-        this.carousel.enabled = false;
-      }
-    },
   },
 };
 </script>
