@@ -4,6 +4,7 @@ document.title = "Hype - Brands";
 
 <script>
 import { Swiper, SwiperSlide } from "swiper/vue";
+import InputButton from "../components/atoms/InputButton.vue";
 import "swiper/css";
 import "swiper/css/scrollbar";
 import { Scrollbar } from "swiper";
@@ -108,11 +109,11 @@ export default {
       </swiper>
     </div>
     <div class="product-detail">
-      <h3>Brands</h3>
+      <h4>Brands</h4>
       <h2>Title - Subtitle</h2>
-      <p>Type</p>
-      <h2>Price</h2>
-      <input type="button" />
+      <h5>Type</h5>
+      <h3>Price</h3>
+      <InputButton text="ADD TO CART" style="right: 3rem; margin-left: 3rem" />
     </div>
   </div>
 </template>
@@ -124,6 +125,7 @@ export default {
   justify-content: space-between;
   flex-direction: row;
   margin-top: 7rem;
+  margin-bottom: 5rem;
 }
 
 .img-detail {
@@ -140,8 +142,9 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   flex: 1;
-  gap: 3rem;
+  gap: 1.5rem;
   margin-top: 3rem;
+  margin-left: 3rem;
 }
 
 .featured-carousel {
