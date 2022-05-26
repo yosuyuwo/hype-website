@@ -55,14 +55,26 @@ export default {
         :brand="$route.params.name"
       />
     </div>
+    <div class="navigation-wrapper">
+      <div class="left-side">
+        <a to="" class="navigation-link black-link">HAT</a>
+        <a to="" class="navigation-link black-link">SHIRT</a>
+        <a to="" class="navigation-link black-link">PANTS</a>
+        <a to="" class="navigation-link black-link">SHOES</a>
+        <a to="" class="navigation-link black-link">MEN</a>
+        <a to="" class="navigation-link black-link">WOMEN</a>
+      </div>
+      <div class="right-side">
+        <a to="" class="navigation-link black-link">1 OF 1</a>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .container-brands {
   width: 100%;
-  height: 30rem;
-  margin-bottom: 13rem;
+  margin-bottom: 8rem;
   margin-top: 5rem;
 }
 
@@ -85,13 +97,13 @@ export default {
 
 .container-img {
   position: absolute;
+  transform: translateX(-50%);
   top: 16rem;
-  left: 50rem;
+  left: 50%;
 }
 
 .logo-img {
-  width: 20rem;
-  height: 15rem;
+  height: 12vw;
 }
 
 .catalogue-container {
@@ -151,6 +163,7 @@ export default {
     auto-fill,
     minmax(var(--auto-grid-min-size), 1fr)
   );
+  margin-bottom: 1.5rem;
   grid-gap: 1rem;
 }
 
