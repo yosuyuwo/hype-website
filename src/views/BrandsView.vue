@@ -1,0 +1,99 @@
+<script setup>
+document.title = "Hype - Brands";
+</script>
+
+<script>
+import ProductCard from "../components/atoms/ProductCard.vue";
+export default {
+  data() {
+    return {
+      dataProd: null,
+    };
+  },
+  created() {
+    this.dataProduct = JSON.parse(localStorage.getItem("brands"));
+  },
+  components: { ProductCard },
+};
+</script>
+
+<template>
+  <div class="container-brands">
+    <div class="container-name">
+      <p class="logo-name">{{ $route.params.name }}</p>
+      <div class="container-img">
+        <img class="logo-img" :src="`/logos/${$route.params.name}.svg`" />
+      </div>
+    </div>
+  </div>
+  <div class="catalogue-container">
+    <div class="grid-catalogue">
+      <ProductCard
+        v-for="n in 10"
+        :key="n"
+        :product="dataProduct[0].products[n]"
+        :brand="$route.params.name"
+      />
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.container-brands {
+  width: 100%;
+  height: 30rem;
+  margin-bottom: 13rem;
+  margin-top: 5rem;
+}
+
+.container-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.logo-name {
+  font-family: "Cabinet Grotesk";
+  font-weight: 1000;
+  font-size: 16.5vw;
+  text-transform: uppercase;
+  color: var(--clr-neutral-400);
+}
+
+.container-img {
+  position: absolute;
+  top: 16rem;
+  left: 50rem;
+}
+
+.logo-img {
+  width: 20rem;
+  height: 15rem;
+}
+
+.catalogue-container {
+  width: 100%;
+  padding-inline: 3rem;
+}
+
+.grid-catalogue {
+  width: 100%;
+  --auto-grid-min-size: 24rem;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--auto-grid-min-size), 1fr)
+  );
+  grid-gap: 1rem;
+}
+
+@media screen and (max-width: 992px) {
+  .grid-catalogue {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 2rem;
+  }
+}
+</style>
