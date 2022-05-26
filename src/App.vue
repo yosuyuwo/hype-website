@@ -64,5 +64,6 @@ export default {
   justify-content: flex-start;
   flex-flow: column;
   align-items: center;
+  gap: 12rem;
 }
 </style>

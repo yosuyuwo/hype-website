@@ -23,7 +23,6 @@
 .shipping-container {
   width: 100%;
   background-color: var(--color-container-dark);
-  margin-bottom: 8rem;
   padding-inline: 3rem;
   display: flex;
   justify-content: space-between;
