@@ -21,7 +21,7 @@ export default {
             {
               title: "NMD R1",
               subtitle: "Disney Pixar - Toy Story",
-              img: "",
+              img: "https://img.stadiumgoods.com/17/59/14/89/17591489_36717819_2048.jpg",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9", "9.5", "10"],
@@ -32,7 +32,7 @@ export default {
             {
               title: "PW HU HOLI NMD MC",
               subtitle: "Pink Glow",
-              img: "",
+              img: "https://img.stadiumgoods.com/13/03/14/47/13031447_34456966_2048.jpg",
               type: "shoes",
               gender: "men",
               size: ["9", "9.5", "10"],
@@ -43,7 +43,7 @@ export default {
             {
               title: "PW HU NMD NERD",
               subtitle: "N.E.R.D",
-              img: "",
+              img: "https://img.stadiumgoods.com/13/51/53/84/13515384_34468004_2048.jpg",
               type: "shoes",
               gender: "men",
               size: ["8", "10.5", "11.5", "12"],
@@ -54,7 +54,7 @@ export default {
             {
               title: "PW HU NMD NERD",
               subtitle: "ComplexCon Exclusive 2018",
-              img: "",
+              img: "https://img.stadiumgoods.com/13/67/87/90/13678790_34477250_2048.jpg",
               type: "shoes",
               gender: "men",
               size: ["7", "7.5", "9.5"],
