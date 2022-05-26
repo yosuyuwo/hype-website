@@ -105,6 +105,10 @@ img[lazy="loaded"] + .product-logo {
     font-size: var(--fontSize-small);
     letter-spacing: 0.05rem;
   }
+
+  .product-logo {
+    width: 1.5rem;
+  }
 }
 </style>
 

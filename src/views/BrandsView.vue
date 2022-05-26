@@ -36,12 +36,12 @@ export default {
         </div>
       </div>
       <div class="middle-side">
-        <a to="" class="navigation-link black-link">HAT</a>
-        <a to="" class="navigation-link black-link">SHIRT</a>
-        <a to="" class="navigation-link black-link">PANTS</a>
-        <a to="" class="navigation-link black-link">SHOES</a>
-        <a to="" class="navigation-link black-link">MEN</a>
-        <a to="" class="navigation-link black-link">WOMEN</a>
+        <RouterLink to="" class="black-link">HAT</RouterLink>
+        <RouterLink to="" class="black-link">SHIRT</RouterLink>
+        <RouterLink to="" class="black-link">PANTS</RouterLink>
+        <RouterLink to="" class="black-link">SHOES</RouterLink>
+        <RouterLink to="" class="black-link">MEN</RouterLink>
+        <RouterLink to="" class="black-link">WOMEN</RouterLink>
       </div>
       <div class="right-side">
         <a to="" class="navigation-link black-link">1 OF 1</a>

@@ -41,12 +41,13 @@ export default {};
 
 <style scoped>
 .input-container {
+  flex: 1;
   display: flex;
   flex-flow: column;
 }
 
 input {
-  width: 24rem;
+  flex: 1;
   padding: 0.75rem 0.875rem;
   font-family: "Cabinet Grotesk", sans-serif;
   font-size: var(--fontSize-p);

@@ -102,6 +102,12 @@ body {
   color: var(--color-text-dark);
 }
 
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column;
+}
+
 h1,
 h2,
 h3,

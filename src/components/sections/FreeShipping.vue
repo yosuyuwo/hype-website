@@ -54,6 +54,11 @@
 
 .shipping-title {
   font-weight: 800;
+  text-align: center;
+}
+
+.shipping-subtitle {
+  text-align: center;
 }
 
 .shipping-time {
@@ -75,7 +80,8 @@
 @media screen and (max-width: 1200px) {
   .shipping-container {
     flex-flow: column;
-    gap: 2rem;
+    gap: 4rem;
+    padding-inline: 1rem;
     padding-bottom: 2rem;
   }
 

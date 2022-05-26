@@ -18,6 +18,9 @@ defineProps({
 <style scoped>
 .button-container {
   padding: 0.75rem 1.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   /* background-color: var(--color-container-dark); */
   color: var(--color-text-light);
   cursor: pointer;
