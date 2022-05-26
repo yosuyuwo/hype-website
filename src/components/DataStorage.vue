@@ -144,7 +144,7 @@ export default {
             {
               title: "PW HU NMD NERD",
               subtitle: "ComplexCon Exclusive 2018",
-              img: "https://img.stadiumgoods.com/13/67/87/90/13678790_34477250_2048.jpg",
+              img: "https://mysportsshoe.com/wp-content/uploads/2018/11/805368_02.jpg",
               type: "shoes",
               gender: "men",
               size: ["7", "7.5", "9.5"],
