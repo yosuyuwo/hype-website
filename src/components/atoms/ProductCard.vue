@@ -49,7 +49,12 @@ export default {
       alt="Product"
       loading="lazy"
     />
-    <img class="product-logo" :src="`/logos/${brand}.svg`" alt="Logo" />
+    <img
+      class="product-logo"
+      :class="brand"
+      :src="`/logos/${brand}.svg`"
+      alt="Logo"
+    />
     <div class="product-detail">
       <h5 class="product-title">{{ product.title }} {{ product.subtitle }}</h5>
       <p class="product-subtitle">{{ product.type }} - {{ product.gender }}</p>
@@ -79,10 +84,22 @@ export default {
 }
 
 .product-logo {
-  width: 3rem;
+  height: 3rem;
   position: absolute;
   right: 1rem;
   top: 1rem;
+}
+
+.nike {
+  height: 1rem;
+}
+
+.adidas {
+  height: 2rem;
+}
+
+.yeezy {
+  height: 1.5rem;
 }
 
 .product-logo {
@@ -107,7 +124,7 @@ img[lazy="loaded"] + .product-logo {
   }
 
   .product-logo {
-    width: 1.5rem;
+    height: 1.5rem;
   }
 }
 </style>

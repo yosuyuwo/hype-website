@@ -22,6 +22,8 @@ export default {
   data() {
     return {
       currentPath: "/",
+      brands: JSON.parse(localStorage.getItem("brands")),
+      isShowingBrand: false,
     };
   },
   mounted() {
@@ -65,14 +67,31 @@ export default {
   <nav class="navigation-container transparent">
     <div class="navigation-wrapper">
       <div class="left-side">
-        <RouterLink to="/shop" class="navigation-link black-link"
-          >SHOP</RouterLink
-        >
+        <div class="brands">
+          <p
+            class="navigation-link black-link"
+            @mouseenter="isShowingBrand = true"
+          >
+            BRANDS
+          </p>
+          <div
+            class="brand_list-container"
+            :class="isShowingBrand ? 'active' : ''"
+            @mouseleave="isShowingBrand = false"
+          >
+            <RouterLink
+              v-for="brand in brands"
+              :key="brand.name"
+              :to="`/brands/${brand.name}`"
+              class="brand-link"
+              :class="$route.params.name == brand.name ? 'active' : ''"
+            >
+              {{ brand.name }}
+            </RouterLink>
+          </div>
+        </div>
         <RouterLink to="/about" class="navigation-link black-link"
           >ABOUT</RouterLink
-        >
-        <RouterLink to="/brands" class="navigation-link black-link"
-          >BRANDS</RouterLink
         >
       </div>
       <RouterLink to="/" class="logo"> <LogoFull /> </RouterLink>
@@ -235,6 +254,40 @@ export default {
 
 .logo.mobile {
   display: none;
+}
+
+.transparent .brand_list-container {
+  background-color: transparent;
+  border: none;
+  top: 138px;
+  padding-inline: 0;
+}
+
+.brand_list-container {
+  width: calc(100% - 6rem);
+  background-color: var(--color-background);
+  position: fixed;
+  display: none;
+  top: 72px;
+  left: 3rem;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 2rem;
+  border: solid 2px var(--color-container-dark);
+  z-index: 3;
+}
+
+.brand_list-container.active {
+  display: flex;
+}
+
+.brand-link {
+  opacity: 0.5;
+  letter-spacing: 0.15rem;
+}
+
+.brand-link:hover {
+  opacity: 1;
 }
 
 @media screen and (max-width: 1200px) {

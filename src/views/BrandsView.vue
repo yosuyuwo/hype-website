@@ -1,5 +1,15 @@
 <script setup>
 document.title = "Hype - Brands";
+defineProps({
+  scrollPos: {
+    type: Number,
+    default: 0,
+  },
+  screenWidth: {
+    type: Number,
+    default: 0,
+  },
+});
 </script>
 
 <script>
@@ -21,10 +31,8 @@ export default {
 <template>
   <div class="container-brands">
     <div class="container-name">
-      <p class="logo-name">{{ $route.params.name }}</p>
-      <div class="container-img">
-        <img class="logo-img" :src="`/logos/${$route.params.name}.svg`" />
-      </div>
+      <h1 class="logo-name">{{ $route.params.name }}</h1>
+      <img class="logo-img" :src="`/logos/${$route.params.name}.svg`" />
     </div>
   </div>
   <div class="catalogue-container">
@@ -74,36 +82,32 @@ export default {
 <style scoped>
 .container-brands {
   width: 100%;
-  margin-bottom: 8rem;
-  margin-top: 8rem;
 }
 
 .container-name {
+  width: 100%;
+  padding-block: 8rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 100%;
   position: relative;
 }
 
 .logo-name {
   font-family: "Cabinet Grotesk";
-  font-weight: 1000;
-  font-size: 16.5vw;
+  font-weight: 900;
+  font-size: 8vw;
   text-transform: uppercase;
   color: var(--clr-neutral-400);
 }
 
-.container-img {
-  position: absolute;
-  transform: translateX(-50%);
-  top: 16rem;
-  left: 50%;
-}
-
 .logo-img {
-  height: 12vw;
+  height: 8vw;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 60%;
+  position: absolute;
 }
 
 .catalogue-container {
