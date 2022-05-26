@@ -2,6 +2,7 @@
 import HeroSection from "../components/sections/HeroSection.vue";
 import FeaturedProducts from "../components/sections/FeaturedSection.vue";
 import CatalogueSection from "../components/sections/CatalogueSection.vue";
+import MostBoughtSection from "../components/sections/MostBoughtSection.vue";
 
 defineProps({
   scrollPos: {
@@ -20,7 +21,8 @@ document.title = "Hype - Home";
 <template>
   <HeroSection :scrollPos="scrollPos" :screenWidth="screenWidth" />
   <FeaturedProducts :screenWidth="screenWidth" />
-  <CatalogueSection />
+  <CatalogueSection :screenWidth="screenWidth" />
+  <MostBoughtSection />
 </template>
 
 <style scoped></style>

@@ -9,36 +9,24 @@ export default {
 };
 </script>
 
-<script setup>
-defineProps({
-  screenWidth: {
-    type: Number,
-    required: true,
-  },
-});
-</script>
-
 <template>
-  <div class="catalogue-container">
+  <div class="most_bought-container">
     <div class="section-header">
-      <h5 class="section-title">WELCOME ADIDAS!</h5>
-      <RouterLink to="/brands/adidas" class="black-link"
-        >SEE ALL ITEMS</RouterLink
-      >
+      <h5 class="section-title">MOST BOUGHT ITEMS</h5>
     </div>
-    <div class="grid-catalogue">
+    <div class="section-items">
       <ProductCard
-        v-for="n in 10"
+        v-for="n in 3"
         :key="n"
-        :product="dataProduct[0].products[n]"
-        :brand="dataProduct[0].name"
+        :product="dataProduct[2].products[n]"
+        :brand="dataProduct[2].name"
       />
     </div>
   </div>
 </template>
 
 <style scoped>
-.catalogue-container {
+.most_bought-container {
   width: 100%;
   padding-inline: 3rem;
   margin-bottom: 8rem;
@@ -54,33 +42,28 @@ defineProps({
   letter-spacing: 0.15rem;
 }
 
-.grid-catalogue {
+.section-items {
   width: 100%;
   --auto-grid-min-size: 24rem;
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(var(--auto-grid-min-size), 1fr)
-  );
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
 }
 
-.black-link {
-  text-decoration: underline;
-}
-
-@media screen and (max-width: 992px) {
-  .grid-catalogue {
+@media screen and (max-width: 768px) {
+  .section-items {
     grid-template-columns: 1fr 1fr;
-    row-gap: 2rem;
   }
 }
 
 @media screen and (max-width: 576px) {
-  .catalogue-container {
+  .most_bought-container {
     padding-inline: 1rem;
   }
 
+  .section-items {
+    grid-template-columns: 1fr;
+  }
   .section-title {
     font-size: var(--fontSize-p);
     font-weight: 800;

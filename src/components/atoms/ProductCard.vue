@@ -8,9 +8,9 @@ defineProps({
     type: String,
     required: true,
   },
-  isFluid: {
+  responsive: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 });
 </script>
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <template>
-  <div class="product-card" :class="isFluid ? 'fluid' : ''">
+  <div class="product-card" :class="responsive ? 'responsive' : ''">
     <img
       class="product-image"
       v-lazy="{
@@ -49,21 +49,18 @@ export default {
       alt="Product"
       loading="lazy"
     />
+    <img class="product-logo" :src="`/logos/${brand}.svg`" alt="Logo" />
     <div class="product-detail">
       <h5 class="product-title">{{ product.title }} {{ product.subtitle }}</h5>
-      <p class="product-subtitle">{{ product.type }} / {{ brand }}</p>
-      <h5 class="product-price">
+      <p class="product-subtitle">{{ product.type }} - {{ product.gender }}</p>
+      <!-- <h5 class="product-price">
         {{ formatRupiah(product.price + "", "IDR") }}
-      </h5>
+      </h5> -->
     </div>
   </div>
 </template>
 
 <style scoped>
-.product-card:not(.fluid) {
-  width: 24rem;
-}
-
 .product-card.fluid {
   width: 100%;
 }
@@ -76,6 +73,35 @@ export default {
 
 .product-title {
   font-weight: 600;
+}
+
+.product-logo {
+  width: 3rem;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.product-logo {
+  opacity: 0;
+}
+
+img[lazy="loaded"] + .product-logo {
+  opacity: 1;
+}
+
+@media screen and (max-width: 560px) {
+  .responsive .product-title {
+    font-size: var(--fontSize-p);
+  }
+
+  .responsive .product-subtitle {
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.55;
+    font-size: var(--fontSize-small);
+    letter-spacing: 0.05rem;
+  }
 }
 </style>
 

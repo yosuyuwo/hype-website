@@ -33,34 +33,34 @@
       class="featured-carousel"
     >
       <swiper-slide class="carousel-item">
-        <ProductDetail
+        <ProductCard
           :product="dataProduct[6].products[18]"
           :brand="dataProduct[6].name"
-          :isFluid="true"
+          :responsive="false"
         />
       </swiper-slide>
       <swiper-slide class="carousel-item">
-        <ProductDetail
+        <ProductCard
           :product="dataProduct[3].products[8]"
           :brand="dataProduct[3].name"
-          :isFluid="true" /></swiper-slide
+          :responsive="false" /></swiper-slide
       ><swiper-slide class="carousel-item">
-        <ProductDetail
+        <ProductCard
           :product="dataProduct[1].products[4]"
           :brand="dataProduct[1].name"
-          :isFluid="true" /></swiper-slide
+          :responsive="false" /></swiper-slide
       ><swiper-slide class="carousel-item">
-        <ProductDetail
+        <ProductCard
           :product="dataProduct[5].products[4]"
           :brand="dataProduct[5].name"
-          :isFluid="true"
+          :responsive="false"
       /></swiper-slide>
     </swiper>
   </div>
 </template>
 
 <script setup>
-import ProductDetail from "../atoms/ProductDetail.vue";
+import ProductCard from "../atoms/ProductCard.vue";
 
 defineProps({
   screenWidth: {
@@ -113,7 +113,7 @@ export default {
   display: flex;
   flex-flow: column;
   align-items: center;
-  padding-block: 12rem;
+  margin-bottom: 8rem;
   position: relative;
 }
 
@@ -182,6 +182,10 @@ export default {
   .featured-carousel {
     padding-inline: 1rem;
     padding-right: 2rem;
+  }
+  .section-title {
+    font-size: var(--fontSize-p);
+    font-weight: 800;
   }
 }
 </style>
