@@ -155,7 +155,7 @@ export default {
             {
               title: "PHARRELL WILLIAMS SOLAR HU NMD",
               subtitle: "Solar Pack - M1L3L3",
-              img: "",
+              img: "https://assets.solesense.com/en/images/products/500/adidas-pharrell-nmd-hu-trail-solar-pack-bb9528_1.jpg",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9.5", "10"],
@@ -166,7 +166,7 @@ export default {
             {
               title: "ULTRA 4D 5.0",
               subtitle: "Black Carbon",
-              img: "",
+              img: "https://assets.solesense.com/en/images/products/500/adidas-ultra-4d-5-0-carbon-g58160_1.jpg",
               type: "shoes",
               gender: "men",
               size: ["8", "8.5", "9.5", "10"],
