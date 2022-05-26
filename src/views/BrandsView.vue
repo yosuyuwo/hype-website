@@ -75,7 +75,7 @@ export default {
 .container-brands {
   width: 100%;
   margin-bottom: 8rem;
-  margin-top: 5rem;
+  margin-top: 8rem;
 }
 
 .container-name {
