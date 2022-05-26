@@ -4,6 +4,7 @@ document.title = "Hype - Brands";
 
 <script>
 import ProductCard from "../components/atoms/ProductCard.vue";
+import SearchMagnifier from "../components/icons/SearchMagnifier.vue";
 export default {
   data() {
     return {
@@ -27,6 +28,25 @@ export default {
     </div>
   </div>
   <div class="catalogue-container">
+    <div class="navigation-wrapper">
+      <div class="left-side">
+        <input type="text" class="" />
+        <div class="navigation-icon">
+          <SearchMagnifier />
+        </div>
+      </div>
+      <div class="middle-side">
+        <a to="" class="navigation-link black-link">HAT</a>
+        <a to="" class="navigation-link black-link">SHIRT</a>
+        <a to="" class="navigation-link black-link">PANTS</a>
+        <a to="" class="navigation-link black-link">SHOES</a>
+        <a to="" class="navigation-link black-link">MEN</a>
+        <a to="" class="navigation-link black-link">WOMEN</a>
+      </div>
+      <div class="right-side">
+        <a to="" class="navigation-link black-link">1 OF 1</a>
+      </div>
+    </div>
     <div class="grid-catalogue">
       <ProductCard
         v-for="n in 10"
@@ -77,6 +97,50 @@ export default {
 .catalogue-container {
   width: 100%;
   padding-inline: 3rem;
+}
+
+.navigation-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.left-side {
+  flex: 2;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.middle-side {
+  flex: 1;
+  display: flex;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.right-side {
+  flex: 0.5;
+  display: flex;
+  gap: 3.5rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.navigation-link {
+  letter-spacing: 0.2rem;
+  cursor: pointer;
+}
+
+.transparent .navigation-link {
+  box-shadow: inset 0 0 0 0 var(--clr-neutral-100);
+  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.transparent .navigation-link:hover {
+  color: var(--clr-neutral-1000);
+  box-shadow: inset 200px 0 0 0 var(--clr-neutral-100);
 }
 
 .grid-catalogue {
