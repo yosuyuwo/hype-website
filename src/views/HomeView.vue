@@ -3,6 +3,8 @@ import HeroSection from "../components/sections/HeroSection.vue";
 import FeaturedProducts from "../components/sections/FeaturedSection.vue";
 import CatalogueSection from "../components/sections/CatalogueSection.vue";
 import MostBoughtSection from "../components/sections/MostBoughtSection.vue";
+import FreeShipping from "../components/sections/FreeShipping.vue";
+import NewsletterSection from "../components/sections/NewsletterSection.vue";
 
 defineProps({
   scrollPos: {
@@ -23,6 +25,8 @@ document.title = "Hype - Home";
   <FeaturedProducts :screenWidth="screenWidth" />
   <CatalogueSection :screenWidth="screenWidth" />
   <MostBoughtSection />
+  <FreeShipping />
+  <NewsletterSection />
 </template>
 
 <style scoped></style>

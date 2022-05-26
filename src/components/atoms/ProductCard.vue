@@ -61,6 +61,9 @@ export default {
 </template>
 
 <style scoped>
+.product-card {
+  position: relative;
+}
 .product-card.fluid {
   width: 100%;
 }
