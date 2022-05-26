@@ -297,7 +297,7 @@ export default {
 }
 
 @media screen and (max-width: 576px) {
-  .logo-text {
+  .navigation-container .logo-text {
     display: none;
   }
 }

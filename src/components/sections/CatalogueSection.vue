@@ -41,7 +41,6 @@ defineProps({
 .catalogue-container {
   width: 100%;
   padding-inline: 3rem;
-  margin-bottom: 8rem;
 }
 
 .section-header {

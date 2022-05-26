@@ -2,6 +2,7 @@
 import { RouterView } from "vue-router";
 import TheNavigation from "./components/TheNavigation.vue";
 import DataStorage from "./components/DataStorage.vue";
+import TheFooter from "./components/TheFooter.vue";
 </script>
 
 <script>
@@ -40,6 +41,7 @@ export default {
   <main class="content-container">
     <RouterView :scrollPos="scrollPosition" :screenWidth="screenWidth" />
   </main>
+  <TheFooter />
 </template>
 
 <style>
@@ -61,8 +63,16 @@ export default {
 }
 
 .content-container {
+  flex: 1;
   justify-content: flex-start;
   flex-flow: column;
   align-items: center;
+  gap: 12rem;
+}
+
+@media screen and (max-width: 768px) {
+  .content-container {
+    gap: 8rem;
+  }
 }
 </style>

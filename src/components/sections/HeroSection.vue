@@ -270,7 +270,6 @@ export default {
   position: relative;
   top: 0;
   left: 0;
-  margin-bottom: 8rem;
 }
 
 .media-container {

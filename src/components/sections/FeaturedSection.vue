@@ -98,7 +98,6 @@ export default {
   display: flex;
   flex-flow: column;
   align-items: center;
-  margin-bottom: 8rem;
   position: relative;
 }
 
