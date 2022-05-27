@@ -5,8 +5,7 @@ document.title = "Hype - Brands";
 <script>
 import { Swiper, SwiperSlide } from "swiper/vue";
 import InputButton from "../components/atoms/InputButton.vue";
-import PreviousArrow from "../components/icons/PreviousArrow.vue";
-import NextArrow from "../components/icons/NextArrow.vue";
+import InputText from "../components/atoms/InputText.vue";
 import "swiper/css";
 import "swiper/css/scrollbar";
 import { Scrollbar } from "swiper";
@@ -115,20 +114,29 @@ export default {
       <h2>NMD R1 "Tokyo"</h2>
       <h3>Rp. 3.500.000</h3>
       <h5>Size:</h5>
-      <h5>Colour:</h5>
-      <h5>Quantity:</h5>
-      <div class="qty-counter">
-        <div class="prev-arrow" :class="isReachStart ? 'disabled' : ''">
-          <PreviousArrow />
-        </div>
-        <div class="input-wrapper">
-          <input type="text" value="1" />
-        </div>
-        <div class="next-arrow" :class="isReachEnd ? 'disabled' : ''">
-          <NextArrow />
-        </div>
+      <div class="container-size">
+        <div class="size-prod" tabindex="0">8</div>
+        <div class="size-prod" tabindex="0">8.5</div>
+        <div class="size-prod" tabindex="0">9</div>
+        <div class="size-prod" tabindex="0">9.5</div>
+        <div class="size-prod" tabindex="0">10</div>
+        <div class="size-prod" tabindex="0">10.5</div>
       </div>
-      <InputButton text="ADD TO CART" style="right: 3rem; margin-left: 3rem" />
+      <h5>Colour:</h5>
+      <div class="container-color">
+        <div class="color-prod" style="background-color: rgb(0, 0, 0)"></div>
+        <div
+          class="color-prod"
+          style="background-color: rgb(255, 255, 255)"
+        ></div>
+      </div>
+      <!-- <h5>Quantity:</h5> -->
+      <div class="qty-counter">
+        <InputText withLabel="false" />
+      </div>
+      <div class="button-add">
+        <InputButton text="ADD TO CART" />
+      </div>
     </div>
   </div>
 </template>
@@ -183,51 +191,56 @@ export default {
   margin-left: 3rem;
 }
 
+.container-size {
+  width: calc(100% - 3rem);
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 0.8rem;
+}
+
+.size-prod {
+  width: 5rem;
+  flex: 1;
+  text-align: center;
+  border: solid 0.8px var(--clr-neutral-1000);
+  background-color: var(--clr-neutral-200);
+  padding-top: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.size-prod:hover {
+  color: var(--clr-neutral-200);
+  background-color: var(--clr-neutral-1000);
+}
+
+.container-color {
+  width: calc(100% - 3rem);
+  display: inline-flex;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.color-prod {
+  width: 6rem;
+  height: 5vh;
+  border: solid 0.8px var(--clr-neutral-1000);
+}
+
 .qty-counter {
   display: flex;
   flex-direction: row;
   gap: 1.5rem;
+  width: 30rem;
   height: 5vh;
+  margin-bottom: 2rem;
 }
 
-.prev-arrow,
-.next-arrow {
-  margin-top: 0.5rem;
-  aspect-ratio: 1/1;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-}
-
-.prev-arrow:hover,
-.next-arrow:hover {
-  transform: scaleX(1.2);
-}
-
-.prev-arrow {
-  justify-items: end;
-  transform-origin: right;
-}
-
-.next-arrow {
-  justify-items: start;
-  transform-origin: left;
-}
-
-input {
-  padding-inline: 0.75rem;
-  font-family: "Cabinet Grotesk", sans-serif;
-  font-size: var(--fontSize-p);
-  letter-spacing: 0.05rem;
-  background-color: transparent;
-  outline: none;
-  border: none;
-}
-
-.input-wrapper {
-  width: 2.5rem;
-  display: flex;
-  align-items: center;
-  border: solid 2px var(--color-container-dark);
+.button-add {
+  width: calc(100% - 3rem);
+  height: 5vh;
 }
 
 @media screen and (max-width: 1600px) {
