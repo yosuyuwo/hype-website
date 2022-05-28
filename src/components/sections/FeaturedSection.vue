@@ -34,14 +34,14 @@
     >
       <swiper-slide class="carousel-item">
         <ProductCard
-          :product="dataProduct[6].products[18]"
-          :brand="dataProduct[6].name"
+          :product="dataProduct[2].products[3]"
+          :brand="dataProduct[2].name"
           :responsive="false"
         />
       </swiper-slide>
       <swiper-slide class="carousel-item">
         <ProductCard
-          :product="dataProduct[3].products[8]"
+          :product="dataProduct[3].products[0]"
           :brand="dataProduct[3].name"
           :responsive="false" /></swiper-slide
       ><swiper-slide class="carousel-item">
@@ -53,6 +53,12 @@
         <ProductCard
           :product="dataProduct[5].products[4]"
           :brand="dataProduct[5].name"
+          :responsive="false"
+      /></swiper-slide>
+      <swiper-slide class="carousel-item">
+        <ProductCard
+          :product="dataProduct[4].products[1]"
+          :brand="dataProduct[4].name"
           :responsive="false"
       /></swiper-slide>
     </swiper>

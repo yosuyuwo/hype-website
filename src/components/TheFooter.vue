@@ -9,8 +9,7 @@
       </p>
     </div>
     <ul class="footer-links">
-      <li><RouterLink to="/home" class="white-link">Home</RouterLink></li>
-      <li><RouterLink to="/shop" class="white-link">Shop</RouterLink></li>
+      <li><RouterLink to="/" class="white-link">Home</RouterLink></li>
       <li><RouterLink to="/about" class="white-link">About</RouterLink></li>
       <li><RouterLink to="/brands" class="white-link">Brands</RouterLink></li>
     </ul>
