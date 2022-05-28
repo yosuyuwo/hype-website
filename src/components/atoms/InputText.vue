@@ -3,6 +3,7 @@
     <label v-if="withLabel" class="input-label" :for="name">Label</label>
     <div class="input-wrapper">
       <input type="text" :name="name" :id="name" :placeholder="placeholder" />
+      <SearchMagnifier class="search-icon" v-if="type == 'search'" />
     </div>
     <label v-if="state != 'default'" class="input-message" :for="name"
       >Message</label
@@ -11,6 +12,7 @@
 </template>
 
 <script setup>
+import SearchMagnifier from "../icons/SearchMagnifier.vue";
 defineProps({
   type: {
     type: String,
@@ -78,5 +80,9 @@ input::placeholder {
 .input-message {
   font-weight: 700;
   letter-spacing: 0.03rem;
+}
+
+.search-icon {
+  height: 2rem;
 }
 </style>

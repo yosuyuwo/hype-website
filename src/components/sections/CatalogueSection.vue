@@ -28,7 +28,7 @@ defineProps({
     </div>
     <div class="grid-catalogue">
       <ProductCard
-        v-for="n in 10"
+        v-for="n in 8"
         :key="n"
         :product="dataProduct[0].products[n]"
         :brand="dataProduct[0].name"

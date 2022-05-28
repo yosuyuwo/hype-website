@@ -28,6 +28,7 @@ export default {
   },
   mounted() {
     this.changeNavigation(0);
+    console.log(this.brands);
   },
   methods: {
     changeNavigation(scrollPos) {
@@ -79,31 +80,26 @@ export default {
             :class="isShowingBrand ? 'active' : ''"
             @mouseleave="isShowingBrand = false"
           >
-            <RouterLink
+            <a
               v-for="brand in brands"
               :key="brand.name"
-              :to="`/brands/${brand.name}`"
+              :href="`/brands/${brand.name}`"
               class="brand-link"
-              :class="$route.params.name == brand.name ? 'active' : ''"
             >
               {{ brand.name }}
-            </RouterLink>
+            </a>
           </div>
         </div>
         <RouterLink to="/about" class="navigation-link black-link"
           >ABOUT</RouterLink
         >
       </div>
-      <RouterLink to="/" class="logo"> <LogoFull /> </RouterLink>
-      <RouterLink to="/" class="logo mobile"> <LogoIcon /> </RouterLink>
+      <a href="/" class="logo"> <LogoFull /> </a>
+      <a href="/" class="logo mobile"> <LogoIcon /> </a>
       <div class="right-side">
-        <RouterLink to="/search" class="navigation-link black-link"
-          >SEARCH</RouterLink
-        >
+        <a href="/search" class="navigation-link black-link">SEARCH</a>
         <p class="navigation-link link black-link">CART <span>(0)</span></p>
-        <RouterLink to="/search" class="navigation-icon"
-          ><SearchMagnifier
-        /></RouterLink>
+        <a href="/search" class="navigation-icon"><SearchMagnifier /></a>
         <div class="navigation-icon">
           <CartBag />
         </div>

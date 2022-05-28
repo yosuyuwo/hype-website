@@ -402,16 +402,12 @@ export default {
             },
             {
               title: "Shark Full Zip Hoodie",
-              subtitle: [
+              subtitle: "",
+              img: [
                 "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115015IBGX/0ZXSWM115015IBGX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
                 "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115015IBGX/0ZXSWM115015IBGX-pdp-2.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
                 "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115015IBGX/0ZXSWM115015IBGX-pdp-3.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
               ],
-              img: "",
-              type: "t-shirt",
-              gender: "men",
-              size: ["S", "M", "L", "XL"],
-              colours: ["#FFFFF"],
               price: 6199000,
               stock: 10,
             },
@@ -622,9 +618,9 @@ export default {
               title: "Airmax 97",
               subtitle: "By You",
               img: [
-                "https://www.nike.com/id/u/custom-nike-air-force-97-by-you-10001072/2361189699",
-                "https://www.nike.com/id/u/custom-nike-air-force-97-by-you-10001072/2361189699",
-                "https://www.nike.com/id/u/custom-nike-air-force-97-by-you-10001072/2361189699",
+                "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/95c80cf2-ff69-48bd-91a8-aba951b2c153/custom-nike-air-force-97-by-you.png",
+                "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/be455c16-4d51-44ad-979a-016fbf30466a/custom-nike-air-force-97-by-you.png",
+                "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/c0b90027-6347-4e71-b293-d57b779d7854/custom-nike-air-force-97-by-you.png",
               ],
               type: "shoes",
               gender: "men",

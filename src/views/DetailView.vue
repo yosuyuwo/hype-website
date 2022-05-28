@@ -22,11 +22,23 @@ export default {
   data() {
     return {
       carousel: null,
-      dataProduct: null,
+      product: null,
+      brand: this.$route.params.brand,
     };
   },
   created() {
-    this.dataProduct = JSON.parse(localStorage.getItem("brands"));
+    const data = JSON.parse(localStorage.getItem("brands"));
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < data[i].products.length; j++) {
+        let title = data[i].products[j].title.toLowerCase();
+        title = title.replace(/[^\w\s]/gi, "").replace(/ /g, "-");
+        let subtitle = data[i].products[j].subtitle.toLowerCase();
+        subtitle = subtitle.replace(/[^\w\s]/gi, "").replace(/ /g, "-");
+        if (`${title}-${subtitle}` == this.$route.params.name) {
+          this.product = data[i].products[j];
+        }
+      }
+    }
   },
   mounted() {
     this.carousel = document.querySelector(".featured-carousel").swiper;
@@ -110,8 +122,8 @@ export default {
       </swiper>
     </div>
     <div class="product-detail">
-      <h4>ADIDAS - SHOES</h4>
-      <h2>NMD R1 "Tokyo"</h2>
+      <p>{{ brand }} - {{ product.type }}</p>
+      <h2>{{ product.title }} {{ product.subtitle }}</h2>
       <h3>Rp. 3.500.000</h3>
       <h5>Size:</h5>
       <div class="container-size">
