@@ -795,7 +795,7 @@ export default {
               title: "AIR FORCE 1 LOW '07",
               subtitle: "White on White",
               img: [
-                "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/f094af40-f82f-4fb9-a246-e031bf6fc411/air-force-1-07-shoe-NMmm1B.pn",
+                "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/f094af40-f82f-4fb9-a246-e031bf6fc411/air-force-1-07-shoe-NMmm1B.png",
                 "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/d81dae0f-e39d-4c22-a2a1-ee4b8b82a839/air-force-1-07-shoe-NMmm1B.png",
                 "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/4906dd0a-96d2-46d3-b70c-cd7c0227deef/air-force-1-07-shoe-NMmm1B.png",
               ],
