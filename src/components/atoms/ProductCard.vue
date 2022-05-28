@@ -17,28 +17,29 @@ defineProps({
 
 <script>
 export default {
-  methods: {
-    formatRupiah(angka, prefix) {
-      var number_string = angka.replace(/[^,\d]/g, "").toString(),
-        split = number_string.split(","),
-        sisa = split[0].length % 3,
-        rupiah = split[0].substr(0, sisa),
-        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-      if (ribuan) {
-        const separator = sisa ? "," : "";
-        rupiah += separator + ribuan.join(",");
-      }
-
-      rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
-      return prefix == undefined ? rupiah : rupiah ? "IDR " + rupiah : "";
+  computed: {
+    title() {
+      return this.product.title
+        .toLowerCase()
+        .replace(/[^\w\s]/gi, "")
+        .replace(/ /g, "-");
+    },
+    subtitle() {
+      return this.product.subtitle
+        .toLowerCase()
+        .replace(/[^\w\s]/gi, "")
+        .replace(/ /g, "-");
     },
   },
 };
 </script>
 
 <template>
-  <div class="product-card" :class="responsive ? 'responsive' : ''">
+  <a
+    :href="`/brands/${brand}/${title}-${subtitle}`"
+    class="product-card"
+    :class="responsive ? 'responsive' : ''"
+  >
     <img
       class="product-image"
       v-lazy="{
@@ -62,12 +63,13 @@ export default {
         {{ formatRupiah(product.price + "", "IDR") }}
       </h5> -->
     </div>
-  </div>
+  </a>
 </template>
 
 <style scoped>
 .product-card {
   position: relative;
+  color: var(--color-text-dark);
 }
 .product-card.fluid {
   width: 100%;

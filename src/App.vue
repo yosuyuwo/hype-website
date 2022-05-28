@@ -101,11 +101,6 @@ export default {
 }
 
 .loading-logo {
-  width: 8rem;
-  transition: all 0.3s ease-in-out;
-}
-
-.showing .loading-logo {
   width: 5rem;
 }
 

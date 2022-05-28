@@ -43,111 +43,111 @@ export default {
   mounted() {
     this.carousel = document.querySelector(".featured-carousel").swiper;
   },
+  methods: {
+    formatRupiah(angka, prefix) {
+      var number_string = angka.replace(/[^,\d]/g, "").toString(),
+        split = number_string.split(","),
+        sisa = split[0].length % 3,
+        rupiah = split[0].substr(0, sisa),
+        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+      if (ribuan) {
+        const separator = sisa ? "," : "";
+        rupiah += separator + ribuan.join(",");
+      }
+
+      rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+      return prefix == undefined ? rupiah : rupiah ? "IDR " + rupiah : "";
+    },
+  },
 };
 </script>
 
 <template>
   <div class="container-detail">
     <div class="img-detail">
-      <swiper
-        :speed="800"
-        :scrollbar="{
-          hide: false,
+      <img
+        class="product-image"
+        v-lazy="{
+          src: '/images/products/default.jpg',
+          loading: '/images/products/default.jpg',
+          error: '/images/products/default.jpg',
         }"
-        :modules="modules"
-        :breakpoints="{
-          1600: {
-            slidesPerView: 1,
-            spaceBetween: 16,
-          },
-          840: {
-            slidesPerView: 1,
-            spaceBetween: 16,
-          },
-          240: {
-            slidesPerView: 1,
-            spaceBetween: 16,
-          },
+        alt="Product"
+        loading="lazy"
+      /><img
+        class="product-image"
+        v-lazy="{
+          src: '/images/products/default.jpg',
+          loading: '/images/products/default.jpg',
+          error: '/images/products/default.jpg',
         }"
-        class="featured-carousel"
-      >
-        <swiper-slide class="carousel-item">
-          <img
-            class="product-image"
-            v-lazy="{
-              src: '/images/products/default.jpg',
-              loading: '/images/products/default.jpg',
-              error: '/images/products/default.jpg',
-            }"
-            alt="Product"
-            loading="lazy"
-          />
-        </swiper-slide>
-        <swiper-slide class="carousel-item">
-          <img
-            class="product-image"
-            v-lazy="{
-              src: '/images/products/default.jpg',
-              loading: '/images/products/default.jpg',
-              error: '/images/products/default.jpg',
-            }"
-            alt="Product"
-            loading="lazy"
-          />
-        </swiper-slide>
-        <swiper-slide class="carousel-item">
-          <img
-            class="product-image"
-            v-lazy="{
-              src: '/images/products/default.jpg',
-              loading: '/images/products/default.jpg',
-              error: '/images/products/default.jpg',
-            }"
-            alt="Product"
-            loading="lazy"
-          />
-        </swiper-slide>
-        <swiper-slide class="carousel-item">
-          <img
-            class="product-image"
-            v-lazy="{
-              src: '/images/products/default.jpg',
-              loading: '/images/products/default.jpg',
-              error: '/images/products/default.jpg',
-            }"
-            alt="Product"
-            loading="lazy"
-          />
-        </swiper-slide>
-      </swiper>
+        alt="Product"
+        loading="lazy"
+      /><img
+        class="product-image"
+        v-lazy="{
+          src: '/images/products/default.jpg',
+          loading: '/images/products/default.jpg',
+          error: '/images/products/default.jpg',
+        }"
+        alt="Product"
+        loading="lazy"
+      /><img
+        class="product-image"
+        v-lazy="{
+          src: '/images/products/default.jpg',
+          loading: '/images/products/default.jpg',
+          error: '/images/products/default.jpg',
+        }"
+        alt="Product"
+        loading="lazy"
+      />
     </div>
     <div class="product-detail">
-      <p>{{ brand }} - {{ product.type }}</p>
-      <h2>{{ product.title }} {{ product.subtitle }}</h2>
-      <h3>Rp. 3.500.000</h3>
-      <h5>Size:</h5>
-      <div class="container-size">
-        <div class="size-prod" tabindex="0">8</div>
-        <div class="size-prod" tabindex="0">8.5</div>
-        <div class="size-prod" tabindex="0">9</div>
-        <div class="size-prod" tabindex="0">9.5</div>
-        <div class="size-prod" tabindex="0">10</div>
-        <div class="size-prod" tabindex="0">10.5</div>
-      </div>
-      <h5>Colour:</h5>
-      <div class="container-color">
-        <div class="color-prod" style="background-color: rgb(0, 0, 0)"></div>
-        <div
-          class="color-prod"
-          style="background-color: rgb(255, 255, 255)"
-        ></div>
-      </div>
-      <!-- <h5>Quantity:</h5> -->
-      <div class="qty-counter">
-        <InputText withLabel="false" />
-      </div>
-      <div class="button-add">
-        <InputButton text="ADD TO CART" />
+      <div class="product-detail-wrapper">
+        <div class="detail-header">
+          <p class="product-type">
+            {{ brand }} / {{ product.type }} / {{ product.gender }}
+          </p>
+          <h4 class="product-title">
+            {{ product.title }} {{ product.subtitle }}
+          </h4>
+          <h5 class="product-price">
+            {{ formatRupiah(product.price + "", "IDR") }}
+          </h5>
+        </div>
+        <div class="size-section">
+          <h5 class="section-header">Size:</h5>
+          <div class="product-sizes">
+            <div class="size-variant" tabindex="0">8</div>
+            <div class="size-variant" tabindex="0">8.5</div>
+            <div class="size-variant" tabindex="0">9</div>
+            <div class="size-variant" tabindex="0">9.5</div>
+            <div class="size-variant" tabindex="0">10</div>
+            <div class="size-variant" tabindex="0">10.5</div>
+          </div>
+        </div>
+        <div class="color-section">
+          <h5 class="section-header">Colour:</h5>
+          <div class="product-colors">
+            <div
+              class="color-variant"
+              style="background-color: rgb(0, 0, 0)"
+            ></div>
+            <div
+              class="color-variant"
+              style="background-color: rgb(255, 255, 255)"
+            ></div>
+          </div>
+        </div>
+        <!-- <h5>Quantity:</h5> -->
+        <div class="qty-counter">
+          <InputText :withLabel="false" />
+        </div>
+        <div class="button-add">
+          <InputButton text="ADD TO CART" />
+        </div>
       </div>
     </div>
   </div>
@@ -157,18 +157,16 @@ export default {
 .container-detail {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  margin-top: 7rem;
-  margin-bottom: 5rem;
+  gap: 2rem;
+  margin-block: 8rem;
+  padding-inline: 3rem;
 }
 
 .img-detail {
-  width: 57vw;
+  width: 50%;
   display: flex;
-  flex: 1;
-  gap: 2rem;
-  align-items: center;
+  flex-flow: column;
+  gap: 1rem;
 }
 
 .featured-carousel {
@@ -186,21 +184,27 @@ export default {
   filter: brightness(55%);
 }
 
-.product-image {
-  width: 100%;
-  aspect-ratio: 5/5;
-  object-fit: cover;
+.product-detail {
+  flex: 1;
+  position: relative;
 }
 
-.product-detail {
-  width: 43vw;
+.product-detail-wrapper {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  flex: 1;
-  gap: 1.5rem;
-  margin-top: 3rem;
-  margin-left: 3rem;
+  flex-flow: column;
+  gap: 2rem;
+  position: sticky;
+  top: 8rem;
+}
+
+.product-title {
+  font-weight: 600;
+}
+
+.product-image {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
 }
 
 .container-size {
@@ -212,7 +216,7 @@ export default {
   gap: 0.8rem;
 }
 
-.size-prod {
+.size-variant {
   width: 5rem;
   flex: 1;
   text-align: center;
