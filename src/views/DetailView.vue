@@ -3,25 +3,12 @@ document.title = "Hype - Brands";
 </script>
 
 <script>
-import { Swiper, SwiperSlide } from "swiper/vue";
 import InputButton from "../components/atoms/InputButton.vue";
 import InputText from "../components/atoms/InputText.vue";
-import "swiper/css";
-import "swiper/css/scrollbar";
-import { Scrollbar } from "swiper";
+
 export default {
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
-  setup() {
-    return {
-      modules: [Scrollbar],
-    };
-  },
   data() {
     return {
-      carousel: null,
       product: null,
       brand: this.$route.params.brand,
     };
@@ -39,9 +26,6 @@ export default {
         }
       }
     }
-  },
-  mounted() {
-    this.carousel = document.querySelector(".featured-carousel").swiper;
   },
   methods: {
     formatRupiah(angka, prefix) {
@@ -67,36 +51,11 @@ export default {
   <div class="container-detail">
     <div class="img-detail">
       <img
+        v-for="image in product.img"
+        :key="image"
         class="product-image"
         v-lazy="{
-          src: '/images/products/default.jpg',
-          loading: '/images/products/default.jpg',
-          error: '/images/products/default.jpg',
-        }"
-        alt="Product"
-        loading="lazy"
-      /><img
-        class="product-image"
-        v-lazy="{
-          src: '/images/products/default.jpg',
-          loading: '/images/products/default.jpg',
-          error: '/images/products/default.jpg',
-        }"
-        alt="Product"
-        loading="lazy"
-      /><img
-        class="product-image"
-        v-lazy="{
-          src: '/images/products/default.jpg',
-          loading: '/images/products/default.jpg',
-          error: '/images/products/default.jpg',
-        }"
-        alt="Product"
-        loading="lazy"
-      /><img
-        class="product-image"
-        v-lazy="{
-          src: '/images/products/default.jpg',
+          src: image,
           loading: '/images/products/default.jpg',
           error: '/images/products/default.jpg',
         }"
@@ -118,32 +77,32 @@ export default {
           </h5>
         </div>
         <div class="size-section">
-          <h5 class="section-header">Size:</h5>
+          <h5 class="section-header">Size</h5>
           <div class="product-sizes">
-            <div class="size-variant" tabindex="0">8</div>
-            <div class="size-variant" tabindex="0">8.5</div>
-            <div class="size-variant" tabindex="0">9</div>
-            <div class="size-variant" tabindex="0">9.5</div>
-            <div class="size-variant" tabindex="0">10</div>
-            <div class="size-variant" tabindex="0">10.5</div>
+            <div
+              v-for="size in product.size"
+              :key="size"
+              class="size-variant"
+              tabindex="0"
+            >
+              {{ size }}
+            </div>
           </div>
         </div>
         <div class="color-section">
-          <h5 class="section-header">Colour:</h5>
+          <h5 class="section-header">Colour</h5>
           <div class="product-colors">
             <div
+              v-for="color in product.colours"
+              :key="color"
               class="color-variant"
-              style="background-color: rgb(0, 0, 0)"
-            ></div>
-            <div
-              class="color-variant"
-              style="background-color: rgb(255, 255, 255)"
+              :style="`background-color: ${color}`"
             ></div>
           </div>
         </div>
         <!-- <h5>Quantity:</h5> -->
         <div class="qty-counter">
-          <InputText :withLabel="false" />
+          <InputText :withLabel="false" type="quantity" />
         </div>
         <div class="button-add">
           <InputButton text="ADD TO CART" />
@@ -163,7 +122,7 @@ export default {
 }
 
 .img-detail {
-  width: 50%;
+  width: 70%;
   display: flex;
   flex-flow: column;
   gap: 1rem;
@@ -205,31 +164,44 @@ export default {
   width: 100%;
   aspect-ratio: 4/5;
   object-fit: cover;
+  border: solid 2px var(--color-container-dark);
 }
 
-.container-size {
+.size-section,
+.color-section {
   width: calc(100% - 3rem);
-  height: 5vh;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap: 0.8rem;
+  flex-flow: column;
+  gap: 1rem;
+}
+
+.product-sizes,
+.product-colors {
+  width: 100%;
+  --auto-grid-min-size: 3rem;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--auto-grid-min-size), 1fr)
+  );
+  grid-gap: 0.5rem;
 }
 
 .size-variant {
-  width: 5rem;
-  flex: 1;
+  width: 3rem;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1/1;
   text-align: center;
-  border: solid 0.8px var(--clr-neutral-1000);
-  background-color: var(--clr-neutral-200);
-  padding-top: 0.5rem;
+  border: solid 2px var(--color-container-dark);
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  font-weight: 600;
+  transition: all 0.1s ease-in-out;
 }
 
-.size-prod:hover {
-  color: var(--clr-neutral-200);
-  background-color: var(--clr-neutral-1000);
+.size-variant:hover {
+  color: var(--color-text-light);
+  background-color: var(--color-container-dark);
 }
 
 .container-color {
@@ -239,10 +211,33 @@ export default {
   cursor: pointer;
 }
 
-.color-prod {
-  width: 6rem;
-  height: 5vh;
-  border: solid 0.8px var(--clr-neutral-1000);
+.color-variant {
+  width: 3rem;
+  aspect-ratio: 1/1;
+  display: grid;
+  place-items: center;
+  border: solid 2px var(--color-container-dark);
+  cursor: pointer;
+  position: relative;
+}
+
+.color-variant::after {
+  width: 5px;
+  height: 5px;
+  background-color: var(--color-container-dark);
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  filter: invert() grayscale(200%);
+  mix-blend-mode: difference;
+  opacity: 0;
+  transition: all 0.1s ease-in-out;
+}
+
+.color-variant:hover::after {
+  opacity: 1;
 }
 
 .qty-counter {

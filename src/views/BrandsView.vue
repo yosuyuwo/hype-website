@@ -70,7 +70,11 @@ export default {
   <div class="container-brands">
     <div class="container-name">
       <h1 class="logo-name">{{ $route.params.name }}</h1>
-      <img class="logo-img" :src="`/logos/${$route.params.name}.svg`" />
+      <img
+        class="logo-img"
+        :class="$route.params.name"
+        :src="`/logos/${$route.params.name}.svg`"
+      />
     </div>
   </div>
   <div class="catalogue-container">
@@ -118,6 +122,7 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
+  overflow-x: hidden;
 }
 
 .logo-name {
@@ -187,8 +192,12 @@ export default {
     auto-fill,
     minmax(var(--auto-grid-min-size), 1fr)
   );
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   grid-gap: 1rem;
+}
+
+.givenchy {
+  height: 5vw !important;
 }
 
 @media screen and (max-width: 1600px) {

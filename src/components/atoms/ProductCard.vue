@@ -35,21 +35,18 @@ export default {
 </script>
 
 <template>
-  <a
-    :href="`/brands/${brand}/${title}-${subtitle}`"
-    class="product-card"
-    :class="responsive ? 'responsive' : ''"
-  >
-    <img
-      class="product-image"
-      v-lazy="{
-        src: product.img[0],
-        loading: '/images/products/default.jpg',
-        error: '/images/products/default.jpg',
-      }"
-      alt="Product"
-      loading="lazy"
-    />
+  <div class="product-card" :class="responsive ? 'responsive' : ''">
+    <a :href="`/brands/${brand}/${title}-${subtitle}`">
+      <img
+        class="product-image"
+        v-lazy="{
+          src: product.img[0],
+          loading: '/images/products/default.jpg',
+          error: '/images/products/default.jpg',
+        }"
+        alt="Product"
+        loading="lazy"
+    /></a>
     <img
       class="product-logo"
       :class="brand"
@@ -63,7 +60,7 @@ export default {
         {{ formatRupiah(product.price + "", "IDR") }}
       </h5> -->
     </div>
-  </a>
+  </div>
 </template>
 
 <style scoped>
@@ -104,6 +101,10 @@ export default {
   height: 1.5rem;
 }
 
+.givenchy {
+  height: 1rem;
+}
+
 .product-logo {
   opacity: 0;
 }
@@ -127,6 +128,10 @@ img[lazy="loaded"] + .product-logo {
 
   .product-logo {
     height: 1.5rem;
+  }
+
+  .givenchy {
+    height: 0.5rem;
   }
 }
 </style>
