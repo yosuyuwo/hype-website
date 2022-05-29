@@ -45,14 +45,13 @@ export default {
           error: '/images/products/default.jpg',
         }"
         alt="Product"
-        loading="lazy"
+        loading="lazy" /><img
+        class="product-logo"
+        :class="brand"
+        :src="`/logos/${brand}.svg`"
+        alt="Logo"
     /></a>
-    <img
-      class="product-logo"
-      :class="brand"
-      :src="`/logos/${brand}.svg`"
-      alt="Logo"
-    />
+
     <div class="product-detail">
       <h5 class="product-title">{{ product.title }} {{ product.subtitle }}</h5>
       <p class="product-subtitle">{{ product.type }} - {{ product.gender }}</p>
