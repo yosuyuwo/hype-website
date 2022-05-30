@@ -100,12 +100,14 @@ export default {
             ></div>
           </div>
         </div>
-        <!-- <h5>Quantity:</h5> -->
-        <div class="qty-counter">
-          <InputText :withLabel="false" type="quantity" />
-        </div>
-        <div class="button-add">
-          <InputButton text="ADD TO CART" />
+        <div class="qty-section">
+          <h5 class="section-header">Quantity</h5>
+          <div class="qty-counter">
+            <InputText :withLabel="false" type="quantity" />
+          </div>
+          <div class="button-add">
+            <InputButton text="ADD TO CART" />
+          </div>
         </div>
       </div>
     </div>
@@ -168,7 +170,8 @@ export default {
 }
 
 .size-section,
-.color-section {
+.color-section,
+.qty-section {
   width: calc(100% - 3rem);
   display: flex;
   flex-flow: column;
