@@ -280,6 +280,7 @@ export default {
 .brand-link {
   opacity: 0.5;
   letter-spacing: 0.15rem;
+  color: var(--color-text-dark);
 }
 
 .brand-link:hover {

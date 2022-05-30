@@ -35,27 +35,23 @@ export default {
 </script>
 
 <template>
-  <a
-    :href="`/brands/${brand}/${title}-${subtitle}`"
-    class="product-card"
-    :class="responsive ? 'responsive' : ''"
-  >
-    <img
-      class="product-image"
-      v-lazy="{
-        src: product.img[0],
-        loading: '/images/products/default.jpg',
-        error: '/images/products/default.jpg',
-      }"
-      alt="Product"
-      loading="lazy"
-    />
-    <img
-      class="product-logo"
-      :class="brand"
-      :src="`/logos/${brand}.svg`"
-      alt="Logo"
-    />
+  <div class="product-card" :class="responsive ? 'responsive' : ''">
+    <a :href="`/brands/${brand}/${title}-${subtitle}`">
+      <img
+        class="product-image"
+        v-lazy="{
+          src: product.img[0],
+          loading: '/images/products/default.jpg',
+          error: '/images/products/default.jpg',
+        }"
+        alt="Product"
+        loading="lazy" /><img
+        class="product-logo"
+        :class="brand"
+        :src="`/logos/${brand}.svg`"
+        alt="Logo"
+    /></a>
+
     <div class="product-detail">
       <h5 class="product-title">{{ product.title }} {{ product.subtitle }}</h5>
       <p class="product-subtitle">{{ product.type }} - {{ product.gender }}</p>
@@ -63,7 +59,7 @@ export default {
         {{ formatRupiah(product.price + "", "IDR") }}
       </h5> -->
     </div>
-  </a>
+  </div>
 </template>
 
 <style scoped>
@@ -104,6 +100,10 @@ export default {
   height: 1.5rem;
 }
 
+.givenchy {
+  height: 1rem;
+}
+
 .product-logo {
   opacity: 0;
 }
@@ -127,6 +127,10 @@ img[lazy="loaded"] + .product-logo {
 
   .product-logo {
     height: 1.5rem;
+  }
+
+  .givenchy {
+    height: 0.5rem;
   }
 }
 </style>

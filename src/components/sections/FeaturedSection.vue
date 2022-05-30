@@ -33,11 +33,13 @@
       class="featured-carousel"
     >
       <swiper-slide class="carousel-item">
-        <ProductCard
-          :product="dataProduct[2].products[3]"
-          :brand="dataProduct[2].name"
-          :responsive="false"
-        />
+        <div class="wrapper">
+          <ProductCard
+            :product="dataProduct[2].products[3]"
+            :brand="dataProduct[2].name"
+            :responsive="false"
+          />
+        </div>
       </swiper-slide>
       <swiper-slide class="carousel-item">
         <ProductCard

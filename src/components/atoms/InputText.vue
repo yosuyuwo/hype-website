@@ -2,8 +2,10 @@
   <div class="input-container" :class="state">
     <label v-if="withLabel" class="input-label" :for="name">Label</label>
     <div class="input-wrapper">
+      <MinusIcon class="quantity-icon" v-if="type == 'quantity'" />
       <input type="text" :name="name" :id="name" :placeholder="placeholder" />
       <SearchMagnifier class="search-icon" v-if="type == 'search'" />
+      <PlusIcon class="quantity-icon" v-if="type == 'quantity'" />
     </div>
     <label v-if="state != 'default'" class="input-message" :for="name"
       >Message</label
@@ -13,6 +15,8 @@
 
 <script setup>
 import SearchMagnifier from "../icons/SearchMagnifier.vue";
+import MinusIcon from "../icons/MinusIcon.vue";
+import PlusIcon from "../icons/PlusIcon.vue";
 defineProps({
   type: {
     type: String,
@@ -83,6 +87,10 @@ input::placeholder {
 }
 
 .search-icon {
+  height: 2rem;
+}
+
+.quantity-icon {
   height: 2rem;
 }
 </style>
