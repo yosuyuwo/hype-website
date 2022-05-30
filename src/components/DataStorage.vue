@@ -10,7 +10,7 @@ export default {
   },
   data() {
     return {
-      types: ["shoes", "hat"],
+      types: ["shoes", "hat","hoodie","t-shirt","socks","underwear","sunglasses","glasses","bracelet",""],
       brands: [
         {
           name: "adidas",
