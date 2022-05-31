@@ -87,12 +87,17 @@ export default {
     },
     populateShowedProducts() {
       this.showedProducts = this.findTypesBySearchValue();
+      // Brand name: item.name
+      // Product: i
     },
     findTypesBySearchValue() {
       let brands = [];
       for (let i = 0; i < this.dataProducts.length; i++) {
         const brand = this.dataProducts[i];
-        const isFound = brand.types.indexOf(this.inputVal.toLowerCase()) >= 0;
+        const isFound =
+          brand.types.findIndex((type) => {
+            return type.toLowerCase().includes(this.inputVal.toLowerCase());
+          }) >= 0;
         if (isFound) {
           brands.push(brand);
         }
@@ -107,7 +112,10 @@ export default {
       let brands = [];
       for (let i = 0; i < this.dataProducts.length; i++) {
         const brand = this.dataProducts[i];
-        const isFound = brand.genders.indexOf(this.inputVal.toLowerCase()) >= 0;
+        const isFound =
+          brand.genders.findIndex((gender) => {
+            return gender.toLowerCase().includes(this.inputVal.toLowerCase());
+          }) >= 0;
         if (isFound) {
           brands.push(brand);
         }
@@ -120,10 +128,11 @@ export default {
     },
     findProductsBySearchValue() {
       const products = [];
+
       for (let i = 0; i < this.dataProducts.length; i++) {
         const brand = this.dataProducts[i];
 
-        // Search products
+        // Iterate products
         for (let j = 0; j < brand.products.length; j++) {
           // Concat title dan subtitle
           const fullName =
@@ -180,19 +189,19 @@ export default {
     >
       <div
         class="search-product-section"
-        v-for="item in showedProducts"
-        :key="item.name"
+        v-for="brand in showedProducts"
+        :key="brand.name"
       >
         <div class="info-search">
-          <p class="show-info-brand">{{ showedProducts.name }}</p>
-          <p class="show-info">Found {{ showedProducts.length }} Products</p>
+          <p class="show-info-brand">{{ brand.name }}</p>
+          <p class="show-info">Found {{ brand.products.length }} Products</p>
         </div>
         <div class="grid-catalogue">
           <ProductCard
-            v-for="items in item.products"
-            :key="items.title"
-            :product="item"
-            :brand="item.name"
+            v-for="product in brand.products"
+            :key="`${product.title}_${product.subtitle}`"
+            :product="product"
+            :brand="brand.name"
           />
         </div>
       </div>
