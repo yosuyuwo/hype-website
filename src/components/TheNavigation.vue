@@ -21,14 +21,16 @@ export default {
   data() {
     return {
       currentPath: "/",
-      brands: JSON.parse(localStorage.getItem("brands")),
+      brands: [],
       isShowingBrand: false,
       isShowingMobile: false,
     };
   },
+  created() {
+    this.brands = JSON.parse(localStorage.getItem("brands"));
+  },
   mounted() {
     this.changeNavigation(0);
-    console.log(this.brands);
   },
   methods: {
     changeNavigation(scrollPos) {
@@ -75,28 +77,6 @@ export default {
         >
       </div>
       <div class="center-side">
-        <!-- <div class="brands">
-          <p
-            class="navigation-link black-link"
-            @mouseenter="isShowingBrand = true"
-          >
-            BRANDS
-          </p>
-          <div
-            class="brand_list-container"
-            :class="isShowingBrand ? 'active' : ''"
-            @mouseleave="isShowingBrand = false"
-          >
-            <a
-              v-for="brand in brands"
-              :key="brand.name"
-              :href="`/brands/${brand.name}`"
-              class="brand-link"
-            >
-              {{ brand.name }}
-            </a>
-          </div>
-        </div> -->
         <a
           v-for="brand in brands"
           :key="brand.name"

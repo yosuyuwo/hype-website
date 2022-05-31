@@ -13,17 +13,6 @@ export default {
   },
   data() {
     return {
-      types: [
-        "shoes",
-        "hat",
-        "hoodie",
-        "t-shirt",
-        "socks",
-        "underwear",
-        "sunglasses",
-        "glasses",
-        "bracelet",
-      ],
       brands: [
         {
           name: "adidas",
@@ -31,6 +20,7 @@ export default {
             title: "IMPOSSIBLE IS NOTHING",
           },
           genders: ["men", "women"],
+          types: ["jacket", "shoes", "t-shirt"],
           products: [
             {
               title: "HU NMD",
@@ -221,6 +211,7 @@ export default {
             title: "BAPE® x COACH",
           },
           genders: ["men", "women", "kids"],
+          types: ["t-shirt", "hoodie", "cap", "hat", "shoes"],
           products: [
             {
               title: "BABY MILO CREWNECK",
@@ -303,7 +294,7 @@ export default {
                 "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXLJK340006IMLX/0ZXLJK340006IMLX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
                 "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXLJK340006IMLX/0ZXLJK340006IMLX-pdp-2.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
               ],
-              type: "Hoodie",
+              type: "hoodie",
               gender: "kids",
               size: ["XS", "S", "M", "L", "XL"],
               colours: [],
@@ -403,6 +394,7 @@ export default {
             title: "Best Day Ever",
           },
           genders: ["men", "women"],
+          types: ["shoes", "t-shirt"],
           products: [
             {
               title: "Airmax 97",
@@ -520,6 +512,7 @@ export default {
             title: "Why Not?",
           },
           genders: ["men", "women", "kids", "teen"],
+          types: ["shoes"],
           products: [
             //======================== jordan 1 ============================
             {
@@ -831,6 +824,7 @@ export default {
             title: '"Out of Office"',
           },
           genders: ["men", "women"],
+          types: ["t-shirt", "hoodie", "shoes", "pants"],
           products: [
             {
               title: "Gradient Arr",
@@ -1126,6 +1120,7 @@ export default {
             title: "Persona",
           },
           genders: ["men", "women"],
+          types: ["jacket", "t-shirt", "sweater", "hoodie", "shirt", "pants"],
           products: [
             {
               title: "FLORAL DYE WORK JACKET",
@@ -1437,6 +1432,15 @@ export default {
             title: "",
           },
           genders: ["men", "women"],
+          types: [
+            "t-shirt",
+            "dress",
+            "pants",
+            "shorts",
+            "hoodie",
+            "jacket",
+            "shoes",
+          ],
           products: [
             {
               title: "SLIM FIT T-SHIRT IN JERSEY WITH PRINT",
@@ -1627,7 +1631,7 @@ export default {
                 "https://assets.givenchy.com/m/531ed7b6f0e8e91a/High_Resolution_JPG-BM515B3Y78026-03-08.jpg?imwidth=1024",
                 "",
               ],
-              type: "short",
+              type: "shorts",
               gender: "men",
               size: ["S", "M", "L", "XL", "XXL"],
               colours: ["#FFF"],
@@ -1657,7 +1661,7 @@ export default {
                 "https://assets.givenchy.com/m/6a6530148b1200e3/High_Resolution_JPG-BW30ED14A1030-03-08.jpg?imwidth=1024",
                 "",
               ],
-              type: "jackets",
+              type: "jacket",
               gender: "women",
               size: ["S", "M", "L", "XL", "XXL"],
               colours: ["#FFF"],
@@ -1672,7 +1676,7 @@ export default {
                 "https://assets.givenchy.com/m/791c12b8bfd5b10c/High_Resolution_JPG-BW30DH14A1030-03-08.jpg?imwidth=1024",
                 "",
               ],
-              type: "jackets",
+              type: "jacket",
               gender: "women",
               size: ["S", "M", "L", "XL", "XXL"],
               colours: ["#FFF"],
