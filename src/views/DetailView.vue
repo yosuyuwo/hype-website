@@ -1,5 +1,5 @@
 <script setup>
-document.title = "Hype - Brands";
+document.title = "Product Detail - Hype";
 </script>
 
 <script>
@@ -10,6 +10,8 @@ export default {
   data() {
     return {
       product: null,
+      selectedSize: null,
+      selectedColor: "",
       brand: this.$route.params.brand,
     };
   },
@@ -17,12 +19,17 @@ export default {
     const data = JSON.parse(localStorage.getItem("brands"));
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < data[i].products.length; j++) {
-        let title = data[i].products[j].title.toLowerCase();
-        title = title.replace(/[^\w\s]/gi, "").replace(/ /g, "-");
-        let subtitle = data[i].products[j].subtitle.toLowerCase();
-        subtitle = subtitle.replace(/[^\w\s]/gi, "").replace(/ /g, "-");
-        if (`${title}-${subtitle}` == this.$route.params.name) {
-          this.product = data[i].products[j];
+        if (
+          data[i].products[j].type == this.$route.params.type &&
+          data[i].products[j].gender == this.$route.params.gender
+        ) {
+          let title = data[i].products[j].title.toLowerCase();
+          title = title.replace(/[^\w\s]/gi, "").replace(/ /g, "-");
+          let subtitle = data[i].products[j].subtitle.toLowerCase();
+          subtitle = subtitle.replace(/[^\w\s]/gi, "").replace(/ /g, "-");
+          if (`${title}-${subtitle}` == this.$route.params.name) {
+            this.product = data[i].products[j];
+          }
         }
       }
     }
@@ -66,8 +73,15 @@ export default {
     <div class="product-detail">
       <div class="product-detail-wrapper">
         <div class="detail-header">
-          <p class="product-type">
-            {{ brand }} / {{ product.type }} / {{ product.gender }}
+          <p class="product-subtitle">
+            <a :href="`/brands/${brand}`">{{ brand }}</a> /
+            <a :href="`/brands/${brand}/${product.gender}`">{{
+              product.gender
+            }}</a>
+            /
+            <a :href="`/brands/${brand}/${product.gender}/${product.type}`">{{
+              product.type
+            }}</a>
           </p>
           <h4 class="product-title">
             {{ product.title }} {{ product.subtitle }}
@@ -89,7 +103,7 @@ export default {
             </div>
           </div>
         </div>
-        <div class="color-section">
+        <div class="color-section" v-if="product.colours.length > 0">
           <h5 class="section-header">Colour</h5>
           <div class="product-colors">
             <div
@@ -160,6 +174,10 @@ export default {
 
 .product-title {
   font-weight: 600;
+}
+
+.product-subtitle > * {
+  color: var(--color-text-dark);
 }
 
 .product-image {

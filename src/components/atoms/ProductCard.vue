@@ -36,11 +36,26 @@ export default {
 
 <template>
   <div class="product-card" :class="responsive ? 'responsive' : ''">
-    <a :href="`/brands/${brand}/${title}-${subtitle}`">
+    <a
+      :href="`/brands/${brand}/${product.gender}/${product.type}/${title}-${subtitle}`"
+    >
       <img
         class="product-image"
         v-lazy="{
           src: product.img[0],
+          loading: '/images/products/default.jpg',
+          error: '/images/products/default.jpg',
+        }"
+        alt="Product"
+        loading="lazy" /><img
+        class="product-logo"
+        :class="brand"
+        :src="`/logos/${brand}.svg`"
+        alt="Logo" />
+      <img
+        class="product-image-alternate"
+        v-lazy="{
+          src: product.img[1],
           loading: '/images/products/default.jpg',
           error: '/images/products/default.jpg',
         }"
@@ -54,7 +69,14 @@ export default {
 
     <div class="product-detail">
       <h5 class="product-title">{{ product.title }} {{ product.subtitle }}</h5>
-      <p class="product-subtitle">{{ product.type }} - {{ product.gender }}</p>
+      <p class="product-subtitle">
+        <a :href="`/brands/${brand}`">{{ brand }}</a> /
+        <a :href="`/brands/${brand}/${product.gender}`">{{ product.gender }}</a>
+        /
+        <a :href="`/brands/${brand}/${product.gender}/${product.type}`">{{
+          product.type
+        }}</a>
+      </p>
       <!-- <h5 class="product-price">
         {{ formatRupiah(product.price + "", "IDR") }}
       </h5> -->
@@ -71,7 +93,28 @@ export default {
   width: 100%;
 }
 
+.product-card > a:hover .product-image {
+  opacity: 0;
+}
+
+.product-card > a:hover .product-image-alternate {
+  opacity: 1;
+}
+
 .product-image {
+  transition: all 0.3s ease-in-out;
+}
+
+.product-image-alternate {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.product-image,
+.product-image-alternate {
   width: 100%;
   aspect-ratio: 4/5;
   object-fit: cover;
@@ -79,6 +122,10 @@ export default {
 
 .product-title {
   font-weight: 600;
+}
+
+.product-subtitle > * {
+  color: var(--color-text-dark);
 }
 
 .product-logo {
@@ -98,10 +145,6 @@ export default {
 
 .yeezy {
   height: 1.5rem;
-}
-
-.givenchy {
-  height: 1rem;
 }
 
 .product-logo {

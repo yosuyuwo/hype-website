@@ -1,5 +1,6 @@
 <script setup>
 document.title = "Hype - Brands";
+
 defineProps({
   scrollPos: {
     type: Number,
@@ -30,6 +31,7 @@ export default {
       (item) => item.name == this.$route.params.name
     );
     this.addShowedProducts();
+    document.title = `${this.$route.params.name} - Hype`;
   },
   methods: {
     addShowedProducts() {
@@ -194,10 +196,6 @@ export default {
   );
   margin-bottom: 1rem;
   grid-gap: 1rem;
-}
-
-.givenchy {
-  height: 5vw !important;
 }
 
 @media screen and (max-width: 1600px) {

@@ -24,6 +24,7 @@ export default {
       currentPath: "/",
       brands: JSON.parse(localStorage.getItem("brands")),
       isShowingBrand: false,
+      isShowingMobile: false,
     };
   },
   mounted() {
@@ -107,6 +108,7 @@ export default {
           id="hamburger"
           class="navigation-icon"
           onclick="this.classList.toggle('open');"
+          @click="isShowingMobile = !isShowingMobile"
         >
           <svg viewBox="0 0 100 100">
             <path
@@ -122,6 +124,28 @@ export default {
         </div>
       </div>
     </div>
+
+    <div
+      class="navigation-wrapper mobile"
+      :class="isShowingMobile ? 'showing' : ''"
+    >
+      <div class="top-part">
+        <a
+          v-for="brand in brands"
+          :key="brand.name"
+          :href="`/brands/${brand.name}`"
+          class="navigation-link black-link"
+        >
+          {{ brand.name }}
+        </a>
+      </div>
+      <div class="bottom-part">
+        <a class="navigation-link black-link"> SEARCH </a>
+        <a class="navigation-link black-link"> CART (0) </a>
+        <a href="/about" class="navigation-link black-link"> ABOUT HYPE </a>
+      </div>
+      <small class="copyright-mobile">© HYPE - 2021</small>
+    </div>
   </nav>
   <!-- END NAVIGATION -->
 </template>
@@ -131,15 +155,23 @@ export default {
   top: 0;
   width: 100%;
   max-width: calc(100% - 6rem);
-  padding: 0 2rem;
-  background-color: var(--color-background);
-  border: solid 2px var(--color-border-dark);
   border-top: none;
   transition: all 0.3s ease-in-out;
   position: fixed;
 }
 
-.navigation-container.transparent {
+.navigation-wrapper {
+  width: 100%;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-background);
+  border: solid 2px var(--color-border-dark);
+  border-top: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.transparent .navigation-wrapper {
   background-color: transparent;
   color: var(--clr-neutral-100);
   border-color: transparent;
@@ -147,10 +179,39 @@ export default {
   padding-top: 3rem;
 }
 
-.navigation-wrapper {
-  width: 100%;
+.navigation-wrapper.mobile {
+  width: max-content;
+  height: calc(100% - 72px);
+  padding: 2rem;
+  align-items: flex-start;
+  background-color: var(--color-background);
+  border: solid 2px var(--color-border-dark);
+  border-bottom: none;
+  position: fixed;
+  top: 72px;
+  right: -240px;
   display: flex;
-  align-items: center;
+  flex-flow: column;
+  justify-content: space-between;
+  padding-right: 4rem;
+  transition: all 1s ease-in-out;
+}
+
+.navigation-wrapper.mobile.showing {
+  right: 3rem;
+}
+
+.top-part,
+.bottom-part {
+  display: flex;
+  flex-flow: column;
+  gap: 1rem;
+  text-transform: uppercase;
+}
+
+.bottom-part {
+  margin-top: auto;
+  margin-bottom: 4rem;
 }
 
 .left-side {
@@ -277,6 +338,10 @@ export default {
   display: flex;
 }
 
+.transparent .brand-link {
+  color: var(--color-text-light);
+}
+
 .brand-link {
   opacity: 0.5;
   letter-spacing: 0.15rem;
@@ -287,15 +352,9 @@ export default {
   opacity: 1;
 }
 
-@media screen and (max-width: 1200px) {
-  .left-side,
-  .navigation-link {
-    display: none;
-  }
-
-  .navigation-icon {
-    display: block !important;
-  }
+.copyright-mobile {
+  opacity: 0.85;
+  font-weight: 800;
 }
 
 @media screen and (max-width: 992px) {
@@ -303,6 +362,14 @@ export default {
     max-width: 100%;
     padding-inline: 3rem;
     border-inline: none;
+  }
+  .left-side,
+  .navigation-wrapper:not(.mobile) .navigation-link {
+    display: none;
+  }
+
+  .navigation-icon {
+    display: block !important;
   }
 
   .transparent {
@@ -326,15 +393,25 @@ export default {
 
 @media screen and (max-width: 560px) {
   .navigation-container {
+    padding-inline: 0;
+  }
+
+  .navigation-wrapper {
     padding-inline: 1rem;
+    border-inline: none;
+  }
+
+  .navigation-wrapper.mobile.showing {
+    right: 0;
+    border-right: none;
   }
 }
 
 @media screen and (max-width: 480px) {
   .navigation-container {
     position: sticky;
-    padding-inline: 1rem;
   }
+
   .logo.mobile svg {
     height: 3rem;
   }
