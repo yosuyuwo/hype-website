@@ -98,8 +98,8 @@ export default {
               stock: 10,
             },
             {
-              title: "Adidas",
-              subtitle: "Ultraboost 22",
+              title: "Ultraboost 22",
+              subtitle: "Uncage Black",
               img: [
                 "https://www.adidas.co.id/media/catalog/product/g/x/gx5464_flt_ecom.jpg",
                 "https://www.adidas.co.id/media/catalog/product/g/x/gx5464_mp_ecom.jpg",

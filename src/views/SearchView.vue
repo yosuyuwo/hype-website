@@ -9,23 +9,57 @@ export default {
   data() {
     return {
       dataProducts: null,
-      dataTypes: null,
-      dataGender: null,
       inputVal: "",
       inputValAC: "",
       dataProductAC: [],
       showedProducts: [],
       object: null,
+      debounce: 3,
+      debounceInterval: false,
     };
   },
   created() {
     this.dataProducts = JSON.parse(localStorage.getItem("brands"));
-    this.dataTypes = JSON.parse(localStorage.getItem("types"));
-    this.dataGender = JSON.parse(localStorage.getItem("gender"));
     this.initialValue();
   },
   methods: {
+    initialValue() {
+      for (let i = 0; i < this.dataProducts.length; i++) {
+        for (let j = 0; j < this.dataProducts[i].products.length; j++) {
+          let dataProd = {
+            name: this.dataProducts[i].products[j].title.concat(
+              " ",
+              this.dataProducts[i].products[j].subtitle
+            ),
+          };
+          this.dataProductAC.push(dataProd);
+        }
+      }
+    },
+    keyUpHandle(e) {
+      if (!this.inputValAC.startsWith(this.inputVal)) {
+        this.inputValAC = "";
+      }
+      this.debounce = 2;
+      if (this.inputVal.length == 0) {
+        this.autoCompleteSearch(e);
+      } else if (this.debounceInterval == false) {
+        this.debounceInterval = setInterval(() => {
+          this.debounce--;
+          console.log(this.debounce);
+          if (this.debounce == 0) {
+            this.autoCompleteSearch(e);
+            if (this.inputVal.length >= 3) {
+              this.findProductBySearchValue();
+              console.log(this.showedProducts);
+            }
+          }
+        }, 1000);
+      }
+    },
     autoCompleteSearch(e) {
+      clearInterval(this.debounceInterval);
+      this.debounceInterval = false;
       let val = this.inputVal;
       let object = "";
       if (val.length < 1) {
@@ -34,12 +68,12 @@ export default {
       }
       object = this.findValueByPrefix(val);
       if (object !== null) {
-        this.inputValAC = object.name;
+        this.inputValAC = object.name.toLowerCase();
       } else {
         this.inputValAC = "";
       }
       if (e.keyCode == 39) {
-        this.inputVal = object.name;
+        this.inputVal = object.name.toLowerCase();
       }
     },
     findValueByPrefix(prefix) {
@@ -51,20 +85,71 @@ export default {
       }
       return null;
     },
-    initialValue() {
+    populateShowedProducts() {
+      const isType = this.findTypesBySearchValue();
+      const isGender = this.findGendersBySearchValue();
+
       for (let i = 0; i < this.dataProducts.length; i++) {
-        let data = { name: this.dataProducts[i].name };
-        this.dataProductAC.push(data);
-      }
-      for (let i = 0; i < this.dataTypes.length; i++) {
-        let data = { name: this.dataTypes[i] };
-        this.dataProductAC.push(data);
-      }
-      for (let i = 0; i < this.dataGender.length; i++) {
-        let data = { name: this.dataGender[i] };
-        this.dataProductAC.push(data);
+        const brand = this.dataProducts[i];
+        if (brand) {
+        }
+        for (let j = 0; j < brand.products.length; j++) {
+          if (isType) {
+            if (
+              brand.products[j].type
+                .toLowerCase()
+                .includes(this.inputVal.toLowerCase())
+            ) {
+              this.showedProducts.push(this.dataProducts[i]);
+            }
+          }
+        }
+        // const typeMatch = brand.find((element) => {
+        //   if (element.includes(substring)) {
+        //     return true;
+        //   }
+        // });
+        // if (brand.types.includes(this.inputVal)) {
+        // }
+        // for (let j = 0; j < brand.products.length; j++) {
+        //   if (brand.products[j].type.includes(this.inputVal)) {
+        //     this.showedProducts.push(this.dataProducts[i]);
+        //   }
+        // }
       }
     },
+    findTypesBySearchValue() {
+      let isFound = false;
+      for (let i = 0; i < this.dataProducts.length; i++) {
+        const brand = this.dataProducts[i];
+        isFound = brand.types.find((element) => {
+          if (element.toLowerCase().includes(this.inputVal.toLowerCase())) {
+            return true;
+          }
+        });
+      }
+      return isFound;
+    },
+    findGendersBySearchValue() {
+      let isFound = false;
+      for (let i = 0; i < this.dataProducts.length; i++) {
+        const brand = this.dataProducts[i];
+        isFound = brand.genders.find((element) => {
+          if (element.toLowerCase().includes(this.inputVal.toLowerCase())) {
+            return true;
+          }
+        });
+      }
+      return isFound;
+    },
+    // findProductsBySearchValue() {
+    //   for (let i = 0; i < this.dataProductAC.length; i++) {
+    //     let object = this.dataProductAC[i];
+    //     if (object.name.toLowerCase().includes(this.inputVal.toLowerCase())) {
+    //       return true;
+    //     }
+    //   }
+    // },
   },
 };
 </script>
@@ -78,7 +163,7 @@ export default {
           class="input-text-search"
           placeholder="Type your search here"
           v-model="inputVal"
-          @keyup="autoCompleteSearch"
+          @keyup="keyUpHandle"
         />
         <input
           type="text"
@@ -90,10 +175,27 @@ export default {
       <SearchMagnifier class="searchIcon" />
     </div>
     <div
-      class="search-product-section"
+      class="search-product-wrapper"
       v-show="inputVal.length > 0 || showedProducts.length > 0"
     >
-      <p class="show-info">Found 10 Products</p>
+      <div
+        class="search-product-section"
+        v-for="item in showedProducts"
+        :key="item.name"
+      >
+        <div class="info-search">
+          <p class="show-info-brand">{{ showedProducts.name }}</p>
+          <p class="show-info">Found {{ showedProducts.length }} Products</p>
+        </div>
+        <div class="grid-catalogue">
+          <ProductCard
+            v-for="items in item.products"
+            :key="items.title"
+            :product="item"
+            :brand="item.name"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -151,7 +253,33 @@ export default {
   padding-top: 10rem;
 }
 
+.info-search {
+  width: 100%;
+  padding-inline: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row;
+}
+
+.show-info-brand {
+  flex: 1;
+  font-weight: bold;
+}
+
 .show-info {
   font-weight: bold;
+}
+
+.grid-catalogue {
+  width: 100%;
+  --auto-grid-min-size: 24rem;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--auto-grid-min-size), 1fr)
+  );
+  margin-bottom: 1rem;
+  grid-gap: 1rem;
 }
 </style>
