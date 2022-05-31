@@ -86,70 +86,70 @@ export default {
       return null;
     },
     populateShowedProducts() {
-      const isType = this.findTypesBySearchValue();
-      const isGender = this.findGendersBySearchValue();
-
+      this.showedProducts = this.findTypesBySearchValue();
+    },
+    findTypesBySearchValue() {
+      let brands = [];
       for (let i = 0; i < this.dataProducts.length; i++) {
         const brand = this.dataProducts[i];
-        if (brand) {
+        const isFound = brand.types.indexOf(this.inputVal.toLowerCase()) >= 0;
+        if (isFound) {
+          brands.push(brand);
         }
+      }
+      if (brands.length > 0) {
+        return brands;
+      }
+
+      return this.findGendersBySearchValue();
+    },
+    findGendersBySearchValue() {
+      let brands = [];
+      for (let i = 0; i < this.dataProducts.length; i++) {
+        const brand = this.dataProducts[i];
+        const isFound = brand.genders.indexOf(this.inputVal.toLowerCase()) >= 0;
+        if (isFound) {
+          brands.push(brand);
+        }
+      }
+      if (brands.length > 0) {
+        return brands;
+      }
+
+      return this.findProductsBySearchValue();
+    },
+    findProductsBySearchValue() {
+      const products = [];
+      for (let i = 0; i < this.dataProducts.length; i++) {
+        const brand = this.dataProducts[i];
+
+        // Search products
         for (let j = 0; j < brand.products.length; j++) {
-          if (isType) {
-            if (
-              brand.products[j].type
-                .toLowerCase()
-                .includes(this.inputVal.toLowerCase())
-            ) {
-              this.showedProducts.push(this.dataProducts[i]);
+          // Concat title dan subtitle
+          const fullName =
+            brand.products[j].title + " " + brand.products[j].subtitle;
+
+          if (fullName.toLowerCase().includes(this.inputVal.toLowerCase())) {
+            //Jika ketemu, cek products apakah brand product sudah ada
+            const brandIndex = products.findIndex((item) => {
+              return item.name == brand.name;
+            });
+
+            if (brandIndex == -1) {
+              //Jika tidak ada brand product didalam products
+              products.push({
+                name: brand.name,
+                products: [brand.products[j]],
+              });
+            } else {
+              //Jika brand product sudah ada didalam products
+              products[brandIndex].products.push(brand.products[j]);
             }
           }
         }
-        // const typeMatch = brand.find((element) => {
-        //   if (element.includes(substring)) {
-        //     return true;
-        //   }
-        // });
-        // if (brand.types.includes(this.inputVal)) {
-        // }
-        // for (let j = 0; j < brand.products.length; j++) {
-        //   if (brand.products[j].type.includes(this.inputVal)) {
-        //     this.showedProducts.push(this.dataProducts[i]);
-        //   }
-        // }
       }
+      return products;
     },
-    findTypesBySearchValue() {
-      let isFound = false;
-      for (let i = 0; i < this.dataProducts.length; i++) {
-        const brand = this.dataProducts[i];
-        isFound = brand.types.find((element) => {
-          if (element.toLowerCase().includes(this.inputVal.toLowerCase())) {
-            return true;
-          }
-        });
-      }
-      return isFound;
-    },
-    findGendersBySearchValue() {
-      let isFound = false;
-      for (let i = 0; i < this.dataProducts.length; i++) {
-        const brand = this.dataProducts[i];
-        isFound = brand.genders.find((element) => {
-          if (element.toLowerCase().includes(this.inputVal.toLowerCase())) {
-            return true;
-          }
-        });
-      }
-      return isFound;
-    },
-    // findProductsBySearchValue() {
-    //   for (let i = 0; i < this.dataProductAC.length; i++) {
-    //     let object = this.dataProductAC[i];
-    //     if (object.name.toLowerCase().includes(this.inputVal.toLowerCase())) {
-    //       return true;
-    //     }
-    //   }
-    // },
   },
 };
 </script>
