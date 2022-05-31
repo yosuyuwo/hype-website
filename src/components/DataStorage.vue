@@ -379,7 +379,7 @@ export default {
                 "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXCPM180006IGYX/0ZXCPM180006IGYX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
                 "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXCPM180006IGYX/0ZXCPM180006IGYX-pdp-3.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
               ],
-              type: "hat",
+              type: "cap",
               gender: "men",
               size: ["S", "M", "L", "XL"],
               colours: ["#1E2945"],

@@ -1,5 +1,15 @@
 <script setup>
 document.title = "Product Detail - Hype";
+defineProps({
+  scrollPos: {
+    type: Number,
+    default: 0,
+  },
+  screenWidth: {
+    type: Number,
+    default: 0,
+  },
+});
 </script>
 
 <script>
@@ -19,17 +29,12 @@ export default {
     const data = JSON.parse(localStorage.getItem("brands"));
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < data[i].products.length; j++) {
-        if (
-          data[i].products[j].type == this.$route.params.type &&
-          data[i].products[j].gender == this.$route.params.gender
-        ) {
-          let title = data[i].products[j].title.toLowerCase();
-          title = title.replace(/[^\w\s]/gi, "").replace(/ /g, "-");
-          let subtitle = data[i].products[j].subtitle.toLowerCase();
-          subtitle = subtitle.replace(/[^\w\s]/gi, "").replace(/ /g, "-");
-          if (`${title}-${subtitle}` == this.$route.params.name) {
-            this.product = data[i].products[j];
-          }
+        let title = data[i].products[j].title.toLowerCase();
+        title = title.replace(/[^\w\s]/gi, "").replace(/ /g, "-");
+        let subtitle = data[i].products[j].subtitle.toLowerCase();
+        subtitle = subtitle.replace(/[^\w\s]/gi, "").replace(/ /g, "-");
+        if (`${title}-${subtitle}` == this.$route.params.name) {
+          this.product = data[i].products[j];
         }
       }
     }
@@ -75,13 +80,9 @@ export default {
         <div class="detail-header">
           <p class="product-subtitle">
             <a :href="`/brands/${brand}`">{{ brand }}</a> /
-            <a :href="`/brands/${brand}/${product.gender}`">{{
-              product.gender
-            }}</a>
+            <a :href="`/search?q=${product.gender}`">{{ product.gender }}</a>
             /
-            <a :href="`/brands/${brand}/${product.gender}/${product.type}`">{{
-              product.type
-            }}</a>
+            <a :href="`/search?q=${product.type}`">{{ product.type }}</a>
           </p>
           <h4 class="product-title">
             {{ product.title }} {{ product.subtitle }}

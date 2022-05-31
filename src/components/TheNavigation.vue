@@ -72,9 +72,7 @@ export default {
       <div class="left-side">
         <a href="/" class="logo"> <LogoIcon /> </a>
         <a href="/" class="navigation-link black-link">HOME</a>
-        <RouterLink to="/about" class="navigation-link black-link"
-          >ABOUT HYPE</RouterLink
-        >
+        <a href="/about" class="navigation-link black-link">ABOUT HYPE</a>
       </div>
       <div class="center-side">
         <a
@@ -87,7 +85,9 @@ export default {
         </a>
       </div>
       <div class="right-side">
-        <a href="/search" class="navigation-link black-link">SEARCH</a>
+        <RouterLink to="/search" class="navigation-link black-link"
+          >SEARCH</RouterLink
+        >
         <p class="navigation-link link black-link">CART <span>(0)</span></p>
         <a href="/search" class="navigation-icon"><SearchMagnifier /></a>
         <div class="navigation-icon">
@@ -129,7 +129,9 @@ export default {
         </a>
       </div>
       <div class="bottom-part">
-        <a class="navigation-link black-link"> SEARCH </a>
+        <RouterLink to="/search" class="navigation-link black-link">
+          SEARCH
+        </RouterLink>
         <a class="navigation-link black-link"> CART (0) </a>
         <a href="/about" class="navigation-link black-link"> ABOUT HYPE </a>
       </div>

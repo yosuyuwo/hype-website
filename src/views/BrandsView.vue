@@ -50,12 +50,14 @@ export default {
   },
   watch: {
     "$route.params.name"() {
-      this.index = this.dataProducts.findIndex(
-        (item) => item.name == this.$route.params.name
-      );
-      this.showedProducts = [];
-      this.currentItems = 8;
-      this.addShowedProducts();
+      if (this.$route.name == "brands") {
+        this.index = this.dataProducts.findIndex(
+          (item) => item.name == this.$route.params.name
+        );
+        this.showedProducts = [];
+        this.currentItems = 8;
+        this.addShowedProducts();
+      }
     },
     scrollPos() {
       if (

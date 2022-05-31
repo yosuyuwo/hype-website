@@ -36,9 +36,7 @@ export default {
 
 <template>
   <div class="product-card" :class="responsive ? 'responsive' : ''">
-    <a
-      :href="`/brands/${brand}/${product.gender}/${product.type}/${title}-${subtitle}`"
-    >
+    <a :href="`/brands/${brand}/${title}-${subtitle}`">
       <img
         class="product-image"
         v-lazy="{
@@ -71,11 +69,9 @@ export default {
       <h5 class="product-title">{{ product.title }} {{ product.subtitle }}</h5>
       <p class="product-subtitle">
         <a :href="`/brands/${brand}`">{{ brand }}</a> /
-        <a :href="`/brands/${brand}/${product.gender}`">{{ product.gender }}</a>
+        <a :href="`/search?q=${product.gender}`">{{ product.gender }}</a>
         /
-        <a :href="`/brands/${brand}/${product.gender}/${product.type}`">{{
-          product.type
-        }}</a>
+        <a :href="`/search?q=${product.type}`">{{ product.type }}</a>
       </p>
       <!-- <h5 class="product-price">
         {{ formatRupiah(product.price + "", "IDR") }}
