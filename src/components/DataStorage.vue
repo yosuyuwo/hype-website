@@ -7,10 +7,24 @@ export default {
     if (!localStorage.getItem("types")) {
       localStorage.setItem("types", JSON.stringify(this.types));
     }
+    if (!localStorage.getItem("gender")) {
+      localStorage.setItem("gender", JSON.stringify(this.genders));
+    }
   },
   data() {
     return {
-      types: ["shoes", "hat"],
+      genders: ["men", "women", "kids"],
+      types: [
+        "shoes",
+        "hat",
+        "hoodie",
+        "t-shirt",
+        "socks",
+        "underwear",
+        "sunglasses",
+        "glasses",
+        "bracelet",
+      ],
       brands: [
         {
           name: "adidas",
