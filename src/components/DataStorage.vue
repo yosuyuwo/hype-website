@@ -14,7 +14,18 @@ export default {
   data() {
     return {
       genders: ["men", "women", "kids"],
-      types: ["shoes", "hat", "t-shirt", "hoodie", "shirt", "jacket"],
+      types: [
+        "shoes",
+        "hat",
+        "hoodie",
+        "t-shirt",
+        "socks",
+        "underwear",
+        "sunglasses",
+        "glasses",
+        "bracelet",
+        "",
+      ],
       brands: [
         {
           name: "adidas",
