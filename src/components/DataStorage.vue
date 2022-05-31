@@ -13,7 +13,6 @@ export default {
   },
   data() {
     return {
-      genders: ["men", "women", "kids"],
       types: [
         "shoes",
         "hat",
@@ -31,6 +30,7 @@ export default {
           video: {
             title: "IMPOSSIBLE IS NOTHING",
           },
+          genders: ["men", "women"],
           products: [
             {
               title: "HU NMD",
@@ -220,6 +220,7 @@ export default {
           video: {
             title: "BAPE® x COACH",
           },
+          genders: ["men", "women", "kids"],
           products: [
             {
               title: "BABY MILO CREWNECK",
@@ -303,21 +304,21 @@ export default {
                 "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXLJK340006IMLX/0ZXLJK340006IMLX-pdp-2.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
               ],
               type: "Hoodie",
-              gender: "men",
+              gender: "kids",
               size: ["XS", "S", "M", "L", "XL"],
               colours: [],
               price: 3800000,
               stock: 11,
             },
             {
-              title: "X Vogue",
+              title: "BAPE X Vogue",
               subtitle: "Black",
               img: [
                 "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXTEK309912GBKX/0ZXTEK309912GBKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
                 "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXTEK309912GBKX/0ZXTEK309912GBKX-pdp-2.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
               ],
               type: "t-shirt",
-              gender: "men",
+              gender: "kids",
               size: ["XS", "S", "M", "L", "XL"],
               colours: ["#000000"],
               price: 1200000,
@@ -331,7 +332,7 @@ export default {
                 "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXLJK340002IBLX/0ZXLJK340002IBLX-pdp-2.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
               ],
               type: "t-shirt",
-              gender: "men",
+              gender: "kids",
               size: ["XS", "S", "M", "L", "XL"],
               colours: ["#0047AB"],
               price: 1200000,
@@ -401,6 +402,7 @@ export default {
           video: {
             title: "Best Day Ever",
           },
+          genders: ["men", "women"],
           products: [
             {
               title: "Airmax 97",
@@ -517,6 +519,7 @@ export default {
           video: {
             title: "Why Not?",
           },
+          genders: ["men", "women", "kids", "teen"],
           products: [
             //======================== jordan 1 ============================
             {
@@ -679,7 +682,7 @@ export default {
                 "https://static.nike.com/a/images/t_prod_ss/w_640,c_limit,f_auto/c855a7ec-ce30-4d1d-aa9f-2b633ba55558/air-jordan-4-fire-red-release-date.jpg",
               ],
               type: "shoes",
-              gender: "Older Kids",
+              gender: "teen",
               size: ["8", "8.5", "9", "9.5", "10"],
               colours: ["#FFF"],
               price: 8299000,
@@ -694,7 +697,7 @@ export default {
                 "https://static.nike.com/a/images/t_prod_ss/w_640,c_limit,f_auto/95f29e76-4f69-411c-9d7a-7f03c7973d10/air-jordan-4-white-and-black-dh6927-111-release-date.jpg",
               ],
               type: "shoes",
-              gender: "Older Kids",
+              gender: "teen",
               size: ["8", "8.5", "9", "9.5", "10"],
               colours: ["#FFF"],
               price: 13099000,
@@ -827,6 +830,7 @@ export default {
           video: {
             title: '"Out of Office"',
           },
+          genders: ["men", "women"],
           products: [
             {
               title: "Gradient Arr",
@@ -1121,6 +1125,7 @@ export default {
           video: {
             title: "Persona",
           },
+          genders: ["men", "women"],
           products: [
             {
               title: "FLORAL DYE WORK JACKET",
@@ -1431,6 +1436,7 @@ export default {
           video: {
             title: "",
           },
+          genders: ["men", "women"],
           products: [
             {
               title: "SLIM FIT T-SHIRT IN JERSEY WITH PRINT",

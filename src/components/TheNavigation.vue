@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink } from "vue-router";
-import LogoFull from "./icons/LogoFull.vue";
 import SearchMagnifier from "./icons/SearchMagnifier.vue";
 import CartBag from "./icons/CartBag.vue";
 import LogoIcon from "./icons/LogoIcon.vue";
@@ -69,7 +68,14 @@ export default {
   <nav class="navigation-container transparent">
     <div class="navigation-wrapper">
       <div class="left-side">
-        <div class="brands">
+        <a href="/" class="logo"> <LogoIcon /> </a>
+        <a href="/" class="navigation-link black-link">HOME</a>
+        <RouterLink to="/about" class="navigation-link black-link"
+          >ABOUT HYPE</RouterLink
+        >
+      </div>
+      <div class="center-side">
+        <!-- <div class="brands">
           <p
             class="navigation-link black-link"
             @mouseenter="isShowingBrand = true"
@@ -90,13 +96,16 @@ export default {
               {{ brand.name }}
             </a>
           </div>
-        </div>
-        <RouterLink to="/about" class="navigation-link black-link"
-          >ABOUT</RouterLink
+        </div> -->
+        <a
+          v-for="brand in brands"
+          :key="brand.name"
+          :href="`/brands/${brand.name}`"
+          class="navigation-link black-link brand-link"
         >
+          {{ brand.name }}
+        </a>
       </div>
-      <a href="/" class="logo"> <LogoFull /> </a>
-      <a href="/" class="logo mobile"> <LogoIcon /> </a>
       <div class="right-side">
         <a href="/search" class="navigation-link black-link">SEARCH</a>
         <p class="navigation-link link black-link">CART <span>(0)</span></p>
@@ -154,20 +163,20 @@ export default {
 .navigation-container {
   top: 0;
   width: 100%;
-  max-width: calc(100% - 6rem);
-  border-top: none;
   transition: all 0.3s ease-in-out;
   position: fixed;
 }
 
 .navigation-wrapper {
   width: 100%;
-  padding: 0 2rem;
+  padding: 0 3rem;
   display: flex;
+  position: fixed;
+  top: 0;
   align-items: center;
   background-color: var(--color-background);
-  border: solid 2px var(--color-border-dark);
-  border-top: none;
+  border-bottom: solid 2px var(--color-border-dark);
+  z-index: 2;
   transition: all 0.3s ease-in-out;
 }
 
@@ -175,30 +184,29 @@ export default {
   background-color: transparent;
   color: var(--clr-neutral-100);
   border-color: transparent;
-  padding: 0;
   padding-top: 3rem;
 }
 
 .navigation-wrapper.mobile {
-  width: max-content;
-  height: calc(100% - 72px);
+  width: calc(100% - 6rem);
   padding: 2rem;
   align-items: flex-start;
   background-color: var(--color-background);
   border: solid 2px var(--color-border-dark);
   border-bottom: none;
   position: fixed;
-  top: 72px;
-  right: -240px;
+  top: calc((100% - 72px) * -1);
+  right: 3rem;
+  z-index: 1;
   display: flex;
   flex-flow: column;
   justify-content: space-between;
   padding-right: 4rem;
-  transition: all 1s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .navigation-wrapper.mobile.showing {
-  right: 3rem;
+  top: 72px;
 }
 
 .top-part,
@@ -215,22 +223,23 @@ export default {
 }
 
 .left-side {
-  flex: 1;
   display: flex;
   gap: 2rem;
+  align-items: center;
+}
+
+.center-side {
+  display: flex;
+  gap: 2rem;
+  margin-inline: auto;
   align-items: center;
 }
 
 .right-side {
-  flex: 1;
   display: flex;
   gap: 2rem;
   justify-content: flex-end;
   align-items: center;
-}
-
-.transparent .logo svg {
-  height: 5rem;
 }
 
 .logo svg {
@@ -338,7 +347,11 @@ export default {
   display: flex;
 }
 
-.transparent .brand-link {
+.brand-link {
+  text-transform: uppercase;
+}
+
+/* .transparent .brand-link {
   color: var(--color-text-light);
 }
 
@@ -350,7 +363,7 @@ export default {
 
 .brand-link:hover {
   opacity: 1;
-}
+} */
 
 .copyright-mobile {
   opacity: 0.85;

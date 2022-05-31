@@ -31,7 +31,10 @@ export default {
       (item) => item.name == this.$route.params.name
     );
     this.addShowedProducts();
-    document.title = `${this.$route.params.name} - Hype`;
+    document.title = `${
+      this.$route.params.name.charAt(0).toUpperCase() +
+      this.$route.params.name.slice(1)
+    } - Hype`;
   },
   methods: {
     addShowedProducts() {

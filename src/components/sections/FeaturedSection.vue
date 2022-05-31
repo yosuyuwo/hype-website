@@ -138,26 +138,6 @@ export default {
   transition: all 0.3s ease-in-out;
 }
 
-.carousel-item:not(.swiper-slide-active):not(.swiper-slide-next):not(.swiper-slide-next
-    + .carousel-item) {
-  opacity: 0.3;
-  filter: brightness(55%);
-}
-
-@media screen and (max-width: 1600px) {
-  .swiper-slide-next + .carousel-item {
-    opacity: 0.3;
-    filter: brightness(55%);
-  }
-}
-
-@media screen and (max-width: 840px) {
-  .swiper-slide-next {
-    opacity: 0.3;
-    filter: brightness(55%);
-  }
-}
-
 @media screen and (max-width: 576px) {
   .section-header {
     flex-flow: column;
