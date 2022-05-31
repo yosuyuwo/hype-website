@@ -24,7 +24,6 @@ export default {
         "sunglasses",
         "glasses",
         "bracelet",
-        "",
       ],
       brands: [
         {
