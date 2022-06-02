@@ -41,6 +41,9 @@ export default {
       this.populateShowedProducts();
     }
   },
+  mounted() {
+    window.scrollTo(0, 0);
+  },
   methods: {
     initialValue() {
       for (let i = 0; i < this.dataProducts.length; i++) {

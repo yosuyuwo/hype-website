@@ -38,13 +38,65 @@ export default {
   },
   methods: {
     addShowedProducts() {
-      for (
-        let i = this.currentItems - 8;
-        i < this.dataProducts[this.index].products.length &&
-        i < this.currentItems;
-        i++
-      ) {
-        this.showedProducts.push(this.dataProducts[this.index].products[i]);
+      this.showedProducts = [];
+      for (let i = 0; i < this.dataProducts[this.index].products.length; i++) {
+        const product = this.dataProducts[this.index].products[i];
+        if (
+          this.isGender &&
+          this.isType &&
+          this.genderValue === product.gender &&
+          this.typeValue === product.type
+        ) {
+          this.showedProducts.push(product);
+        } else if (
+          this.isGender &&
+          !this.isType &&
+          this.genderValue === product.gender
+        ) {
+          this.showedProducts.push(product);
+        } else if (
+          this.isType &&
+          !this.isGender &&
+          this.typeValue === product.type
+        ) {
+          this.showedProducts.push(product);
+        } else if (!this.isGender && !this.isType) {
+          this.showedProducts.push(product);
+        }
+      }
+    },
+    queryPath(name, value) {
+      const base = this.$route.path;
+      const fullPath = this.$route.fullPath;
+      if (fullPath.indexOf("?") != -1) {
+        let queries = fullPath.substring(
+          fullPath.indexOf("?") + 1,
+          fullPath.length
+        );
+        queries = queries.split("&");
+        queries = queries.map(function (str) {
+          const item = str.split("=");
+          return { name: item[0], value: item[1] };
+        });
+        if (
+          queries.findIndex((item) => {
+            return item.name == name && item.value == value;
+          }) == -1
+        ) {
+          queries = queries.filter((item) => item.name != name);
+          queries = queries.map(function (item) {
+            return `${item.name}=${item.value}`;
+          });
+          queries.push(`${name}=${value}`);
+        } else {
+          queries = queries.filter((item) => item.name != name);
+          queries = queries.map(function (item) {
+            return `${item.name}=${item.value}`;
+          });
+        }
+        return `${base}?${queries.join("&")}`;
+      } else {
+        return `${base}?${name}=${value}`;
       }
     },
   },
@@ -54,10 +106,13 @@ export default {
         this.index = this.dataProducts.findIndex(
           (item) => item.name == this.$route.params.name
         );
-        this.showedProducts = [];
         this.currentItems = 8;
         this.addShowedProducts();
       }
+    },
+    "$route.query"() {
+      this.currentItems = 8;
+      this.addShowedProducts();
     },
     scrollPos() {
       if (
@@ -67,6 +122,20 @@ export default {
         this.currentItems += 8;
         this.addShowedProducts();
       }
+    },
+  },
+  computed: {
+    isGender() {
+      return typeof this.$route.query.gender != "undefined";
+    },
+    isType() {
+      return typeof this.$route.query.type != "undefined";
+    },
+    genderValue() {
+      return this.$route.query.gender;
+    },
+    typeValue() {
+      return this.$route.query.type;
     },
   },
   components: { ProductCard },
@@ -86,32 +155,62 @@ export default {
   </div>
   <div class="catalogue-container">
     <div class="navigation-wrapper">
-      <!-- <div class="middle-side">
-        <RouterLink to="" class="black-link">HAT</RouterLink>
-        <RouterLink to="" class="black-link">SHIRT</RouterLink>
-        <RouterLink to="" class="black-link">PANTS</RouterLink>
-        <RouterLink to="" class="black-link">SHOES</RouterLink>
-        <RouterLink to="" class="black-link">MEN</RouterLink>
-        <RouterLink to="" class="black-link">WOMEN</RouterLink>
-      </div> -->
+      <div class="filter-navigation type-navigation">
+        <RouterLink
+          v-for="typeName in dataProducts[index].types"
+          :key="typeName"
+          :to="queryPath('type', typeName)"
+          :class="$route.query.type == typeName ? 'current' : ''"
+          class="black-link"
+        >
+          {{ typeName }}
+        </RouterLink>
+      </div>
+      <div class="filter-navigation gender-navigation">
+        <RouterLink
+          v-for="genderName in dataProducts[index].genders"
+          :key="genderName"
+          :to="queryPath('gender', genderName)"
+          :class="$route.query.gender == genderName ? 'current' : ''"
+          class="black-link"
+        >
+          {{ genderName }}
+        </RouterLink>
+      </div>
     </div>
-    <div class="grid-catalogue">
-      <ProductCard
-        v-for="item in showedProducts"
+    <div class="grid-catalogue" v-if="showedProducts.length > 0">
+      <div
+        v-for="(item, index) in showedProducts"
         :key="item.title"
-        :product="item"
-        :brand="$route.params.name"
-      />
+        :class="index < currentItems ? '' : 'no-card'"
+      >
+        <ProductCard :product="item" :brand="$route.params.name" />
+      </div>
     </div>
+    <h5 v-else class="not-found">No product found. Try readjust the filter</h5>
     <div class="navigation-wrapper">
-      <!-- <div class="middle-side">
-        <RouterLink to="" class="black-link">HAT</RouterLink>
-        <RouterLink to="" class="black-link">SHIRT</RouterLink>
-        <RouterLink to="" class="black-link">PANTS</RouterLink>
-        <RouterLink to="" class="black-link">SHOES</RouterLink>
-        <RouterLink to="" class="black-link">MEN</RouterLink>
-        <RouterLink to="" class="black-link">WOMEN</RouterLink>
-      </div> -->
+      <div class="filter-navigation type-navigation">
+        <RouterLink
+          v-for="typeName in dataProducts[index].types"
+          :key="typeName"
+          :to="queryPath('type', typeName)"
+          :class="$route.query.type == typeName ? 'current' : ''"
+          class="black-link"
+        >
+          {{ typeName }}
+        </RouterLink>
+      </div>
+      <div class="filter-navigation gender-navigation">
+        <RouterLink
+          v-for="genderName in dataProducts[index].genders"
+          :key="genderName"
+          :to="queryPath('gender', genderName)"
+          :class="$route.query.gender == genderName ? 'current' : ''"
+          class="black-link"
+        >
+          {{ genderName }}
+        </RouterLink>
+      </div>
     </div>
   </div>
 </template>
@@ -129,7 +228,7 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .logo-name {
@@ -162,6 +261,18 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.filter-navigation {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.filter-navigation .current {
+  color: var(--color-text-light);
+  box-shadow: inset 200px 0 0 0 var(--color-container-dark);
 }
 
 .middle-side {
@@ -201,6 +312,16 @@ export default {
   );
   margin-bottom: 1rem;
   grid-gap: 1rem;
+}
+
+.no-card {
+  display: none;
+}
+
+.not-found {
+  width: 100%;
+  padding-block: 4rem;
+  text-align: center;
 }
 
 @media screen and (max-width: 1600px) {

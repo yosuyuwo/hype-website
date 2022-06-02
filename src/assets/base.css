@@ -163,6 +163,7 @@ a,
 }
 
 .black-link {
+  cursor: pointer;
   color: var(--color-text-black);
   box-shadow: inset 0 0 0 0 var(--color-container-dark);
   transition: color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86),

@@ -73,6 +73,13 @@ export default {
         <a href="/" class="logo"> <LogoIcon /> </a>
         <a href="/" class="navigation-link black-link">HOME</a>
         <a href="/about" class="navigation-link black-link">ABOUT HYPE</a>
+        <p
+          class="navigation-link black-link special-link"
+          :class="isShowingBrand ? 'active' : ''"
+          @mouseenter="isShowingBrand = true"
+        >
+          BRANDS
+        </p>
       </div>
       <div class="center-side">
         <a
@@ -112,6 +119,21 @@ export default {
           </svg>
         </div>
       </div>
+    </div>
+
+    <div
+      class="navigation-brand"
+      :class="isShowingBrand ? 'showing' : ''"
+      @mouseleave="isShowingBrand = false"
+    >
+      <a
+        v-for="brand in brands"
+        :key="brand.name"
+        :href="`/brands/${brand.name}`"
+        class="navigation-link black-link brand-link"
+      >
+        {{ brand.name }}
+      </a>
     </div>
 
     <div
@@ -191,6 +213,21 @@ export default {
   top: 72px;
 }
 
+.navigation-brand {
+  width: 100%;
+  padding-inline: 3rem;
+  padding-block: 1rem;
+  border-bottom: solid 2px var(--color-border-dark);
+  display: flex;
+  gap: 2rem;
+  background-color: var(--color-background);
+  transition: all 0.3s ease-in-out;
+}
+
+.navigation-brand.showing {
+  margin-top: 72px;
+}
+
 .top-part,
 .bottom-part {
   display: flex;
@@ -242,7 +279,15 @@ export default {
 
 .transparent .navigation-link {
   box-shadow: inset 0 0 0 0 var(--clr-neutral-100);
-  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition: color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86),
+    box-shadow 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+.navigation-link.active {
+  color: var(--color-text-light);
+  box-shadow: inset 200px 0 0 0 var(--color-container-dark);
+  transition: color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86),
+    box-shadow 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
 
 .transparent .navigation-link:hover {
@@ -350,6 +395,24 @@ export default {
 .copyright-mobile {
   opacity: 0.85;
   font-weight: 800;
+}
+
+.special-link {
+  display: none;
+}
+
+@media screen and (max-width: 1500px) {
+  .special-link {
+    display: inline;
+  }
+
+  .center-side {
+    display: none;
+  }
+
+  .right-side {
+    margin-left: auto;
+  }
 }
 
 @media screen and (max-width: 992px) {

@@ -4,12 +4,6 @@ export default {
     if (!localStorage.getItem("brands")) {
       localStorage.setItem("brands", JSON.stringify(this.brands));
     }
-    if (!localStorage.getItem("types")) {
-      localStorage.setItem("types", JSON.stringify(this.types));
-    }
-    if (!localStorage.getItem("gender")) {
-      localStorage.setItem("gender", JSON.stringify(this.genders));
-    }
   },
   data() {
     return {
