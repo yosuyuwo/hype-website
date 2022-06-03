@@ -139,6 +139,13 @@ export default {
   transition: all 0.3s ease-in-out;
 }
 
+@media screen and (max-width: 992px) {
+  .featured-carousel,
+  .section-header {
+    padding-inline: 1rem;
+  }
+}
+
 @media screen and (max-width: 576px) {
   .section-header {
     flex-flow: column;

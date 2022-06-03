@@ -74,18 +74,23 @@ export default {
 @media screen and (max-width: 992px) {
   .newsletter-form {
     width: 100%;
+    padding-inline: 2rem;
   }
   .newsletter-container {
-    padding-inline: 3rem;
+    padding-inline: 5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .newsletter-form {
+    flex-flow: column;
+    padding-inline: 0;
   }
 }
 
 @media screen and (max-width: 560px) {
   .newsletter-container {
     padding-inline: 1rem;
-  }
-  .newsletter-form {
-    flex-flow: column;
   }
 }
 </style>

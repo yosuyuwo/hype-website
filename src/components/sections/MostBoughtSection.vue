@@ -49,6 +49,12 @@ export default {
   grid-gap: 1rem;
 }
 
+@media screen and (max-width: 992px) {
+  .most_bought-container {
+    padding-inline: 1rem;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .section-items {
     grid-template-columns: 1fr 1fr;
@@ -56,10 +62,6 @@ export default {
 }
 
 @media screen and (max-width: 576px) {
-  .most_bought-container {
-    padding-inline: 1rem;
-  }
-
   .section-items {
     grid-template-columns: 1fr;
   }

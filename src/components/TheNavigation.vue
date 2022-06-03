@@ -465,6 +465,10 @@ export default {
     padding-inline: 1rem;
   }
 
+  .navigation-brand {
+    padding-inline: 1rem;
+  }
+
   .transparent .navigation-wrapper {
     padding-inline: 3rem;
   }
@@ -550,6 +554,9 @@ export default {
 </style>
 
 <style>
+#app {
+  overflow-x: hidden;
+}
 .logo-text {
   transition: all 0.3s ease-in-out;
 }

@@ -73,13 +73,12 @@ defineProps({
     grid-template-columns: 1fr 1fr;
     row-gap: 2rem;
   }
-}
-
-@media screen and (max-width: 576px) {
   .catalogue-container {
     padding-inline: 1rem;
   }
+}
 
+@media screen and (max-width: 576px) {
   .section-title {
     font-size: var(--fontSize-p);
     font-weight: 800;
