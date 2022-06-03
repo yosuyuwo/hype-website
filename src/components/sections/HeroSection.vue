@@ -386,10 +386,15 @@ input[type="number"] {
     aspect-ratio: 9/16;
     overflow-x: hidden;
   }
+  .hero-container {
+    position: relative;
+    height: calc(100vh - 72px);
+  }
 
   .hero-background.mobile,
   .media-container.mobile {
     display: block;
+    object-position: center top;
   }
 
   .hero-background:not(.mobile),
@@ -437,11 +442,6 @@ input[type="number"] {
 }
 
 @media screen and (max-width: 480px) {
-  .hero-container {
-    position: relative;
-    height: calc(100vh - 72px);
-  }
-
   .content-container {
     position: absolute;
   }

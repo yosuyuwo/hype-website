@@ -37,7 +37,7 @@ export default {
       // Handles Navigation Color
       if (
         scrollPos > 300 ||
-        window.innerWidth < 480 ||
+        window.innerWidth < 768 ||
         this.currentPath != "/"
       ) {
         document
@@ -60,6 +60,10 @@ export default {
     $route(to) {
       this.currentPath = to.path;
       this.changeNavigation();
+    },
+    isShowingMobile(value) {
+      if (value) document.querySelector("body").style.overflow = "hidden";
+      else document.querySelector("body").style.overflow = "auto";
     },
   },
 };
@@ -159,6 +163,11 @@ export default {
       </div>
       <small class="copyright-mobile">© HYPE - 2021</small>
     </div>
+    <div
+      class="screen-overlay"
+      @click="isShowingMobile = false"
+      :class="isShowingMobile ? 'showing' : ''"
+    ></div>
   </nav>
   <!-- END NAVIGATION -->
 </template>
@@ -192,25 +201,23 @@ export default {
 }
 
 .navigation-wrapper.mobile {
-  width: calc(100% - 6rem);
+  width: max-content;
+  right: -20rem;
+  height: calc(100vh - 72px);
   padding: 2rem;
   align-items: flex-start;
   background-color: var(--color-background);
   border: solid 2px var(--color-border-dark);
+  border-right: none;
   border-bottom: none;
   position: fixed;
-  top: calc((100% - 72px) * -1);
-  right: 3rem;
+  top: 72px;
   z-index: 1;
   display: flex;
   flex-flow: column;
   justify-content: space-between;
-  padding-right: 4rem;
+  padding-right: 8rem;
   transition: all 0.5s ease-in-out;
-}
-
-.navigation-wrapper.mobile.showing {
-  top: 72px;
 }
 
 .navigation-brand {
@@ -224,6 +231,18 @@ export default {
   transition: all 0.3s ease-in-out;
 }
 
+.transparent .navigation-brand {
+  background-color: transparent;
+  opacity: 0;
+  color: var(--color-text-light);
+  border: none;
+}
+
+.transparent .navigation-brand.showing {
+  opacity: 1;
+  margin-top: calc(72px + 3rem);
+}
+
 .navigation-brand.showing {
   margin-top: 72px;
 }
@@ -232,7 +251,7 @@ export default {
 .bottom-part {
   display: flex;
   flex-flow: column;
-  gap: 1rem;
+  gap: 2rem;
   text-transform: uppercase;
 }
 
@@ -250,8 +269,10 @@ export default {
 .center-side {
   display: flex;
   gap: 2rem;
-  margin-inline: auto;
   align-items: center;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .right-side {
@@ -295,11 +316,14 @@ export default {
   box-shadow: inset 200px 0 0 0 var(--clr-neutral-100);
 }
 
+.transparent .navigation-link.active {
+  color: var(--clr-neutral-1000);
+  box-shadow: inset 200px 0 0 0 var(--clr-neutral-100);
+}
+
 #hamburger {
   cursor: pointer;
   display: flex;
-  padding: 0;
-  height: 2rem;
 }
 
 /* Hamburger Icon */
@@ -339,10 +363,17 @@ export default {
 }
 
 .navigation-icon {
-  height: 1.75rem;
+  height: 100%;
+  padding: 1.25rem;
   aspect-ratio: 1/1;
   cursor: pointer;
   display: none !important;
+  transition: all 0.1s ease-in-out;
+}
+
+.navigation-icon:hover {
+  background-color: var(--color-container-dark);
+  color: var(--color-text-light);
 }
 
 .logo.mobile {
@@ -401,6 +432,24 @@ export default {
   display: none;
 }
 
+.right-side {
+  margin-left: auto;
+}
+
+.screen-overlay {
+  position: fixed;
+  visibility: hidden;
+  inset: 0;
+  background-color: var(--clr-neutral-1000);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.screen-overlay.showing {
+  visibility: visible;
+  opacity: 0.5;
+}
+
 @media screen and (max-width: 1500px) {
   .special-link {
     display: inline;
@@ -409,43 +458,53 @@ export default {
   .center-side {
     display: none;
   }
-
-  .right-side {
-    margin-left: auto;
-  }
 }
 
 @media screen and (max-width: 992px) {
+  .navigation-wrapper {
+    padding-inline: 1rem;
+  }
+
+  .transparent .navigation-wrapper {
+    padding-inline: 3rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
   .navigation-container {
     max-width: 100%;
-    padding-inline: 3rem;
     border-inline: none;
   }
-  .left-side,
+
   .navigation-wrapper:not(.mobile) .navigation-link {
     display: none;
   }
 
   .navigation-icon {
-    display: block !important;
+    display: flex !important;
+  }
+  .transparent .navigation-wrapper {
+    padding-inline: 1rem !important;
   }
 
-  .transparent {
-    padding-inline: 3rem !important;
+  .navigation-wrapper {
+    padding-right: 0;
+    position: sticky;
   }
 
-  .logo {
+  .navigation-brand {
     display: none;
   }
 
-  .logo.mobile {
-    display: flex;
+  .right-side {
+    height: 72px;
+    gap: 0;
   }
-}
-
-@media screen and (max-width: 768px) {
-  .transparent {
-    padding-inline: 1rem !important;
+  .navigation-wrapper.mobile.showing {
+    right: 0;
+  }
+  .navigation-container {
+    position: sticky;
   }
 }
 
@@ -456,22 +515,36 @@ export default {
 
   .navigation-wrapper {
     padding-inline: 1rem;
-    border-inline: none;
+    padding-right: 0;
   }
 
   .navigation-wrapper.mobile.showing {
     right: 0;
     border-right: none;
   }
+
+  .navigation-icon {
+    display: flex;
+    justify-content: center;
+    padding-inline: 0.5rem;
+  }
+
+  .navigation-icon svg {
+    width: 2rem;
+  }
 }
 
 @media screen and (max-width: 480px) {
-  .navigation-container {
-    position: sticky;
-  }
-
   .logo.mobile svg {
     height: 3rem;
+  }
+  .top-part,
+  .bottom-part {
+    gap: 1rem;
+  }
+
+  .navigation-wrapper.mobile {
+    padding-right: 4rem;
   }
 }
 </style>

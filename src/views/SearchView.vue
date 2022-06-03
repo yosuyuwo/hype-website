@@ -1,7 +1,6 @@
 <script setup>
 import SearchMagnifier from "../components/icons/SearchMagnifier.vue";
 import ProductCard from "../components/atoms/ProductCard.vue";
-import $ from "jquery";
 
 document.title = "Hype - Brands";
 

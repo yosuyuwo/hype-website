@@ -1423,7 +1423,7 @@ export default {
         {
           name: "givenchy",
           video: {
-            title: "",
+            title: "Diversity, Inclusion.",
           },
           genders: ["men", "women"],
           types: [

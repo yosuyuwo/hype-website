@@ -116,6 +116,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   flex-flow: row;
+  overflow-x: hidden;
 }
 
 .section-title {
@@ -125,7 +126,7 @@ export default {
 }
 
 .featured-control {
-  margin-left: -1.2rem;
+  margin-right: -1.9rem;
 }
 
 .featured-carousel {
