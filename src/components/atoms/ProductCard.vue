@@ -132,15 +132,11 @@ export default {
 }
 
 .nike {
-  height: 1rem;
+  height: 0.65rem !important;
 }
 
 .adidas {
-  height: 2rem;
-}
-
-.yeezy {
-  height: 1.5rem;
+  height: 2rem !important;
 }
 
 .product-logo {

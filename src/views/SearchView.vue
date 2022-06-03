@@ -30,6 +30,7 @@ export default {
       loading: false,
       debounce: 2,
       debounceInterval: false,
+      autofills: [],
     };
   },
   created() {
@@ -80,6 +81,7 @@ export default {
         this.debounceInterval = setInterval(() => {
           this.debounce--;
           if (this.debounce == 0) {
+            if (this.screenWidth <= 768) this.populateAutofill();
             if (e.keyCode != 40) {
               this.autoCompleteSearch(e);
             }
@@ -115,6 +117,20 @@ export default {
         this.inputValAC = "";
       }
     },
+    populateAutofill() {
+      this.autofills = [];
+      for (let i = 0; i < this.dataProducts.length; i++) {
+        const products = this.dataProducts[i].products;
+        for (let j = 0; j < products.length; j++) {
+          const product = products[j];
+          const fullName = `${product.title} ${product.subtitle}`;
+
+          if (fullName.toLowerCase().includes(this.inputVal.toLowerCase())) {
+            this.autofills.push(fullName);
+          }
+        }
+      }
+    },
     findValueByPrefix(prefix) {
       for (let i = 0; i < this.dataProductAC.length; i++) {
         let object = this.dataProductAC[i];
@@ -125,7 +141,7 @@ export default {
       return null;
     },
     populateShowedProducts() {
-      this.showedProducts = this.findTypesBySearchValue();
+      this.showedProducts = this.findBrandBySearchValue();
       console.log(this.showedProducts);
       this.$router.replace({
         name: "SearchProduct",
@@ -133,6 +149,15 @@ export default {
       });
       // Brand name: item.name
       // Product: i
+    },
+    findBrandBySearchValue() {
+      const index = this.dataProducts.findIndex((item) => {
+        return item.name.toLowerCase() == this.inputVal.toLowerCase();
+      });
+      if (index == -1) {
+        return this.findTypesBySearchValue();
+      }
+      return this.dataProducts[index];
     },
     findTypesBySearchValue() {
       let products = [];
@@ -240,6 +265,11 @@ export default {
       }
       return products;
     },
+    autofillHandler(value) {
+      this.inputVal = value;
+      this.autofills = [];
+      this.populateShowedProducts();
+    },
   },
 };
 </script>
@@ -267,8 +297,21 @@ export default {
           v-model="inputValAC"
           disabled
         />
+        <SearchMagnifier class="searchIcon" />
+        <div
+          class="autofill-mobile"
+          :class="autofills.length > 0 ? 'showing' : ''"
+        >
+          <p
+            v-for="title in autofills"
+            :key="title"
+            @click="autofillHandler(title)"
+            tabindex="0"
+          >
+            {{ title }}
+          </p>
+        </div>
       </div>
-      <SearchMagnifier class="searchIcon" />
     </div>
     <h5
       v-show="
@@ -289,7 +332,7 @@ export default {
         :key="brand.name"
       >
         <div class="info-search">
-          <p class="show-info-brand">{{ brand.name }}</p>
+          <h5 class="show-info-brand">{{ brand.name }}</h5>
           <p class="show-info">Found {{ brand.products.length }} Products</p>
         </div>
         <div class="grid-catalogue">
@@ -339,6 +382,7 @@ export default {
 .input-wrapper {
   flex: 1;
   position: relative;
+  height: max-content;
 }
 
 .input-text-search {
@@ -359,7 +403,18 @@ export default {
 }
 
 .searchIcon {
-  height: 5rem;
+  height: 100%;
+  right: 0;
+  position: absolute;
+  cursor: pointer;
+  z-index: 8;
+  padding: 0.75rem 0.875rem;
+  transition: all 0.1s ease-in-out;
+}
+
+.searchIcon:hover {
+  background-color: var(--color-container-dark);
+  color: var(--color-text-light);
 }
 
 .search-product-wrapper {
@@ -387,6 +442,7 @@ export default {
   width: 100%;
   padding-inline: 3rem;
   display: flex;
+  gap: 1rem;
   justify-content: flex-start;
   align-items: flex-start;
   flex-flow: column;
@@ -402,7 +458,8 @@ export default {
 
 .show-info-brand {
   flex: 1;
-  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
 }
 
 .show-info {
@@ -419,5 +476,80 @@ export default {
   );
   margin-bottom: 1rem;
   grid-gap: 1rem;
+}
+
+.autofill-mobile {
+  display: flex;
+  flex-flow: column;
+  height: 0;
+  overflow-y: auto;
+  visibility: hidden;
+  border: solid 2px var(--color-container-dark);
+  border-top: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.autofill-mobile.showing {
+  visibility: visible;
+  height: 12rem;
+}
+
+.autofill-mobile * {
+  font-weight: 600;
+  cursor: pointer;
+  padding: 1rem 0.875rem;
+}
+
+.autofill-mobile *:focus {
+  background-color: var(--clr-neutral-500);
+}
+
+@media screen and (max-width: 992px) {
+  .search-input-section,
+  .search-product-section {
+    padding-inline: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .search-input-section {
+    padding-inline: 1rem;
+  }
+
+  .container-search {
+    padding-top: 2rem;
+  }
+
+  .input-text-search {
+    height: 56px;
+    font-size: var(--fontSize-h5);
+    border: solid 2px var(--color-container-dark);
+    padding: 0.75rem 0.875rem;
+  }
+
+  .ac-helper {
+    display: none;
+  }
+
+  .input-text-search.ac {
+    display: none;
+  }
+
+  .input-text-search {
+    position: static;
+  }
+
+  .searchIcon {
+    height: 56px;
+    padding: 0.75rem 0.875rem;
+    border: none;
+    background-color: var(--color-container-dark);
+    color: var(--color-text-light);
+  }
+
+  .grid-catalogue {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 2rem;
+  }
 }
 </style>

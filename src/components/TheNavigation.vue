@@ -100,14 +100,16 @@ export default {
           >SEARCH</RouterLink
         >
         <p class="navigation-link link black-link">CART <span>(0)</span></p>
-        <a href="/search" class="navigation-icon"><SearchMagnifier /></a>
+        <RouterLink to="/search" class="navigation-icon"
+          ><SearchMagnifier
+        /></RouterLink>
         <div class="navigation-icon">
           <CartBag />
         </div>
         <div
           id="hamburger"
           class="navigation-icon"
-          onclick="this.classList.toggle('open');"
+          :class="isShowingMobile ? 'open' : ''"
           @click="isShowingMobile = !isShowingMobile"
         >
           <svg viewBox="0 0 100 100">
@@ -506,9 +508,6 @@ export default {
   }
   .navigation-wrapper.mobile.showing {
     right: 0;
-  }
-  .navigation-container {
-    position: sticky;
   }
 }
 

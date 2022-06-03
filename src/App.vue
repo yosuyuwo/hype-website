@@ -108,6 +108,7 @@ export default {
   .content-container {
     gap: 8rem;
     margin-bottom: 8rem;
+    margin-top: 72px;
   }
 }
 
