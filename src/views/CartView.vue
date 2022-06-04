@@ -30,8 +30,36 @@ export default {
     <div class="cart-wrapper">
       <div class="cart-section">
         <h5 class="cart-title">Cart</h5>
-        <div class="product-section" v-for="index in 3" :key="index">
-          <div class="product-detail"></div>
+        <div class="product-section" v-for="index in 1" :key="index">
+          <div class="product-wrapper">
+            <img
+              class="product-image"
+              v-lazy="{
+                src: '/images/products/default.jpg',
+                loading: '/images/products/default.jpg',
+                error: '/images/products/default.jpg',
+              }"
+              alt="Product"
+              loading="lazy"
+            />
+            <div class="product-info">
+              <div class="title-price-wrapper">
+                <p class="title-content">Name of the Products</p>
+                <p class="price-content">Rp. 3.100.000,00</p>
+              </div>
+              <div class="another-title-wrapper">
+                <p class="type-content">Type</p>
+                <p class="color-content">Colour</p>
+                <div class="size-qty-container">
+                  <p class="size-content">Size</p>
+                  <input type="text" class="inp" />
+                  <p class="qty-content">Quantity</p>
+                  <input type="text" class="inp" />
+                </div>
+              </div>
+              <h5 class="remove-link">Remove</h5>
+            </div>
+          </div>
           <hr class="line-separate" />
         </div>
       </div>
@@ -81,31 +109,69 @@ export default {
 
 .cart-title {
   font-weight: bold;
-  top: 0.5rem;
 }
 
-.product-section {
-  width: 100%;
-  display: grid;
-  align-items: start;
-}
-
-.product-detail {
-  width: 100%;
-  height: 11rem;
+.product-wrapper {
+  width: clamp(36rem, calc(46rem - 2rem), 46rem);
+  display: flex;
+  justify-content: flex-start;
+  gap: 2rem;
   padding-block: 1rem;
   padding-inline: 0.5rem;
 }
 
+.product-image {
+  width: 14.9rem;
+  aspect-ratio: 1/1;
+  transition: all 0.3s ease-in-out;
+}
+
+.product-info {
+  flex: 1;
+  gap: 1rem;
+}
+
+.title-price-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.another-title-wrapper {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+.size-qty-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.2rem;
+}
+
+.inp {
+  width: 2rem;
+}
+.remove-link {
+  cursor: pointer;
+  text-decoration: underline;
+  margin-top: 6rem;
+}
+
+.remove-link:hover {
+  color: var(--clr-neutral-600);
+}
+
 .line-separate {
   width: 100%;
-  height: 1px;
   border: 0.5px solid var(--clr-neutral-1000);
 }
 
 .summary-section {
-  flex: 1;
   position: sticky;
+  flex: 1;
+  height: max-content;
   top: 5.5rem;
 }
 
@@ -125,11 +191,11 @@ export default {
 .total-item {
   font-weight: bold;
 }
-
+/*
 .line-separate-sub {
   margin-top: 1rem;
   width: 78%;
-}
+} */
 
 .buttonCheckout {
   margin-top: 3rem;
