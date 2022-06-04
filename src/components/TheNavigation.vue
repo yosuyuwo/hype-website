@@ -99,7 +99,9 @@ export default {
         <RouterLink to="/search" class="navigation-link black-link"
           >SEARCH</RouterLink
         >
-        <p class="navigation-link link black-link">CART <span>(0)</span></p>
+        <RouterLink to="/cart" class="navigation-link link black-link"
+          >CART <span>(0)</span></RouterLink
+        >
         <RouterLink to="/search" class="navigation-icon"
           ><SearchMagnifier
         /></RouterLink>
