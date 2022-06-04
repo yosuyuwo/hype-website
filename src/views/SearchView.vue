@@ -31,6 +31,7 @@ export default {
       debounce: 2,
       debounceInterval: false,
       autofills: [],
+      inputFocus: false,
     };
   },
   created() {
@@ -59,44 +60,62 @@ export default {
       }
     },
     keyUpHandle(e) {
+      this.showedProducts = [];
+      clearInterval(this.debounceInterval);
+      this.debounceInterval = false;
       if (e.keyCode == 40 && this.inputValAC.length != 0) {
         this.inputVal = this.inputValAC;
         this.inputValAC = "";
+        this.autofills = [];
       }
       if (!this.inputValAC.startsWith(this.inputVal)) {
         this.inputValAC = "";
       }
-      this.debounce = 2;
-      if (this.inputVal.length == 0) {
-        this.inputValAC = "";
-        this.showedProducts = [];
-      }
-      if (
-        this.debounceInterval == false &&
-        (/[a-zA-Z0-9-_ ]/.test(String.fromCharCode(e.keyCode)) ||
-          e.keyCode == 8 ||
-          e.keyCode == 40)
-      ) {
-        this.loading = true;
-        this.debounceInterval = setInterval(() => {
-          this.debounce--;
-          if (this.debounce == 0) {
-            if (this.screenWidth <= 768) this.populateAutofill();
-            if (e.keyCode != 40) {
-              this.autoCompleteSearch(e);
+      if (e.keyCode != 13) {
+        this.debounce = 1;
+        if (this.inputVal.length == 0) {
+          this.inputValAC = "";
+          this.showedProducts = [];
+          this.autofills = [];
+        }
+        if (
+          this.debounceInterval == false &&
+          (/[a-zA-Z0-9-_ ]/.test(String.fromCharCode(e.keyCode)) ||
+            e.keyCode == 8 ||
+            e.keyCode == 40)
+        ) {
+          this.debounceInterval = setInterval(() => {
+            this.debounce--;
+            console.log(this.debounce);
+            if (this.debounce == 0) {
+              if (e.keyCode != 40) {
+                if (this.screenWidth <= 768 && this.inputVal.length > 0)
+                  this.populateAutofill();
+                else this.autoCompleteSearch(e);
+              }
+              clearInterval(this.debounceInterval);
+              this.debounceInterval = false;
             }
-            if (this.inputVal.length >= 3) {
-              this.populateShowedProducts();
-              console.log(this.showedProducts);
-            }
-            this.loading = false;
-          }
-        }, 1000);
+          }, 500);
+        }
+      } else {
+        this.loadingData();
       }
     },
-    autoCompleteSearch() {
+    loadingData() {
       clearInterval(this.debounceInterval);
       this.debounceInterval = false;
+      this.debounce = 2;
+      this.loading = true;
+      this.debounceInterval = setInterval(() => {
+        this.debounce--;
+        if (this.debounce == 0) {
+          this.populateShowedProducts();
+          this.loading = false;
+        }
+      }, 1000);
+    },
+    autoCompleteSearch() {
       let val = this.inputVal;
       let object = "";
       if (val.length < 1) {
@@ -142,7 +161,9 @@ export default {
     },
     populateShowedProducts() {
       this.showedProducts = this.findBrandBySearchValue();
-      console.log(this.showedProducts);
+      if (this.showedProducts.length == 0) {
+        this.showedProducts = false;
+      }
       this.$router.replace({
         name: "SearchProduct",
         query: { q: this.inputVal },
@@ -154,10 +175,11 @@ export default {
       const index = this.dataProducts.findIndex((item) => {
         return item.name.toLowerCase() == this.inputVal.toLowerCase();
       });
+      console.log(index);
       if (index == -1) {
         return this.findTypesBySearchValue();
       }
-      return this.dataProducts[index];
+      return [this.dataProducts[index]];
     },
     findTypesBySearchValue() {
       let products = [];
@@ -290,6 +312,8 @@ export default {
           placeholder="Type your search here"
           v-model="inputVal"
           @keyup="keyUpHandle"
+          @focusin="inputFocus = true"
+          @focusout="inputFocus = false"
         />
         <input
           type="text"
@@ -297,10 +321,10 @@ export default {
           v-model="inputValAC"
           disabled
         />
-        <SearchMagnifier class="searchIcon" />
+        <SearchMagnifier class="searchIcon" @click="loadingData" />
         <div
           class="autofill-mobile"
-          :class="autofills.length > 0 ? 'showing' : ''"
+          :class="autofills.length > 0 && inputFocus ? 'showing' : ''"
         >
           <p
             v-for="title in autofills"
@@ -313,13 +337,7 @@ export default {
         </div>
       </div>
     </div>
-    <h5
-      v-show="
-        debounceInterval == false &&
-        showedProducts.length == 0 &&
-        inputVal.length >= 3
-      "
-    >
+    <h5 v-show="typeof showedProducts != 'object' && showedProducts == false">
       Sorry, we could not find anything for "{{ inputVal }}".
     </h5>
     <div

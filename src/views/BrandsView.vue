@@ -44,20 +44,20 @@ export default {
         if (
           this.isGender &&
           this.isType &&
-          this.genderValue === product.gender &&
-          this.typeValue === product.type
+          this.genderValues.indexOf(product.gender.toLowerCase()) != -1 &&
+          this.typeValues.indexOf(product.type.toLowerCase()) != -1
         ) {
           this.showedProducts.push(product);
         } else if (
           this.isGender &&
           !this.isType &&
-          this.genderValue === product.gender
+          this.genderValues.indexOf(product.gender.toLowerCase()) != -1
         ) {
           this.showedProducts.push(product);
         } else if (
           this.isType &&
           !this.isGender &&
-          this.typeValue === product.type
+          this.typeValues.indexOf(product.type.toLowerCase()) != -1
         ) {
           this.showedProducts.push(product);
         } else if (!this.isGender && !this.isType) {
@@ -78,22 +78,39 @@ export default {
           const item = str.split("=");
           return { name: item[0], value: item[1] };
         });
+
         if (
           queries.findIndex((item) => {
-            return item.name == name && item.value == value;
-          }) == -1
+            return item.name == name;
+          }) != -1
         ) {
-          queries = queries.filter((item) => item.name != name);
-          queries = queries.map(function (item) {
-            return `${item.name}=${item.value}`;
+          // Jika ketemu
+          queries = queries.map((item) => {
+            if (item.name == name) {
+              const valueArray = item.value.split("_");
+              if (valueArray.indexOf(value) == -1) valueArray.push(value);
+              else {
+                valueArray.splice(valueArray.indexOf(value), 1);
+              }
+              item.value = valueArray.join("_");
+            }
+
+            return item;
           });
-          queries.push(`${name}=${value}`);
         } else {
-          queries = queries.filter((item) => item.name != name);
-          queries = queries.map(function (item) {
-            return `${item.name}=${item.value}`;
+          queries.push({
+            name: name,
+            value: value,
           });
         }
+        const removedIndex = queries.findIndex((item) => {
+          return item.value == "";
+        });
+        if (removedIndex != -1) queries.splice(removedIndex, 1);
+
+        queries = queries.map(function (item) {
+          return `${item.name}=${item.value}`;
+        });
         return `${base}?${queries.join("&")}`;
       } else {
         return `${base}?${name}=${value}`;
@@ -131,11 +148,13 @@ export default {
     isType() {
       return typeof this.$route.query.type != "undefined";
     },
-    genderValue() {
-      return this.$route.query.gender;
+    genderValues() {
+      if (this.isGender) return this.$route.query.gender.split("_");
+      return [""];
     },
-    typeValue() {
-      return this.$route.query.type;
+    typeValues() {
+      if (this.isType) return this.$route.query.type.split("_");
+      return [""];
     },
   },
   components: { ProductCard },
@@ -160,7 +179,7 @@ export default {
           v-for="typeName in dataProducts[index].types"
           :key="typeName"
           :to="queryPath('type', typeName)"
-          :class="$route.query.type == typeName ? 'current' : ''"
+          :class="typeValues.indexOf(typeName) != -1 ? 'current' : ''"
           class="black-link"
         >
           {{ typeName }}
@@ -171,7 +190,7 @@ export default {
           v-for="genderName in dataProducts[index].genders"
           :key="genderName"
           :to="queryPath('gender', genderName)"
-          :class="$route.query.gender == genderName ? 'current' : ''"
+          :class="genderValues.indexOf(genderName) != -1 ? 'current' : ''"
           class="black-link"
         >
           {{ genderName }}
@@ -194,7 +213,7 @@ export default {
           v-for="typeName in dataProducts[index].types"
           :key="typeName"
           :to="queryPath('type', typeName)"
-          :class="$route.query.type == typeName ? 'current' : ''"
+          :class="typeValues.indexOf(typeName) != -1 ? 'current' : ''"
           class="black-link"
         >
           {{ typeName }}
@@ -205,7 +224,7 @@ export default {
           v-for="genderName in dataProducts[index].genders"
           :key="genderName"
           :to="queryPath('gender', genderName)"
-          :class="$route.query.gender == genderName ? 'current' : ''"
+          :class="genderValues.indexOf(genderName) != -1 ? 'current' : ''"
           class="black-link"
         >
           {{ genderName }}
