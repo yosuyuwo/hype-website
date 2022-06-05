@@ -22,7 +22,9 @@ export default {
       product: null,
       selectedSize: null,
       selectedColor: "",
+      quantityValue: 1,
       brand: this.$route.params.brand,
+      state: "default",
     };
   },
   created() {
@@ -55,6 +57,22 @@ export default {
       rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
       return prefix == undefined ? rupiah : rupiah ? "IDR " + rupiah : "";
     },
+    addCart() {
+      if (this.selectedSize == null) {
+        this.state = "error";
+      } else {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        this.product.selectedSize = this.selectedSize;
+        this.product.qty = this.quantityValue;
+        cart.push(this.product);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        this.$emit("cartChanged");
+      }
+    },
+    selectSize(size) {
+      this.selectedSize = size;
+      this.state = "default";
+    },
   },
 };
 </script>
@@ -80,9 +98,13 @@ export default {
         <div class="detail-header">
           <p class="product-subtitle">
             <a :href="`/brands/${brand}`">{{ brand }}</a> /
-            <a :href="`/search?q=${product.gender}`">{{ product.gender }}</a>
+            <a :href="`/brands/${brand}?gender=${product.gender}`">{{
+              product.gender
+            }}</a>
             /
-            <a :href="`/search?q=${product.type}`">{{ product.type }}</a>
+            <a :href="`/brands/${brand}?type=${product.type}`">{{
+              product.type
+            }}</a>
           </p>
           <h4 class="product-title">
             {{ product.title }} {{ product.subtitle }}
@@ -98,30 +120,25 @@ export default {
               v-for="size in product.size"
               :key="size"
               class="size-variant"
-              tabindex="0"
+              @click="selectSize(size)"
+              :class="selectedSize == size ? 'active' : ''"
             >
               {{ size }}
             </div>
           </div>
-        </div>
-        <div class="color-section" v-if="product.colours.length > 0">
-          <h5 class="section-header">Colour</h5>
-          <div class="product-colors">
-            <div
-              v-for="color in product.colours"
-              :key="color"
-              class="color-variant"
-              :style="`background-color: ${color}`"
-            ></div>
-          </div>
+          <p class="error-text" v-show="state == 'error'">Please select size</p>
         </div>
         <div class="qty-section">
           <h5 class="section-header">Quantity</h5>
           <div class="qty-counter">
-            <InputText :withLabel="false" type="quantity" />
+            <InputText
+              :withLabel="false"
+              type="quantity"
+              v-model="quantityValue"
+            />
           </div>
           <div class="button-add">
-            <InputButton text="ADD TO CART" />
+            <InputButton text="ADD TO CART" @click="addCart()" />
           </div>
         </div>
       </div>
@@ -185,7 +202,7 @@ export default {
   width: 100%;
   aspect-ratio: 4/5;
   object-fit: cover;
-  border: solid 2px var(--color-container-dark);
+  border: solid 2px var(--clr-neutral-800);
 }
 
 .size-section,
@@ -215,15 +232,17 @@ export default {
   place-items: center;
   aspect-ratio: 1/1;
   text-align: center;
-  border: solid 2px var(--color-container-dark);
+  border: solid 2px var(--clr-neutral-300);
   cursor: pointer;
   font-weight: 600;
   transition: all 0.1s ease-in-out;
 }
 
-.size-variant:hover {
+.size-variant:hover,
+.size-variant.active {
   color: var(--color-text-light);
   background-color: var(--color-container-dark);
+  border-color: var(--color-container-dark);
 }
 
 .container-color {
@@ -276,10 +295,20 @@ export default {
   height: 5vh;
 }
 
+.error-text {
+  color: var(--clr-error-500);
+}
+
 @media screen and (max-width: 1600px) {
   .swiper-slide-next + .carousel-item {
     opacity: 0.3;
     filter: brightness(55%);
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .container-detail {
+    flex-flow: column;
   }
 }
 

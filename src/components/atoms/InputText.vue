@@ -1,11 +1,30 @@
 <template>
-  <div class="input-container" :class="state">
+  <div
+    class="input-container"
+    :class="`${state} ${type} ${isFocus ? 'input-focus' : ''}`"
+  >
     <label v-if="withLabel" class="input-label" :for="name">Label</label>
     <div class="input-wrapper">
-      <MinusIcon class="quantity-icon" v-if="type == 'quantity'" />
-      <input type="text" :name="name" :id="name" :placeholder="placeholder" />
+      <MinusIcon
+        class="quantity-icon"
+        v-if="type == 'quantity'"
+        @click="updateQty(-1)"
+      />
+      <input
+        type="text"
+        @focusin="isFocus = true"
+        @focusout="isFocus = false"
+        :name="name"
+        :id="name"
+        :placeholder="placeholder"
+        v-model="value"
+      />
       <SearchMagnifier class="search-icon" v-if="type == 'search'" />
-      <PlusIcon class="quantity-icon" v-if="type == 'quantity'" />
+      <PlusIcon
+        class="quantity-icon"
+        v-if="type == 'quantity'"
+        @click="updateQty(1)"
+      />
     </div>
     <label v-if="state != 'default'" class="input-message" :for="name"
       >Message</label
@@ -38,11 +57,38 @@ defineProps({
     type: Boolean,
     default: true,
   },
+  modelValue: {
+    type: [String, Number],
+    default: "",
+  },
 });
 </script>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      isFocus: false,
+      value: "",
+    };
+  },
+  mounted() {
+    this.value = this.modelValue;
+  },
+  methods: {
+    updateQty(value) {
+      if (this.value == 1 && value < 0) {
+        return;
+      }
+      this.value += value;
+    },
+  },
+  watch: {
+    value() {
+      this.$emit("update:modelValue", this.value);
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -50,6 +96,15 @@ export default {};
   flex: 1;
   display: flex;
   flex-flow: column;
+}
+
+.input-container.quantity {
+  flex: 0;
+}
+
+.quantity input {
+  width: 6ch;
+  text-align: center;
 }
 
 input {
@@ -71,7 +126,16 @@ input::placeholder {
   display: flex;
   align-items: center;
   gap: 1rem;
-  border: solid 2px var(--color-container-dark);
+  border: solid 2px var(--clr-neutral-300);
+  transition: border 0.3s ease-in-out;
+}
+
+.input-focus .input-wrapper {
+  border: solid 2px var(--clr-neutral-800);
+}
+
+.quantity .input-wrapper {
+  gap: 0;
 }
 
 .input-label {
@@ -91,6 +155,12 @@ input::placeholder {
 }
 
 .quantity-icon {
-  height: 2rem;
+  height: 3rem;
+  padding: 0.9rem;
+  color: var(--clr-neutral-800);
+}
+
+.quantity-icon:hover {
+  cursor: pointer;
 }
 </style>

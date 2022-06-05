@@ -314,6 +314,7 @@ export default {
           @keyup="keyUpHandle"
           @focusin="inputFocus = true"
           @focusout="inputFocus = false"
+          :class="inputFocus ? 'input-focus' : ''"
         />
         <input
           type="text"
@@ -541,8 +542,13 @@ export default {
   .input-text-search {
     height: 56px;
     font-size: var(--fontSize-h5);
-    border: solid 2px var(--color-container-dark);
+    border: solid 2px var(--clr-neutral-300);
     padding: 0.75rem 0.875rem;
+    transition: border 0.3s ease-in-out;
+  }
+
+  .input-text-search.input-focus {
+    border: solid 2px var(--color-container-dark);
   }
 
   .ac-helper {
@@ -561,8 +567,8 @@ export default {
     height: 56px;
     padding: 0.75rem 0.875rem;
     border: none;
-    background-color: var(--color-container-dark);
-    color: var(--color-text-light);
+    /* background-color: var(--color-container-dark); */
+    /* color: var(--color-text-light); */
   }
 
   .grid-catalogue {

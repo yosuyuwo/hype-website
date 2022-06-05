@@ -13,6 +13,10 @@ defineProps({
     type: Number,
     default: 0,
   },
+  cartChanged: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 
@@ -22,12 +26,14 @@ export default {
     return {
       currentPath: "/",
       brands: [],
+      cart: [],
       isShowingBrand: false,
       isShowingMobile: false,
     };
   },
   created() {
     this.brands = JSON.parse(localStorage.getItem("brands"));
+    this.cart = JSON.parse(localStorage.getItem("cart")) || [];
   },
   mounted() {
     this.changeNavigation(0);
@@ -65,6 +71,10 @@ export default {
       if (value) document.querySelector("body").style.overflow = "hidden";
       else document.querySelector("body").style.overflow = "auto";
     },
+    cartChanged() {
+      this.cart = JSON.parse(localStorage.getItem("cart")) || [];
+      this.$emit("cartChanged");
+    },
   },
 };
 </script>
@@ -100,7 +110,7 @@ export default {
           >SEARCH</RouterLink
         >
         <RouterLink to="/cart" class="navigation-link link black-link"
-          >CART <span>(0)</span></RouterLink
+          >CART <span>({{ cart.length }})</span></RouterLink
         >
         <RouterLink to="/search" class="navigation-icon"
           ><SearchMagnifier
@@ -162,7 +172,7 @@ export default {
         <RouterLink to="/search" class="navigation-link black-link">
           SEARCH
         </RouterLink>
-        <a class="navigation-link black-link"> CART (0) </a>
+        <a class="navigation-link black-link"> CART ({{ cart.length }}) </a>
         <a href="/about" class="navigation-link black-link"> ABOUT HYPE </a>
       </div>
       <small class="copyright-mobile">© HYPE - 2021</small>
@@ -188,7 +198,7 @@ export default {
   width: 100%;
   padding: 0 3rem;
   display: flex;
-  position: fixed;
+  position: absolute;
   top: 0;
   align-items: center;
   background-color: var(--color-background);
@@ -556,7 +566,7 @@ export default {
 
 <style>
 #app {
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 .logo-text {
   transition: all 0.3s ease-in-out;

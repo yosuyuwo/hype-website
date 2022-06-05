@@ -23,6 +23,7 @@ export default {
       showedProducts: [],
       currentItems: 8,
       index: -1,
+      openFilter: false,
     };
   },
   created() {
@@ -163,8 +164,43 @@ export default {
 
 <template>
   <div class="container-brands">
+    <div class="filter-mobile" :class="openFilter ? 'active' : ''">
+      <div class="filter-toggle" @click="openFilter = !openFilter">
+        {{ openFilter ? "CLOSE FILTER" : "OPEN FILTER" }}
+      </div>
+      <div class="filter-wrapper">
+        <h5 class="filter-header">Type</h5>
+        <div class="filter-items">
+          <RouterLink
+            v-for="typeName in dataProducts[index].types"
+            :key="typeName"
+            :to="queryPath('type', typeName)"
+            :class="typeValues.indexOf(typeName) != -1 ? 'current' : ''"
+            class="filter-item"
+          >
+            {{ typeName }}
+          </RouterLink>
+        </div>
+      </div>
+      <div class="filter-wrapper">
+        <h5 class="filter-header">Gender</h5>
+        <div class="filter-items">
+          <RouterLink
+            v-for="genderName in dataProducts[index].genders"
+            :key="genderName"
+            :to="queryPath('gender', genderName)"
+            :class="genderValues.indexOf(genderName) != -1 ? 'current' : ''"
+            class="filter-item"
+          >
+            {{ genderName }}
+          </RouterLink>
+        </div>
+      </div>
+    </div>
     <div class="container-name">
-      <h1 class="logo-name">{{ $route.params.name }}</h1>
+      <h1 class="logo-name" :class="$route.params.name">
+        {{ $route.params.name }}
+      </h1>
       <img
         class="logo-img"
         :class="$route.params.name"
@@ -247,7 +283,6 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
-  overflow: hidden;
 }
 
 .logo-name {
@@ -342,10 +377,79 @@ export default {
   padding-block: 4rem;
   text-align: center;
 }
+.filter-mobile {
+  display: none;
+  width: 100%;
+  height: 40vh;
+  border-top: solid 2px var(--color-container-dark);
+  background-color: var(--color-background);
+  position: fixed;
+  bottom: calc((40vh - 4rem) * -1);
+  left: 0;
+  z-index: 80;
+  overflow-y: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.filter-mobile.active {
+  bottom: 0;
+  overflow-y: auto;
+}
+
+.filter-toggle {
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text-light);
+  background-color: var(--color-container-dark);
+  cursor: pointer;
+  position: sticky;
+  top: 0;
+}
+
+.filter-wrapper {
+  padding: 2rem 1rem;
+}
+
+.filter-header {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.filter-items {
+  --auto-grid-min-size: 12rem;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--auto-grid-min-size), 1fr)
+  );
+  grid-gap: 1rem;
+}
+
+.filter-item {
+  width: 100%;
+  padding-block: 0.5rem;
+  /* border: solid 2px var(--color-container-dark); */
+  background-color: var(--clr-neutral-300);
+  text-align: center;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  color: var(--color-text-dark);
+}
+
+.filter-item.current {
+  color: var(--color-text-light);
+  background-color: var(--color-container-dark);
+}
 
 @media screen and (max-width: 1600px) {
   .logo-name {
     font-size: 16vw;
+  }
+  .logo-name.givenchy {
+    font-size: 14vw;
   }
 
   .logo-img {
@@ -358,8 +462,12 @@ export default {
     grid-template-columns: 1fr 1fr;
     row-gap: 2rem;
   }
+
   .logo-name {
     font-size: 22vw;
+  }
+  .logo-name.givenchy {
+    font-size: 18vw;
   }
 
   .logo-img {
@@ -367,9 +475,26 @@ export default {
   }
 }
 
+@media screen and (max-width: 768px) {
+  .container-name {
+    padding-top: 2rem;
+  }
+
+  .filter-navigation {
+    display: none;
+  }
+
+  .filter-mobile {
+    display: block;
+  }
+}
+
 @media screen and (max-width: 576px) {
   .catalogue-container {
     padding-inline: 1rem;
+  }
+  .filter-items {
+    grid-template-columns: 1fr;
   }
 
   /* .logo-name {

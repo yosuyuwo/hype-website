@@ -29,6 +29,7 @@ export default {
     return {
       scrollPosition: 0,
       screenWidth: window.innerWidth,
+      cartChanged: false,
     };
   },
   methods: {
@@ -45,11 +46,20 @@ export default {
 <template>
   <DataStorage />
   <header class="header-container">
-    <TheNavigation :scrollPos="scrollPosition" :screenWidth="screenWidth" />
+    <TheNavigation
+      :scrollPos="scrollPosition"
+      :screenWidth="screenWidth"
+      :cartChanged="cartChanged"
+      @cartChanged="cartChanged = false"
+    />
   </header>
 
   <main class="content-container">
-    <RouterView :scrollPos="scrollPosition" :screenWidth="screenWidth" />
+    <RouterView
+      :scrollPos="scrollPosition"
+      :screenWidth="screenWidth"
+      @cartChanged="cartChanged = true"
+    />
   </main>
   <TheFooter />
   <div class="loading-section showing">
