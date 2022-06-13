@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "jquery": "^3.6.0",
+    "rellax": "^1.12.1",
     "slick-carousel": "^1.8.1",
     "swiper": "^8.1.5",
     "vue": "^3.2.33",

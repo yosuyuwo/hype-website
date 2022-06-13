@@ -49,9 +49,15 @@ export default {
         document
           .querySelector(".navigation-container")
           .classList.remove("transparent");
+        document
+          .querySelector(".experimental-warning")
+          .classList.remove("transparent");
       } else if (window.innerWidth > 480) {
         document
           .querySelector(".navigation-container")
+          .classList.add("transparent");
+        document
+          .querySelector(".experimental-warning")
           .classList.add("transparent");
       }
     },
@@ -110,14 +116,14 @@ export default {
           >SEARCH</RouterLink
         >
         <RouterLink to="/cart" class="navigation-link link black-link"
-          >CART <span>({{ cart.length }})</span></RouterLink
+          >BAG <span>({{ cart.length }})</span></RouterLink
         >
         <RouterLink to="/search" class="navigation-icon"
           ><SearchMagnifier
         /></RouterLink>
-        <div class="navigation-icon">
+        <RouterLink to="/cart" class="navigation-icon">
           <CartBag />
-        </div>
+        </RouterLink>
         <div
           id="hamburger"
           class="navigation-icon"
@@ -172,7 +178,7 @@ export default {
         <RouterLink to="/search" class="navigation-link black-link">
           SEARCH
         </RouterLink>
-        <a class="navigation-link black-link"> CART ({{ cart.length }}) </a>
+        <a class="navigation-link black-link"> BAG ({{ cart.length }}) </a>
         <a href="/about" class="navigation-link black-link"> ABOUT HYPE </a>
       </div>
       <small class="copyright-mobile">© HYPE - 2021</small>
@@ -188,7 +194,7 @@ export default {
 
 <style scoped>
 .navigation-container {
-  top: 0;
+  top: 1.5rem;
   width: 100%;
   transition: all 0.3s ease-in-out;
   position: fixed;

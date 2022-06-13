@@ -60,6 +60,7 @@ export default {
       }
     },
     keyUpHandle(e) {
+      console.log(e.keyCode);
       this.showedProducts = [];
       clearInterval(this.debounceInterval);
       this.debounceInterval = false;

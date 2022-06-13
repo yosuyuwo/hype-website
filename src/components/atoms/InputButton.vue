@@ -41,6 +41,7 @@ defineProps({
   text-transform: uppercase;
   z-index: 2;
   line-height: normal;
+  text-align: center;
   transition: color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
 

@@ -18,6 +18,7 @@
         :id="name"
         :placeholder="placeholder"
         v-model="value"
+        @blur="inputBlur"
       />
       <SearchMagnifier class="search-icon" v-if="type == 'search'" />
       <PlusIcon
@@ -81,6 +82,9 @@ export default {
         return;
       }
       this.value += value;
+    },
+    inputBlur() {
+      if (!this.value || this.value < 1) this.value = 1;
     },
   },
   watch: {

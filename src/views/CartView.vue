@@ -14,6 +14,7 @@ defineProps({
 
 <script>
 import InputButton from "../components/atoms/InputButton.vue";
+import InputText from "../components/atoms/InputText.vue";
 
 export default {
   data() {
@@ -29,8 +30,8 @@ export default {
   <div class="container-cart">
     <div class="cart-wrapper">
       <div class="cart-section">
-        <h5 class="cart-title">Cart</h5>
-        <div class="product-section" v-for="index in 1" :key="index">
+        <h2 class="cart-title">MY BAG</h2>
+        <div class="product-section" v-for="index in 5" :key="index">
           <div class="product-wrapper">
             <img
               class="product-image"
@@ -43,21 +44,31 @@ export default {
               loading="lazy"
             />
             <div class="product-info">
-              <div class="title-price-wrapper">
-                <p class="title-content">Name of the Products</p>
-                <p class="price-content">Rp. 3.100.000,00</p>
-              </div>
-              <div class="another-title-wrapper">
-                <p class="type-content">Type</p>
-                <p class="color-content">Colour</p>
-                <div class="size-qty-container">
-                  <p class="size-content">Size</p>
-                  <input type="text" class="inp" />
-                  <p class="qty-content">Quantity</p>
-                  <input type="text" class="inp" />
+              <div class="product-content">
+                <h4 class="title-content">Name of the Products</h4>
+                <p class="type-content">Shoes - Adidas</p>
+                <div class="input-container">
+                  <p class="section-header">Size</p>
+                  <div class="variant-container">
+                    <div class="size-variant">S</div>
+                    <div class="size-variant">S</div>
+                  </div>
                 </div>
+                <div class="input-container qty-container">
+                  <p class="section-header">Quantity</p>
+                  <div class="qty-counter">
+                    <InputText
+                      :withLabel="false"
+                      name="qtyInput"
+                      type="quantity"
+                      v-model="quantityValue"
+                    />
+                  </div>
+                </div>
+
+                <h5 class="remove-link black-link">Remove</h5>
               </div>
-              <h5 class="remove-link">Remove</h5>
+              <h5 class="price-content">Rp. 3.100.000,00</h5>
             </div>
           </div>
           <hr class="line-separate" />
@@ -88,21 +99,23 @@ export default {
 <style scoped>
 .container-cart {
   width: 100%;
-  margin-top: calc(90px + 1rem);
+  margin-top: calc(72px + 1.5rem);
   display: flex;
   justify-content: center;
   gap: 3rem;
+  padding-inline: 3rem;
+  padding-block: 2rem;
 }
 
 .cart-wrapper {
-  width: clamp(60rem, calc(100% - 6rem), 72rem);
+  width: 100%;
   display: flex;
   justify-content: center;
   gap: 3rem;
 }
 
 .cart-section {
-  width: 62%;
+  flex: 1;
   min-width: 24rem;
   gap: 1.5rem;
 }
@@ -112,7 +125,7 @@ export default {
 }
 
 .product-wrapper {
-  width: clamp(36rem, calc(46rem - 2rem), 46rem);
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   gap: 2rem;
@@ -121,56 +134,97 @@ export default {
 }
 
 .product-image {
-  width: 14.9rem;
-  aspect-ratio: 1/1;
+  width: 24rem;
+  aspect-ratio: 4/5;
   transition: all 0.3s ease-in-out;
 }
 
 .product-info {
   flex: 1;
+  display: flex;
   gap: 1rem;
 }
 
-.title-price-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.another-title-wrapper {
-  width: 100%;
+.product-content {
+  flex: 1;
   display: flex;
   flex-flow: column;
 }
 
-.size-qty-container {
+.type-content {
+  font-weight: 800;
+  opacity: 0.5;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+}
+
+.input-container {
+  padding-block: 1rem;
+  display: flex;
+  flex-flow: column;
+  gap: 1rem;
+}
+
+.qty-container {
+  gap: 0;
+}
+
+.section-header {
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.variant-container {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
-  gap: 0.2rem;
+  gap: 1rem;
 }
 
-.inp {
-  width: 2rem;
+.size-variant {
+  width: 3rem;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1/1;
+  text-align: center;
+  border: solid 2px var(--clr-neutral-300);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.1s ease-in-out;
+}
+
+.size-variant:hover {
+  border: solid 2px var(--clr-neutral-800);
+}
+.size-variant.active {
+  color: var(--color-text-light);
+  background-color: var(--color-container-dark);
+  border-color: var(--color-container-dark);
+}
+
+.qty-counter {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
 }
 .remove-link {
+  width: max-content;
   cursor: pointer;
   text-decoration: underline;
-  margin-top: 6rem;
+  margin-top: auto;
 }
 
-.remove-link:hover {
-  color: var(--clr-neutral-600);
+.price-content {
+  font-weight: 800;
 }
 
 .line-separate {
   width: 100%;
-  border: 0.5px solid var(--clr-neutral-1000);
+  border: 1px solid var(--clr-neutral-500);
 }
 
 .summary-section {
   position: sticky;
-  flex: 1;
+  width: 32rem;
   height: max-content;
   top: 5.5rem;
 }
