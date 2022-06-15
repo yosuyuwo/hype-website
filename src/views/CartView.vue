@@ -226,7 +226,7 @@ export default {
   position: sticky;
   width: 32rem;
   height: max-content;
-  top: 5.5rem;
+  top: 7rem;
 }
 
 .summary-title {
