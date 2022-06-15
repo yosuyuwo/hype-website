@@ -85,7 +85,7 @@ export default {
     />
   </main>
   <TheFooter />
-  <PopupText />
+  <PopupText :showing="cartChanged" message="Bag is successfully updated" />
   <div class="loading-section showing">
     <LogoIcon class="loading-logo" />
   </div>
@@ -122,7 +122,7 @@ export default {
   letter-spacing: 0.2rem;
   border-bottom: solid 1px var(--color-container-light);
   overflow: hidden;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .experimental-warning.transparent {
@@ -176,7 +176,7 @@ export default {
   place-items: center;
   color: var(--clr-neutral-100);
   opacity: 0;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .loading-section.showing {

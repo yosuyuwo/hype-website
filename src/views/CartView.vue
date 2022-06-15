@@ -75,19 +75,22 @@ export default {
         </div>
       </div>
       <div class="summary-section">
-        <h5 class="summary-title">Summary</h5>
-        <div class="sub-section">
-          <p class="sub-item">Subtotal</p>
-          <p class="sub-item">Rp 3,748,000.00</p>
-          <p class="sub-item">Estimated Delivery</p>
-          <p class="sub-item">Rp 100,000.00</p>
-          <p class="sub-item">Estimated Taxes</p>
-          <p class="sub-item">Rp 300,000.00</p>
+        <h4 class="summary-title">Summary</h4>
+        <div class="summary-content">
+          <p class="summary-data">Rp 3,748,000.00</p>
+          <p class="summary-header">Subtotal</p>
         </div>
-        <!-- <hr class="line-separate-sub" /> -->
-        <div class="sub-section-total">
-          <p class="total-item">Total</p>
-          <p class="total-item">Rp 4,148,000.00</p>
+        <div class="summary-content">
+          <p class="summary-data">Rp 100,000.00</p>
+          <p class="summary-header">Estimated Delivery</p>
+        </div>
+        <div class="summary-content">
+          <p class="summary-data">Rp 300,000.00</p>
+          <p class="summary-header">Estimated Taxes</p>
+        </div>
+        <div class="summary-total">
+          <h4 class="total-item">Rp 4,148,000.00</h4>
+          <h5 class="total-header">Total</h5>
         </div>
         <!-- <hr class="line-separate-sub" /> -->
         <InputButton class="buttonCheckout" text="CHECKOUT" />
@@ -110,18 +113,23 @@ export default {
 .cart-wrapper {
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-flow: column;
+  align-items: flex-end;
   gap: 3rem;
 }
 
 .cart-section {
-  flex: 1;
+  width: 100%;
   min-width: 24rem;
   gap: 1.5rem;
 }
 
 .cart-title {
   font-weight: bold;
+}
+
+.product-section {
+  width: 100%;
 }
 
 .product-wrapper {
@@ -136,7 +144,7 @@ export default {
 .product-image {
   width: 24rem;
   aspect-ratio: 4/5;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .product-info {
@@ -189,7 +197,7 @@ export default {
   border: solid 2px var(--clr-neutral-300);
   cursor: pointer;
   font-weight: 600;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.1s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .size-variant:hover {
@@ -223,28 +231,48 @@ export default {
 }
 
 .summary-section {
-  position: sticky;
   width: 32rem;
-  height: max-content;
-  top: 5.5rem;
 }
 
 .summary-title {
   font-weight: bold;
 }
 
-.sub-section,
-.sub-section-total {
+.summary-content {
   width: 100%;
   margin-top: 1rem;
-  display: grid;
-  grid-template-columns: repeat(2, 50%);
-  grid-gap: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-total {
+  width: 100%;
+  margin-top: 8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-header,
+.total-header {
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-weight: 800;
+  opacity: 0.5;
+}
+
+.summary-data {
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-weight: 800;
+  opacity: 0.8;
 }
 
 .total-item {
-  font-weight: bold;
+  font-weight: 800;
 }
+
 /*
 .line-separate-sub {
   margin-top: 1rem;

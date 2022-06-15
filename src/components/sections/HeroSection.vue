@@ -287,7 +287,7 @@ export default {
   pointer-events: none;
   opacity: 0;
   background-color: var(--clr-neutral-1000);
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .hero-background.playing {

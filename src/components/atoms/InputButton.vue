@@ -42,7 +42,7 @@ defineProps({
   z-index: 2;
   line-height: normal;
   text-align: center;
-  transition: color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  transition: color 0.6s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .button-background {
@@ -63,6 +63,6 @@ defineProps({
   top: 0;
   z-index: -1;
   background-color: var(--color-container-light);
-  transition: width 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
 }
 </style>

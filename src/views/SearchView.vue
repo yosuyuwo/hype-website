@@ -392,7 +392,7 @@ export default {
   left: 0;
   top: 0;
   z-index: -1;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .ac-helper.showing {
@@ -429,7 +429,7 @@ export default {
   cursor: pointer;
   z-index: 8;
   padding: 0.75rem 0.875rem;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.1s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .searchIcon:hover {
@@ -450,12 +450,12 @@ export default {
   width: 0;
   height: 2px;
   background: var(--color-container-dark);
-  transition: width 0s ease-in-out;
+  transition: width 0s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .input-wrapper.loading::after {
   width: 100%;
-  transition: width 2s ease-in-out;
+  transition: width 2s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .search-product-section {
@@ -506,7 +506,7 @@ export default {
   visibility: hidden;
   border: solid 2px var(--color-container-dark);
   border-top: none;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .autofill-mobile.showing {
@@ -545,7 +545,7 @@ export default {
     font-size: var(--fontSize-h5);
     border: solid 2px var(--clr-neutral-300);
     padding: 0.75rem 0.875rem;
-    transition: border 0.3s ease-in-out;
+    transition: border 0.3s cubic-bezier(0.65, 0, 0.35, 1);
   }
 
   .input-text-search.input-focus {

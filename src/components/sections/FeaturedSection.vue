@@ -136,7 +136,7 @@ export default {
 
 .carousel-item {
   width: 100%;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 @media screen and (max-width: 992px) {

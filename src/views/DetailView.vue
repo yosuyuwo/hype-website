@@ -72,9 +72,21 @@ export default {
         this.state = "error";
       } else {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        this.product.selectedSize = this.selectedSize;
-        this.product.qty = this.quantityValue;
-        cart.push(this.product);
+        const foundIndex = cart.findIndex(
+          (item) =>
+            item.title + " " + item.subtitle ==
+              this.product.title + " " + this.product.subtitle &&
+            item.selectedSize == this.selectedSize
+        );
+        if (foundIndex != -1) {
+          cart[foundIndex].qty = parseInt(cart[foundIndex].qty);
+          cart[foundIndex].qty += parseInt(this.quantityValue * 1);
+        } else {
+          this.product.selectedSize = this.selectedSize;
+          this.product.qty = this.quantityValue;
+          this.product.brand = this.brand;
+          cart.push(this.product);
+        }
         localStorage.setItem("cart", JSON.stringify(cart));
         this.$emit("cartChanged");
       }
@@ -255,7 +267,7 @@ export default {
 
 .carousel-item {
   width: 100%;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .carousel-item:not(.swiper-slide-active) {
@@ -331,7 +343,7 @@ export default {
   border: solid 2px var(--clr-neutral-300);
   cursor: pointer;
   font-weight: 600;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.1s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .size-variant:hover {
@@ -372,7 +384,7 @@ export default {
   filter: invert() grayscale(200%);
   mix-blend-mode: difference;
   opacity: 0;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.1s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .color-variant:hover::after {
@@ -505,7 +517,7 @@ export default {
     background-color: var(--color-container-dark);
     border: solid 1px var(--color-background);
     opacity: 0.3;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
   }
 
   .carousel-navigation-item.active {

@@ -1,8 +1,130 @@
+<template>
+  <!-- NAVIGATION -->
+  <nav class="navigation-container transparent">
+    <div class="navigation-wrapper">
+      <div class="left-side">
+        <a href="/" class="logo"> <LogoIcon /> </a>
+        <a href="/" class="navigation-link black-link">HOME</a>
+        <a href="/about" class="navigation-link black-link">ABOUT HYPE</a>
+        <p
+          class="navigation-link black-link special-link"
+          :class="isShowingBrand ? 'active' : ''"
+          @mouseenter="isShowingBrand = true"
+        >
+          BRANDS
+        </p>
+      </div>
+      <div class="center-side">
+        <a
+          v-for="brand in brands"
+          :key="brand.name"
+          :href="`/brands/${brand.name}`"
+          class="navigation-link black-link brand-link"
+        >
+          {{ brand.name }}
+        </a>
+      </div>
+      <div class="right-side">
+        <RouterLink to="/search" class="navigation-link black-link"
+          >SEARCH</RouterLink
+        >
+        <div
+          to="/cart"
+          class="navigation-link link black-link"
+          :class="isShowingCart ? 'active' : ''"
+          @mouseenter="isShowingCart = true"
+        >
+          BAG <span>({{ cart.length }})</span>
+        </div>
+        <RouterLink to="/search" class="navigation-icon"
+          ><SearchMagnifier
+        /></RouterLink>
+        <div
+          :class="isShowingCart ? 'active' : ''"
+          @click="isShowingCart = !isShowingCart"
+          class="navigation-icon"
+        >
+          <CartBag />
+        </div>
+        <div
+          id="hamburger"
+          class="navigation-icon"
+          :class="isShowingMobile ? 'open' : ''"
+          @click="isShowingMobile = !isShowingMobile"
+        >
+          <svg viewBox="0 0 100 100">
+            <path
+              class="line line1"
+              d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058"
+            />
+            <path class="line line2" d="M 20,50 H 80" />
+            <path
+              class="line line3"
+              d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="navigation-brand"
+      :class="isShowingBrand ? 'showing' : ''"
+      @mouseleave="isShowingBrand = false"
+    >
+      <a
+        v-for="brand in brands"
+        :key="brand.name"
+        :href="`/brands/${brand.name}`"
+        class="navigation-link black-link brand-link"
+      >
+        {{ brand.name }}
+      </a>
+    </div>
+    <CartPopup
+      :isShowing="isShowingCart"
+      @mouseleave="isShowingCart = screenWidth <= 768"
+      @cartChanged="isCartChanged = !isCartChanged"
+    />
+
+    <div
+      class="navigation-wrapper mobile"
+      :class="isShowingMobile ? 'showing' : ''"
+    >
+      <div class="top-part">
+        <a
+          v-for="brand in brands"
+          :key="brand.name"
+          :href="`/brands/${brand.name}`"
+          class="navigation-link black-link"
+        >
+          {{ brand.name }}
+        </a>
+      </div>
+      <div class="bottom-part">
+        <RouterLink to="/search" class="navigation-link black-link">
+          SEARCH
+        </RouterLink>
+        <a class="navigation-link black-link"> BAG ({{ cart.length }}) </a>
+        <a href="/about" class="navigation-link black-link"> ABOUT HYPE </a>
+      </div>
+      <small class="copyright-mobile">© HYPE - 2021</small>
+    </div>
+    <div
+      class="screen-overlay"
+      @click="isShowingMobile = false"
+      :class="isShowingMobile ? 'showing' : ''"
+    ></div>
+  </nav>
+  <!-- END NAVIGATION -->
+</template>
+
 <script setup>
 import { RouterLink } from "vue-router";
 import SearchMagnifier from "./icons/SearchMagnifier.vue";
 import CartBag from "./icons/CartBag.vue";
 import LogoIcon from "./icons/LogoIcon.vue";
+import CartPopup from "./CartPopup.vue";
 
 defineProps({
   scrollPos: {
@@ -29,6 +151,8 @@ export default {
       cart: [],
       isShowingBrand: false,
       isShowingMobile: false,
+      isShowingCart: false,
+      isCartChanged: false,
     };
   },
   created() {
@@ -81,122 +205,19 @@ export default {
       this.cart = JSON.parse(localStorage.getItem("cart")) || [];
       this.$emit("cartChanged");
     },
+    isCartChanged() {
+      this.cart = JSON.parse(localStorage.getItem("cart")) || [];
+      this.$emit("cartChanged");
+    },
   },
 };
 </script>
-
-<template>
-  <!-- NAVIGATION -->
-  <nav class="navigation-container transparent">
-    <div class="navigation-wrapper">
-      <div class="left-side">
-        <a href="/" class="logo"> <LogoIcon /> </a>
-        <a href="/" class="navigation-link black-link">HOME</a>
-        <a href="/about" class="navigation-link black-link">ABOUT HYPE</a>
-        <p
-          class="navigation-link black-link special-link"
-          :class="isShowingBrand ? 'active' : ''"
-          @mouseenter="isShowingBrand = true"
-        >
-          BRANDS
-        </p>
-      </div>
-      <div class="center-side">
-        <a
-          v-for="brand in brands"
-          :key="brand.name"
-          :href="`/brands/${brand.name}`"
-          class="navigation-link black-link brand-link"
-        >
-          {{ brand.name }}
-        </a>
-      </div>
-      <div class="right-side">
-        <RouterLink to="/search" class="navigation-link black-link"
-          >SEARCH</RouterLink
-        >
-        <RouterLink to="/cart" class="navigation-link link black-link"
-          >BAG <span>({{ cart.length }})</span></RouterLink
-        >
-        <RouterLink to="/search" class="navigation-icon"
-          ><SearchMagnifier
-        /></RouterLink>
-        <RouterLink to="/cart" class="navigation-icon">
-          <CartBag />
-        </RouterLink>
-        <div
-          id="hamburger"
-          class="navigation-icon"
-          :class="isShowingMobile ? 'open' : ''"
-          @click="isShowingMobile = !isShowingMobile"
-        >
-          <svg viewBox="0 0 100 100">
-            <path
-              class="line line1"
-              d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058"
-            />
-            <path class="line line2" d="M 20,50 H 80" />
-            <path
-              class="line line3"
-              d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942"
-            />
-          </svg>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="navigation-brand"
-      :class="isShowingBrand ? 'showing' : ''"
-      @mouseleave="isShowingBrand = false"
-    >
-      <a
-        v-for="brand in brands"
-        :key="brand.name"
-        :href="`/brands/${brand.name}`"
-        class="navigation-link black-link brand-link"
-      >
-        {{ brand.name }}
-      </a>
-    </div>
-
-    <div
-      class="navigation-wrapper mobile"
-      :class="isShowingMobile ? 'showing' : ''"
-    >
-      <div class="top-part">
-        <a
-          v-for="brand in brands"
-          :key="brand.name"
-          :href="`/brands/${brand.name}`"
-          class="navigation-link black-link"
-        >
-          {{ brand.name }}
-        </a>
-      </div>
-      <div class="bottom-part">
-        <RouterLink to="/search" class="navigation-link black-link">
-          SEARCH
-        </RouterLink>
-        <a class="navigation-link black-link"> BAG ({{ cart.length }}) </a>
-        <a href="/about" class="navigation-link black-link"> ABOUT HYPE </a>
-      </div>
-      <small class="copyright-mobile">© HYPE - 2021</small>
-    </div>
-    <div
-      class="screen-overlay"
-      @click="isShowingMobile = false"
-      :class="isShowingMobile ? 'showing' : ''"
-    ></div>
-  </nav>
-  <!-- END NAVIGATION -->
-</template>
 
 <style scoped>
 .navigation-container {
   top: 1.5rem;
   width: 100%;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
   position: fixed;
 }
 
@@ -210,7 +231,7 @@ export default {
   background-color: var(--color-background);
   border-bottom: solid 2px var(--color-border-dark);
   z-index: 2;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .transparent .navigation-wrapper {
@@ -237,7 +258,7 @@ export default {
   flex-flow: column;
   justify-content: space-between;
   padding-right: 8rem;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.5s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .navigation-brand {
@@ -248,7 +269,8 @@ export default {
   display: flex;
   gap: 2rem;
   background-color: var(--color-background);
-  transition: all 0.3s ease-in-out;
+  z-index: 2;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .transparent .navigation-brand {
@@ -304,7 +326,7 @@ export default {
 
 .logo svg {
   height: 3rem;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .logo {
@@ -320,15 +342,15 @@ export default {
 
 .transparent .navigation-link {
   box-shadow: inset 0 0 0 0 var(--clr-neutral-100);
-  transition: color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86),
-    box-shadow 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  transition: color 0.45s cubic-bezier(0.65, 0, 0.35, 1),
+    box-shadow 0.45s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .navigation-link.active {
   color: var(--color-text-light);
   box-shadow: inset 200px 0 0 0 var(--color-container-dark);
-  transition: color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86),
-    box-shadow 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  transition: color 0.45s cubic-bezier(0.65, 0, 0.35, 1),
+    box-shadow 0.45s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .transparent .navigation-link:hover {
@@ -388,10 +410,11 @@ export default {
   aspect-ratio: 1/1;
   cursor: pointer;
   display: none !important;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.1s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-.navigation-icon:hover {
+.navigation-icon:hover,
+.navigation-icon.active {
   background-color: var(--color-container-dark);
   color: var(--color-text-light);
 }
@@ -462,7 +485,7 @@ export default {
   inset: 0;
   background-color: var(--clr-neutral-1000);
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .screen-overlay.showing {
@@ -495,6 +518,9 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
+  .cart-container {
+    width: 100%;
+  }
   .navigation-container {
     max-width: 100%;
     border-inline: none;
@@ -575,7 +601,7 @@ export default {
   /* overflow-x: hidden; */
 }
 .logo-text {
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 @media screen and (max-width: 576px) {

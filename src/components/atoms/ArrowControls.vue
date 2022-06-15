@@ -51,7 +51,7 @@ defineProps({
   align-items: center;
   aspect-ratio: 1/1;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .prev-arrow:hover,

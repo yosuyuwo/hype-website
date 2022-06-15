@@ -185,12 +185,12 @@ section {
   display: flex;
   flex-flow: column;
   align-items: center;
-  animation: floating 3s ease-in-out alternate infinite;
+  animation: floating 3s cubic-bezier(0.65, 0, 0.35, 1) alternate infinite;
   position: absolute;
   left: 50%;
   bottom: 2rem;
   transform: translateX(-50%);
-  transition: opacity 1s ease-in-out;
+  transition: opacity 1s cubic-bezier(0.65, 0, 0.35, 1);
   transition-delay: 1s;
   text-align: center;
 }

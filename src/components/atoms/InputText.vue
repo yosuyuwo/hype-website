@@ -90,6 +90,7 @@ export default {
   watch: {
     value() {
       this.$emit("update:modelValue", this.value);
+      this.$emit("input", this.value);
     },
   },
 };
@@ -131,7 +132,7 @@ input::placeholder {
   align-items: center;
   gap: 1rem;
   border: solid 2px var(--clr-neutral-300);
-  transition: border 0.3s ease-in-out;
+  transition: border 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .input-focus .input-wrapper {

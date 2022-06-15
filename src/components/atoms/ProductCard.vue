@@ -98,7 +98,7 @@ export default {
 }
 
 .product-image {
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .product-image-alternate {
@@ -106,7 +106,7 @@ export default {
   left: 0;
   top: 0;
   opacity: 0;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .product-image,

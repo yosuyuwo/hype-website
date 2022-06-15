@@ -348,7 +348,7 @@ export default {
 
 .transparent .navigation-link {
   box-shadow: inset 0 0 0 0 var(--clr-neutral-100);
-  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition: color 0.3s cubic-bezier(0.65, 0, 0.35, 1), box-shadow 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .transparent .navigation-link:hover {
@@ -388,7 +388,7 @@ export default {
   left: 0;
   z-index: 80;
   overflow-y: hidden;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .filter-mobile.active {

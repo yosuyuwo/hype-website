@@ -1,6 +1,6 @@
 <template>
   <div class="popup-dialog" :class="isShowing ? 'showing' : ''">
-    <p class="popup-text">{{ text }}</p>
+    <p class="popup-text">{{ message }}</p>
     <div class="popup-close" @click="isShowing = false">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -22,16 +22,34 @@
 
 <script>
 export default {
+  props: {
+    showing: {
+      type: Boolean,
+      default: false,
+    },
+    message: {
+      type: String,
+      default: "",
+    },
+  },
   data() {
     return {
       isShowing: false,
-      text: "",
     };
   },
   methods: {
-    showPopup(message) {
-      this.text = message;
+    showPopup() {
       this.isShowing = true;
+    },
+  },
+  watch: {
+    showing() {
+      this.showPopup();
+    },
+    isShowing() {
+      setTimeout(() => {
+        this.isShowing = false;
+      }, 3000);
     },
   },
 };
@@ -52,7 +70,7 @@ export default {
   color: var(--color-text-dark);
   background-color: var(--color-background);
   border: solid 2px var(--color-container-dark);
-  transition: all 1s ease-in-out;
+  transition: all 1s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .popup-dialog.showing {
@@ -70,7 +88,7 @@ export default {
   height: 3.5rem;
   padding: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .popup-close:hover {
