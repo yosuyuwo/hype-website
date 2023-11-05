@@ -60,7 +60,7 @@ export default {
       }
     },
     keyUpHandle(e) {
-      console.log(e.keyCode);
+      console.log(e.keyCode, this.inputVal);
       this.showedProducts = [];
       clearInterval(this.debounceInterval);
       this.debounceInterval = false;
@@ -87,7 +87,6 @@ export default {
         ) {
           this.debounceInterval = setInterval(() => {
             this.debounce--;
-            console.log(this.debounce);
             if (this.debounce == 0) {
               if (e.keyCode != 40) {
                 if (this.screenWidth <= 768 && this.inputVal.length > 0)
